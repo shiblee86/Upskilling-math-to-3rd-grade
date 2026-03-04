@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌱 K-2 Math Journey → 3rd Grade Prep</title>
+  <title>🌙 K-2 Math Journey → 3rd Grade Prep (Dark)</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,20 +13,21 @@
 
     body {
       font-family: 'Fredoka', 'Segoe UI', 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(145deg, #b2e6d9 0%, #f9e6b3 50%, #ffccbc 100%);
+      background: linear-gradient(145deg, #1a1428 0%, #2a1f3a 50%, #1f2b3a 100%);
       min-height: 100vh;
       padding: 16px;
+      color: #f0eaff;
     }
 
     .wrap {
-      max-width: 850px;
+      max-width: 950px;
       margin: 0 auto;
     }
 
-    /* ----- friendly top bar (like a playground) ----- */
+    /* ----- friendly top bar (dark mode) ----- */
     .topbar {
-      background: #ffecbb;
-      border: 5px solid white;
+      background: #2d2545;
+      border: 3px solid #5f4b9e;
       border-radius: 60px;
       padding: 12px 22px;
       display: flex;
@@ -35,13 +36,13 @@
       flex-wrap: wrap;
       gap: 12px;
       margin-bottom: 20px;
-      box-shadow: 0 8px 0 #b37b48, 0 10px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 0 #0f0b1a, 0 10px 20px rgba(0,0,0,0.5);
     }
     .topbar-title {
       font-size: 1.8rem;
       font-weight: 900;
-      color: #754c24;
-      text-shadow: 3px 3px 0 #fff1b8;
+      color: #d9b8ff;
+      text-shadow: 3px 3px 0 #4a3a6e;
     }
     .topbar-btns { display: flex; gap: 8px; }
     .tb-btn {
@@ -51,14 +52,14 @@
       font-weight: 900;
       font-size: 0.9rem;
       cursor: pointer;
-      border: 3px solid white;
-      box-shadow: 0 4px 0 #b37b48;
+      border: 2px solid #ffffff55;
+      box-shadow: 0 4px 0 #0f0b1a;
       transition: 0.1s;
     }
-    .tb-btn:hover { transform: translateY(-3px); box-shadow: 0 7px 0 #b37b48; }
-    .tb-save { background: #fdd0a4; color: #4e3018; }
-    .tb-load { background: #a2e3c4; color: #1b4b2e; }
-    .tb-lbl { background: #faf2dd; padding: 6px 18px; border-radius: 40px; font-weight: 800; border: 3px solid white; }
+    .tb-btn:hover { transform: translateY(-3px); box-shadow: 0 7px 0 #0f0b1a; }
+    .tb-save { background: #b497d6; color: #1a1428; }
+    .tb-load { background: #7ac5a5; color: #1a2a1a; }
+    .tb-lbl { background: #322b4a; color: #e0d2ff; padding: 6px 18px; border-radius: 40px; font-weight: 800; border: 2px solid #6b5b99; }
 
     .screen { display: none; }
     .screen.active { display: block; }
@@ -66,45 +67,46 @@
     /* ========== HOME screen (learning path) ========== */
     .path-header {
       text-align: center;
-      background: rgba(255, 255, 255, 0.7);
+      background: #221e38cc;
       backdrop-filter: blur(5px);
       border-radius: 70px;
       padding: 25px 20px;
-      border: 6px solid white;
-      box-shadow: 0 12px 0 #b37b48;
+      border: 3px solid #6b5b99;
+      box-shadow: 0 12px 0 #0f0b1a;
       margin-bottom: 25px;
     }
     .path-header h1 {
       font-size: 2.4rem;
       font-weight: 900;
-      color: #2d5e7a;
-      text-shadow: 4px 4px 0 #c8e7f5;
+      color: #d9b8ff;
+      text-shadow: 4px 4px 0 #4a3a6e;
     }
     .path-header p {
       font-size: 1.4rem;
-      background: #ffdbb5;
+      background: #322b4a;
+      color: #e0d2ff;
       display: inline-block;
       padding: 8px 30px;
       border-radius: 50px;
-      border: 4px solid white;
+      border: 3px solid #7d6ab3;
       margin-top: 15px;
       font-weight: 800;
     }
 
     .grade-section {
-      margin: 30px 0 20px;
+      margin: 35px 0 25px;
     }
     .grade-title {
       font-size: 2rem;
       font-weight: 900;
-      color: #4f3220;
-      background: #fff1b8;
+      color: #e0d2ff;
+      background: #322b4a;
       display: inline-block;
       padding: 10px 35px;
       border-radius: 40px;
-      border: 4px solid white;
-      box-shadow: 0 6px 0 #b37b48;
-      margin-bottom: 15px;
+      border: 3px solid #7d6ab3;
+      box-shadow: 0 6px 0 #0f0b1a;
+      margin-bottom: 20px;
     }
 
     .menu-grid {
@@ -114,163 +116,169 @@
       margin: 15px 0;
     }
     .menu-card {
-      background: white;
+      background: #2d2545;
       border-radius: 40px;
       padding: 25px 12px;
       text-align: center;
       cursor: pointer;
-      border: 5px solid transparent;
-      box-shadow: 0 10px 0 #b37b48;
+      border: 3px solid transparent;
+      box-shadow: 0 10px 0 #0f0b1a;
       transition: 0.1s;
     }
-    .menu-card:hover { transform: translateY(-5px); box-shadow: 0 15px 0 #b37b48; }
+    .menu-card:hover { transform: translateY(-5px); box-shadow: 0 15px 0 #0f0b1a; }
     .menu-card.grade1 { border-color: #f9a826; }  /* 1st grade */
     .menu-card.grade2 { border-color: #4a9fcf; }  /* 2nd grade */
     .menu-card.grade3 { border-color: #6b8e4c; }  /* 3rd grade */
 
     .mc-icon { font-size: 3rem; margin-bottom: 8px; }
-    .mc-name { font-weight: 900; font-size: 1.3rem; color: #1f4e5f; }
-    .mc-desc { font-size: 0.9rem; color: #555; margin: 8px 0; }
-    .mc-badge { background: #fdd0a4; border-radius: 30px; padding: 5px 15px; font-weight: 800; display: inline-block; border: 3px solid white; }
+    .mc-name { font-weight: 900; font-size: 1.3rem; color: #e0d2ff; }
+    .mc-desc { font-size: 0.9rem; color: #b8aae6; margin: 8px 0; }
+    .mc-badge { background: #4a3a6e; color: #e0d2ff; border-radius: 30px; padding: 5px 15px; font-weight: 800; display: inline-block; border: 2px solid #7d6ab3; }
 
     .progress-chart {
-      background: white;
+      background: #221e38;
       border-radius: 50px;
       padding: 20px;
-      border: 5px solid white;
-      box-shadow: 0 8px 0 #b37b48;
+      border: 3px solid #6b5b99;
+      box-shadow: 0 8px 0 #0f0b1a;
       margin-top: 20px;
     }
 
     /* ========== LEVELS screen ========== */
     .levels-wrap {
-      background: #fffcf0;
+      background: #221e38;
       border-radius: 60px;
       padding: 30px 20px;
-      border: 6px solid white;
-      box-shadow: 0 12px 0 #b37b48;
+      border: 3px solid #6b5b99;
+      box-shadow: 0 12px 0 #0f0b1a;
     }
-    .levels-title { font-size: 2rem; font-weight: 900; color: #2d5e7a; text-align: center; margin-bottom: 20px; }
+    .levels-title { font-size: 2rem; font-weight: 900; color: #d9b8ff; text-align: center; margin-bottom: 20px; }
     .levels-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(110px,1fr)); gap: 12px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); gap: 15px;
     }
     .lv-btn {
-      background: #aad0f5;
+      background: #3a2e5a;
       border: none;
       border-radius: 30px;
       padding: 18px 5px;
       font-weight: 900;
       color: white;
-      text-shadow: 2px 2px 0 #2d5e7a;
-      box-shadow: 0 7px 0 #4a7c9c;
+      text-shadow: 2px 2px 0 #1a1428;
+      box-shadow: 0 7px 0 #0f0b1a;
       cursor: pointer;
       transition: 0.1s;
       font-size: 1.1rem;
     }
-    .lv-btn:hover { transform: translateY(-4px); box-shadow: 0 11px 0 #4a7c9c; }
-    .lv-btn.done { background: #fdd0a4; color: #5f3b1c; text-shadow: none; box-shadow: 0 7px 0 #b37b48; }
+    .lv-btn:hover { transform: translateY(-4px); box-shadow: 0 11px 0 #0f0b1a; }
+    .lv-btn.done { background: #4a6b5a; color: #e0ffe0; text-shadow: none; box-shadow: 0 7px 0 #1a3a2a; }
     .lv-icon { font-size: 1.8rem; display: block; }
 
     /* ========== LESSON + QUIZ ========== */
     .quiz-head {
-      background: white; border-radius: 50px; padding: 16px 22px; margin-bottom: 18px;
-      box-shadow: 0 8px 0 #b37b48; border: 4px solid white;
+      background: #221e38; border-radius: 50px; padding: 16px 22px; margin-bottom: 18px;
+      box-shadow: 0 8px 0 #0f0b1a; border: 2px solid #6b5b99;
     }
-    .quiz-meta { display: flex; justify-content: space-between; font-weight: 800; color: #1f4e5f; }
+    .quiz-meta { display: flex; justify-content: space-between; font-weight: 800; color: #e0d2ff; }
     .quiz-score-row { display: flex; gap: 15px; margin: 8px 0; }
-    .qs-item { background: #f4f9ff; border-radius: 40px; padding: 8px; flex: 1; text-align: center; }
-    .qs-val { font-size: 1.8rem; font-weight: 900; color: #1f4e5f; }
-    .prog-bar { background: #ddd; border-radius: 20px; height: 12px; margin-top: 10px; }
-    .prog-fill { height: 100%; border-radius: 20px; background: linear-gradient(90deg,#f6b868,#ff8a5c); }
+    .qs-item { background: #322b4a; border-radius: 40px; padding: 8px; flex: 1; text-align: center; border: 1px solid #6b5b99; }
+    .qs-val { font-size: 1.8rem; font-weight: 900; color: #d9b8ff; }
+    .prog-bar { background: #1a1428; border-radius: 20px; height: 12px; margin-top: 10px; }
+    .prog-fill { height: 100%; border-radius: 20px; background: linear-gradient(90deg,#b497d6,#d9b8ff); }
 
     .lesson-card {
-      background: #fff9ea;
+      background: #2d2545;
       border-radius: 60px;
       padding: 28px 22px;
-      border: 6px solid #ffe39f;
-      box-shadow: 0 12px 0 #b37b48;
+      border: 3px solid #7d6ab3;
+      box-shadow: 0 12px 0 #0f0b1a;
       margin-bottom: 18px;
     }
     .lesson-badge {
-      background: #f9a826;
+      background: #6b5b99;
       color: white;
       border-radius: 40px;
       padding: 6px 18px;
       font-weight: 900;
       display: inline-block;
-      border: 3px solid white;
+      border: 2px solid #b497d6;
       margin-bottom: 15px;
       font-size: 1.1rem;
     }
     .lesson-visual {
-      background: #e1f0fa;
+      background: #1a1428;
       border-radius: 40px;
       padding: 25px;
       margin: 15px 0;
       text-align: center;
-      border: 4px dashed #f9a826;
+      border: 3px dashed #b497d6;
+      font-size: 1.5rem;
+      color: #e0d2ff;
     }
     .lesson-explanation {
       font-size: 1.2rem;
       font-weight: 600;
-      color: #2d5e7a;
+      color: #e0d2ff;
       line-height: 1.6;
-      background: white;
+      background: #322b4a;
       border-radius: 40px;
       padding: 20px;
+      border: 1px solid #7d6ab3;
     }
 
     .q-card {
-      background: white;
+      background: #2d2545;
       border-radius: 60px;
       padding: 28px 22px;
-      border-top: 10px solid #f9a826;
-      box-shadow: 0 10px 0 #b37b48;
+      border-top: 10px solid #b497d6;
+      box-shadow: 0 10px 0 #0f0b1a;
     }
-    .question-text { font-size: 1.9rem; font-weight: 900; color: #1f4e5f; text-align: center; margin-bottom: 20px; }
+    .question-text { font-size: 1.9rem; font-weight: 900; color: #e0d2ff; text-align: center; margin-bottom: 20px; }
     .options-grid {
       display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin: 15px 0;
     }
     .opt-btn {
-      background: #f4f9ff;
-      border: 4px solid #ccdbe9;
+      background: #322b4a;
+      border: 3px solid #6b5b99;
       border-radius: 50px;
       padding: 18px 10px;
       font-size: 1.7rem;
       font-weight: 900;
-      color: #1f4e5f;
+      color: #e0d2ff;
       cursor: pointer;
-      box-shadow: 0 6px 0 #8fa9bc;
+      box-shadow: 0 6px 0 #0f0b1a;
       transition: 0.1s;
     }
-    .opt-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 9px 0 #8fa9bc; }
-    .opt-btn.correct { background: #c8e6c9; border-color: #5f9e6b; box-shadow: 0 6px 0 #2d6a4f; }
-    .opt-btn.wrong { background: #ffcdd2; border-color: #e57373; box-shadow: 0 6px 0 #b44343; }
+    .opt-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 9px 0 #0f0b1a; background: #4a3a6e; }
+    .opt-btn.correct { background: #2d6a4f; border-color: #7ac5a5; color: white; box-shadow: 0 6px 0 #1a3a2a; }
+    .opt-btn.wrong { background: #8b4c4c; border-color: #ffb3b3; color: white; box-shadow: 0 6px 0 #4a2a2a; }
+    .opt-btn:disabled { opacity: 0.8; cursor: default; }
 
     .feedback {
       border-radius: 40px; padding: 15px 20px; font-weight: 800; margin: 12px 0; display: none;
     }
     .feedback.show { display: block; }
-    .feedback.ok { background: #d4edda; border: 4px solid #5f9e6b; }
-    .feedback.bad { background: #fff0f0; border: 4px solid #e57373; }
+    .feedback.ok { background: #1e4a3a; border: 3px solid #7ac5a5; color: #d4ffd4; }
+    .feedback.bad { background: #4a2a2a; border: 3px solid #ffb3b3; color: #ffd4d4; }
 
     .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 15px; }
     .btn {
       padding: 14px 25px; border: none; border-radius: 50px; font-weight: 900; font-size: 1rem;
-      cursor: pointer; box-shadow: 0 5px 0 #b37b48; transition: 0.1s; flex: 1;
+      cursor: pointer; box-shadow: 0 5px 0 #0f0b1a; transition: 0.1s; flex: 1;
     }
-    .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 0 #b37b48; }
-    .btn-check { background: #f9a826; color: white; }
-    .btn-next { background: #4a9fcf; color: white; display: none; }
-    .btn-hint { background: #fdd0a4; color: #4e3018; }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 0 #0f0b1a; }
+    .btn-check { background: #b497d6; color: #1a1428; }
+    .btn-next { background: #7ac5a5; color: #1a2a1a; display: none; }
+    .btn-hint { background: #d9b8ff; color: #1a1428; }
+    .btn-back { background: #4a3a6e; color: white; }
 
     .result-card {
-      background: white; border-radius: 70px; padding: 35px; text-align: center;
-      border: 8px solid #ffdb9f; box-shadow: 0 15px 0 #b37b48;
+      background: #221e38; border-radius: 70px; padding: 35px; text-align: center;
+      border: 3px solid #b497d6; box-shadow: 0 15px 0 #0f0b1a;
     }
-    .result-stars { font-size: 3.5rem; color: #f9a826; margin: 15px; }
+    .result-stars { font-size: 3.5rem; color: #d9b8ff; margin: 15px; }
+    .mistake-item { background: #322b4a; border-radius: 30px; padding: 12px; margin: 8px 0; text-align: left; border: 2px solid #b497d6; color: #e0d2ff; }
 
-    @media (max-width: 500px) {
+    @media (max-width: 550px) {
       .options-grid { grid-template-columns: 1fr; }
       .menu-grid { grid-template-columns: 1fr; }
     }
@@ -281,7 +289,7 @@
 
   <!-- top bar -->
   <div class="topbar">
-    <div class="topbar-title">🌱 K-2 Math → 3rd Grade</div>
+    <div class="topbar-title">🌙 Math Journey → 3rd Grade</div>
     <div class="topbar-btns">
       <button class="tb-btn tb-save" onclick="saveProgress()">💾 Save</button>
       <button class="tb-btn tb-load" onclick="loadProgress()">📂 Load</button>
@@ -409,7 +417,7 @@
     <div class="quiz-head">
       <div class="quiz-meta">
         <span id="quizLabel">Addition · Lesson 1</span>
-        <span id="quizQNum">step 1/2</span>
+        <span id="quizQNum">step 1/3</span>
       </div>
       <div class="quiz-score-row">
         <div class="qs-item"><div class="qs-label">✅</div><div class="qs-val" id="qsCorrect">0</div></div>
@@ -449,250 +457,251 @@
 </div>
 
 <script>
-  // ------------------------------------------------------------
-  //  COMPLETE K-2 → 3rd GRADE LESSON PLANS (gentle, visual)
-  // ------------------------------------------------------------
-  function rnd(a,b) { return Math.floor(Math.random()*(b-a+1))+a; }
-  function shuffle(a) { for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+  (function(){
+    // ---------- friendly helpers ----------
+    function rnd(a,b) { return Math.floor(Math.random()*(b-a+1))+a; }
+    function shuffle(arr) { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]] = [arr[j],arr[i]]; } return arr; }
 
-  // Each category = array of 5 lessons (level 1..5)
-  const LESSONS = {
-    // 1st grade
-    add1: [
-      { learn: "Addition means putting together. Use your fingers or count on!", visual: "🐶 2 dogs + 3 dogs = 5 dogs", example: "2 + 3 = 5", hint: "count 2, then 3 more", gen: ()=> { let a=rnd(1,5), b=rnd(1,5); return {q:`${a} + ${b} = ?`, ans:a+b, opts:shuffle([a+b, a+b+1, a+b-1, a+1])}; } },
-      { learn: "Adding with a number line: jump forward.", visual: "⏤⏤⏤⏤⏤ 4 → +3 = 7", example: "4 + 3 = 7", hint: "start at 4, jump 3", gen: ()=> { let a=rnd(4,8), b=rnd(2,4); return {q:`${a} + ${b} = ?`, ans:a+b, opts:shuffle([a+b, a+b+2, a+b-1, a-1])}; } },
-      { learn: "Doubles: 3+3, 4+4 are easy!", visual: "🍎🍎 + 🍎🍎 = 4 apples", example: "2+2=4, 3+3=6", hint: "double it!", gen: ()=> { let d=rnd(2,5); return {q:`${d} + ${d} = ?`, ans:d*2, opts:shuffle([d*2, d*2+1, d*2-1, d+2])}; } },
-      { learn: "Making ten: 7+3=10, 6+4=10", visual: "🔟 = 6+4", example: "8+2=10", hint: "how many to make 10?", gen: ()=> { let a=rnd(2,8); return {q:`${a} + ? = 10`, ans:10-a, opts:shuffle([10-a, 10-a+1, 10-a-1, a])}; } },
-      { learn: "Adding three numbers: 2+3+1 = ? Add two first.", visual: "🐧🐧 + 🐧🐧🐧 + 🐧 = 6", example: "2+3+1=6", hint: "add first two, then third", gen: ()=> { let a=rnd(1,3),b=rnd(1,3),c=rnd(1,3); return {q:`${a} + ${b} + ${c} = ?`, ans:a+b+c, opts:shuffle([a+b+c, a+b+c+1, a+b+c-1, a+b])}; } }
-    ],
-    sub1: [
-      { learn: "Subtraction = take away. 5-2 means take 2 away from 5.", visual: "🐶🐶🐶🐶🐶 minus 🐶🐶 = 🐶🐶🐶", example: "5-2=3", hint: "count how many left", gen: ()=> { let a=rnd(5,9), b=rnd(2,4); return {q:`${a} - ${b} = ?`, ans:a-b, opts:shuffle([a-b, a-b+1, a-b-1, b])}; } }
-    ],
-    // ... (shortened for space, but full 1st/2nd/3rd topics exist in final code)
-    multiply: [
-      { learn: "Multiplication = groups of same size. 3 × 2 means 3 groups of 2.", visual: "🍪🍪   🍪🍪   🍪🍪  = 6 cookies", example: "3 × 2 = 6", hint: "count groups times items", gen: ()=> { let a=rnd(2,3), b=rnd(2,3); return {q:`${a} × ${b} = ?`, ans:a*b, opts:shuffle([a*b, a*b+2, a*b-1, a+b])}; } }
-    ]
-  };
+    // ---------- full lesson plans for every category ----------
+    const LESSONS = {
+      // 1st grade
+      add1: [
+        { learn: "Addition means putting together. Use your fingers or count on!", visual: "🐶 2 dogs + 3 dogs = 5 dogs", example: "2 + 3 = 5", hint: "count 2, then 3 more", gen: ()=> { let a=rnd(1,5), b=rnd(1,5); return {q:`${a} + ${b} = ?`, ans:a+b, opts:shuffle([a+b, a+b+1, a+b-1, a+1])}; } },
+        { learn: "Adding with a number line: jump forward.", visual: "⏤⏤⏤⏤⏤ 4 → +3 = 7", example: "4 + 3 = 7", hint: "start at 4, jump 3", gen: ()=> { let a=rnd(4,8), b=rnd(2,4); return {q:`${a} + ${b} = ?`, ans:a+b, opts:shuffle([a+b, a+b+2, a+b-1, a-1])}; } },
+        { learn: "Doubles: 3+3, 4+4 are easy!", visual: "🍎🍎 + 🍎🍎 = 4 apples", example: "2+2=4, 3+3=6", hint: "double it!", gen: ()=> { let d=rnd(2,5); return {q:`${d} + ${d} = ?`, ans:d*2, opts:shuffle([d*2, d*2+1, d*2-1, d+2])}; } },
+        { learn: "Making ten: 7+3=10, 6+4=10", visual: "🔟 = 6+4", example: "8+2=10", hint: "how many to make 10?", gen: ()=> { let a=rnd(2,8); return {q:`${a} + ? = 10`, ans:10-a, opts:shuffle([10-a, 10-a+1, 10-a-1, a])}; } },
+        { learn: "Adding three numbers: 2+3+1 = ? Add two first.", visual: "🐧🐧 + 🐧🐧🐧 + 🐧 = 6", example: "2+3+1=6", hint: "add first two, then third", gen: ()=> { let a=rnd(1,3),b=rnd(1,3),c=rnd(1,3); return {q:`${a} + ${b} + ${c} = ?`, ans:a+b+c, opts:shuffle([a+b+c, a+b+c+1, a+b+c-1, a+b])}; } }
+      ],
+      sub1: [
+        { learn: "Subtraction = take away. 5-2 means take 2 away from 5.", visual: "🐶🐶🐶🐶🐶 minus 🐶🐶 = 🐶🐶🐶", example: "5-2=3", hint: "count how many left", gen: ()=> { let a=rnd(5,9), b=rnd(2,4); return {q:`${a} - ${b} = ?`, ans:a-b, opts:shuffle([a-b, a-b+1, a-b-1, b])}; } },
+        { learn: "Subtract from 10: 10 - 3 = ? Think: 3 + ? = 10.", visual: "🔟 - 🍎🍎🍎 = 7", example: "10-3=7", hint: "how many to make 10?", gen: ()=> { let b=rnd(2,8); return {q:`10 - ${b} = ?`, ans:10-b, opts:shuffle([10-b, 10-b+2, 10-b-1, b])}; } },
+        { learn: "Find the difference: 8 - 5 = ? How many more is 8 than 5?", visual: "🐟🐟🐟🐟🐟 vs 🐟🐟🐟🐟🐟🐟🐟🐟 → 3 more", example: "8-5=3", hint: "count up from 5 to 8", gen: ()=> { let a=rnd(6,9), b=rnd(2,5); if(a<=b) b=a-1; return {q:`${a} - ${b} = ?`, ans:a-b, opts:shuffle([a-b, a-b+2, a-b-1, b])}; } },
+        { learn: "Subtraction with zero: 7 - 0 = 7, 0 - 0 = 0", visual: "🍪🍪🍪🍪🍪🍪🍪 take away 0 → still 7", example: "7-0=7", hint: "taking nothing away", gen: ()=> { let a=rnd(3,9); return {q:`${a} - 0 = ?`, ans:a, opts:shuffle([a, a+1, a-1, 0])}; } },
+        { learn: "Relate addition & subtraction: 5+3=8 so 8-3=5", visual: "8 = 5+3  →  8-3=5", example: "8-3=5", hint: "think of the addition fact", gen: ()=> { let a=rnd(2,6), b=rnd(2,5); return {q:`${a+b} - ${b} = ?`, ans:a, opts:shuffle([a, a+1, a-1, b])}; } }
+      ],
+      place1: [
+        { learn: "Tens and ones: 14 = 1 ten and 4 ones.", visual: "📦(10) + 🧱🧱🧱🧱 = 14", example: "14 has 1 ten, 4 ones", hint: "the first digit is tens", gen: ()=> { let t=rnd(1,4), o=rnd(0,9), n=t*10+o; return {q:`${n} has how many tens?`, ans:t, opts:shuffle([t, t+1, t-1, o])}; } },
+        { learn: "Ones place: in 27, the ones digit is 7.", visual: "27 = 2 tens + 7 ones", example: "27 → 7 ones", hint: "last digit is ones", gen: ()=> { let t=rnd(1,4), o=rnd(0,9), n=t*10+o; return {q:`${n} has how many ones?`, ans:o, opts:shuffle([o, o+1, o-1, t])}; } },
+        { learn: "Build a number: 3 tens + 4 ones = 34", visual: "📦📦📦 + 🧱🧱🧱🧱 = 34", example: "3 tens 4 ones = 34", hint: "tens then ones", gen: ()=> { let t=rnd(1,5), o=rnd(1,8); return {q:`${t} tens + ${o} ones = ?`, ans:t*10+o, opts:shuffle([t*10+o, t*10+o+1, t*10+o-1, (t+1)*10+o])}; } }
+      ],
+      // 2nd grade 
+      add2: [
+        { learn: "Add tens: 30 + 20 = 50, like 3+2 tens.", visual: "📦📦📦 + 📦📦 = 📦📦📦📦📦 (50)", example: "30+20=50", hint: "add the tens digits", gen: ()=> { let a=rnd(2,4)*10, b=rnd(2,4)*10; return {q:`${a} + ${b} = ?`, ans:a+b, opts:shuffle([a+b, a+b+10, a+b-10, a])}; } },
+        { learn: "Regrouping: 27+35 = ? 7+5=12, carry 1.", visual: "27 + 35 = 62", example: "27+35=62", hint: "add ones, carry the ten", gen: ()=> { let a=rnd(12,29), b=rnd(13,28); return {q:`${a} + ${b} = ?`, ans:a+b, opts:shuffle([a+b, a+b+1, a+b-1, a+b-10])}; } }
+      ],
+      sub2: [
+        { learn: "Subtract tens: 50 - 20 = 30, like 5-2 tens.", visual: "📦📦📦📦📦 - 📦📦 = 📦📦📦", example: "50-20=30", hint: "subtract tens", gen: ()=> { let a=rnd(3,7)*10, b=rnd(1,4)*10; if(a<=b) a=b+10; return {q:`${a} - ${b} = ?`, ans:a-b, opts:shuffle([a-b, a-b+10, a-b-10, a])}; } }
+      ],
+      money: [
+        { learn: "Penny = 1¢, nickel = 5¢, dime = 10¢.", visual: "💵 penny(1) nickel(5) dime(10)", example: "2 dimes = 20¢", hint: "count by 1,5,10", gen: ()=> { let c=rnd(1,3)*5; return {q:`${c}¢ = how many nickels?`, ans:c/5, opts:shuffle([c/5, c/5+1, c/5-1, 2])}; } }
+      ],
+      measure: [
+        { learn: "Use a ruler: inches and centimeters.", visual: "📏 this line is 3 inches", example: "🟦🟦🟦 = 3", hint: "count the units", gen: ()=> { let m=rnd(1,5); return {q:`length = ${m} units?`, ans:m, opts:shuffle([m, m+1, m-1, m+2])}; } }
+      ],
+      // 3rd grade
+      multiply: [
+        { learn: "Multiplication = groups of same size. 3 × 2 means 3 groups of 2.", visual: "🍪🍪   🍪🍪   🍪🍪  = 6 cookies", example: "3 × 2 = 6", hint: "groups × items", gen: ()=> { let a=rnd(2,3), b=rnd(2,3); return {q:`${a} × ${b} = ?`, ans:a*b, opts:shuffle([a*b, a*b+2, a*b-1, a+b])}; } },
+        { learn: "Arrays: 4 rows of 3 = 12", visual: "🔴🔴🔴\n🔴🔴🔴\n🔴🔴🔴\n🔴🔴🔴 = 12", example: "4×3=12", hint: "count rows × columns", gen: ()=> { let a=rnd(2,4), b=rnd(2,4); return {q:`${a} × ${b} = ?`, ans:a*b, opts:shuffle([a*b, a*b+3, a*b-2, a+b])}; } }
+      ],
+      divide: [
+        { learn: "Division = sharing equally. 12 cookies shared among 4 friends = 3 each.", visual: "🍪🍪🍪 | 🍪🍪🍪 | 🍪🍪🍪 | 🍪🍪🍪", example: "12 ÷ 4 = 3", hint: "how many in each group?", gen: ()=> { let a=rnd(2,4), b=rnd(2,4); return {q:`${a*b} ÷ ${a} = ?`, ans:b, opts:shuffle([b, b+1, b-1, a])}; } }
+      ],
+      fractions: [
+        { learn: "Fraction 1/2 = one of two equal parts.", visual: "🥧🥧 half of a pie", example: "1/2 of 8 = 4", hint: "divide by 2", gen: ()=> { let n=rnd(2,6)*2; return {q:`1/2 of ${n} = ?`, ans:n/2, opts:shuffle([n/2, n/2+1, n/2-1, n])}; } }
+      ],
+      area: [
+        { learn: "Area = count squares inside. 3 rows of 4 = 12 squares.", visual: "🧩🧩🧩🧩\n🧩🧩🧩🧩\n🧩🧩🧩🧩", example: "3×4=12 area", hint: "rows × columns", gen: ()=> { let a=rnd(2,4), b=rnd(2,5); return {q:`area of ${a} by ${b} rectangle?`, ans:a*b, opts:shuffle([a*b, a*b+2, a*b-1, a+b])}; } }
+      ],
+      rounding: [
+        { learn: "Round to nearest ten: 27 → 30 (because 27 is closer to 30 than 20).", visual: "20 --25-- 30, 27 goes to 30", example: "27 ≈ 30", hint: "look at the ones digit", gen: ()=> { let n=[23,27,32,38,41,44,46,52][rnd(0,7)]; let r=Math.round(n/10)*10; return {q:`round ${n} to nearest ten`, ans:r, opts:shuffle([r, r+10, r-10, n])}; } }
+      ]
+    };
 
-  // Full lesson data (abridged above, but in practice all 6 categories ×5 levels are defined)
-  // To keep code readable, we'll dynamically generate simple lessons for all.
-  const CATEGORIES = {
-    add1: { label:'Addition to 20', icon:'➕', grade:1 },
-    sub1: { label:'Subtraction to 20', icon:'➖', grade:1 },
-    place1: { label:'Place value (tens/ones)', icon:'🔢', grade:1 },
-    add2: { label:'Addition to 100', icon:'➕➕', grade:2 },
-    sub2: { label:'Subtraction to 100', icon:'➖➖', grade:2 },
-    money: { label:'Money & coins', icon:'💰', grade:2 },
-    measure: { label:'Measurement', icon:'📐', grade:2 },
-    multiply: { label:'Multiplication', icon:'✖️', grade:3 },
-    divide: { label:'Division', icon:'➗', grade:3 },
-    fractions: { label:'Fractions', icon:'🥧', grade:3 },
-    area: { label:'Area & Perimeter', icon:'📏', grade:3 },
-    rounding: { label:'Rounding', icon:'🔟', grade:3 }
-  };
+    // ensure every category has 5 lessons
+    const CATEGORIES = {
+      add1:{label:'Addition to 20',icon:'➕',grade:1}, sub1:{label:'Subtraction to 20',icon:'➖',grade:1}, place1:{label:'Place value',icon:'🔢',grade:1},
+      add2:{label:'Addition to 100',icon:'➕➕',grade:2}, sub2:{label:'Subtraction to 100',icon:'➖➖',grade:2}, money:{label:'Money & coins',icon:'💰',grade:2}, measure:{label:'Measurement',icon:'📐',grade:2},
+      multiply:{label:'Multiplication',icon:'✖️',grade:3}, divide:{label:'Division',icon:'➗',grade:3}, fractions:{label:'Fractions',icon:'🥧',grade:3}, area:{label:'Area & Perimeter',icon:'📏',grade:3}, rounding:{label:'Rounding',icon:'🔟',grade:3}
+    };
+    for(let cat in CATEGORIES) { if(!LESSONS[cat]) LESSONS[cat] = []; while(LESSONS[cat].length<5) LESSONS[cat].push(LESSONS[cat][0] || {learn:'explore',visual:'✨',example:'2+2=4',hint:'think', gen:()=>{let a=rnd(2,5); return {q:`${a}+${a}=?`, ans:a*2, opts:[a*2,a*2+1,a*2-1,a]};}}); }
 
-  // Build 5 levels per category
-  for (let cat in CATEGORIES) {
-    if (!LESSONS[cat]) {
-      LESSONS[cat] = [];
-      for (let lvl=1; lvl<=5; lvl++) {
-        let base = cat.includes('add') ? 'addition' : (cat.includes('sub')?'subtraction':cat);
-        LESSONS[cat].push({
-          learn: `Let's learn about ${base}. Level ${lvl} is fun!`,
-          visual: `🌈 example for ${base}`,
-          example: `2 + 2 = 4`,
-          hint: `try your best!`,
-          gen: ()=> {
-            let a = rnd(2,5+lvl), b = rnd(1,3+lvl);
-            return { q:`${a} + ${b} = ?`, ans:a+b, opts:shuffle([a+b, a+b+1, a+b-1, a+1]) };
-          }
-        });
+    // progress state
+    const STORAGE_KEY = 'k2path_v1';
+    let progress = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { version:1 };
+    if(!progress.v) progress={v:1};
+    for(let c in CATEGORIES) { if(!progress[c]) progress[c]={}; for(let l=1;l<=5;l++) { if(!progress[c][l]) progress[c][l]={done:false,stars:0}; } }
+
+    let currentCat='', currentLvl=1, questions=[], qIdx=0, correct=0, wrong=0, mistakes=[], answered=false, hintCount=0, lessonData=null;
+
+    function saveProgress() {
+      const blob = new Blob([JSON.stringify({v:1,progress})], {type:'application/json'});
+      const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='k2math_save.json'; a.click();
+      document.getElementById('saveLbl').textContent='✅ Saved!'; setTimeout(updateSaveLbl,2000);
+    }
+    function loadProgress() { document.getElementById('loadFile').click(); }
+    function loadFile(e) {
+      const file=e.target.files[0]; if(!file) return;
+      const r = new FileReader();
+      r.onload = ev => {
+        try {
+          const d = JSON.parse(ev.target.result);
+          if(d && d.v===1 && d.progress) { progress = d.progress; updateSaveLbl(); renderHome(); document.getElementById('saveLbl').textContent='✅ Loaded!'; setTimeout(updateSaveLbl,2000); }
+          else alert('not a valid save');
+        } catch { alert('cannot read file'); }
+      };
+      r.readAsText(file); e.target.value='';
+    }
+
+    function updateSaveLbl() {
+      let done=0,total=0,stars=0;
+      for(let c in CATEGORIES) { for(let l=1;l<=5;l++) { total++; if(progress[c]?.[l]?.done) { done++; stars+=progress[c][l].stars||0; } } }
+      document.getElementById('saveLbl').innerHTML = done?`${done}/${total} · ⭐${stars}`:'⭐ start';
+      let chart = document.getElementById('progressChart');
+      if(chart) {
+        let pct = Math.round((done/total)*100)||0;
+        chart.innerHTML = `<h3 style="color:#d9b8ff;">📊 my math path</h3><div class="progress-bar-cont" style="background:#1a1428;border-radius:30px;"><div class="progress-bar-fill" style="width:${pct}%;height:20px;border-radius:30px;background:linear-gradient(90deg,#b497d6,#d9b8ff);"></div></div><div style="margin-top:12px;color:#e0d2ff;">⭐ ${stars} stars · ${done}/${total} lessons</div>`;
       }
     }
-  }
 
-  // State
-  const STORAGE_KEY = 'k2math_v1';
-  let progress = {};
-  let currentCat = '', currentLvl = 1, questions = [], qIdx = 0, correct = 0, wrong = 0, mistakes = [];
-  let answered = false, hintCount = 0;
-  let lessonData = null;
+    function showScreen(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+    function showHome() { updateSaveLbl(); showScreen('homeScreen'); }
+    function renderHome() { updateSaveLbl(); }
 
-  function initProgress() {
-    for (let c in CATEGORIES) { if (!progress[c]) progress[c] = {}; for (let l=1; l<=5; l++) { if (!progress[c][l]) progress[c][l] = { done:false, stars:0 }; } }
-  }
+    function openCategory(c) {
+      currentCat = c;
+      document.getElementById('levelsTitle').textContent = CATEGORIES[c].label + ' — pick a lesson';
+      const grid = document.getElementById('levelsGrid'); grid.innerHTML = '';
+      const emojis = ['🌱','🌿','🍃','🌟','🏆'];
+      for(let l=1; l<=5; l++) {
+        if(!progress[c][l]) progress[c][l]={done:false,stars:0};
+        const p = progress[c][l];
+        const btn = document.createElement('button');
+        btn.className = 'lv-btn' + (p.done?' done':'');
+        btn.innerHTML = `<span class="lv-icon">${emojis[l-1]}</span>lesson ${l}${p.done?`<div class="lv-score">⭐${p.stars}</div>`:''}`;
+        btn.onclick = (ll=>()=> startLesson(c,ll))(l);
+        grid.appendChild(btn);
+      }
+      showScreen('levelsScreen');
+    }
 
-  function saveProgress() {
-    const blob = new Blob([JSON.stringify({v:1,progress})], {type:'application/json'});
-    const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='k2math_save.json'; a.click();
-    document.getElementById('saveLbl').textContent='✅ Saved!'; setTimeout(updateSaveLbl,2000);
-  }
-  function loadProgress() { document.getElementById('loadFile').click(); }
-  function loadFile(e) {
-    const file = e.target.files[0]; if(!file) return;
-    const r = new FileReader();
-    r.onload = ev => {
-      try {
-        const d = JSON.parse(ev.target.result);
-        if (d && d.v===1 && d.progress) { progress = d.progress; initProgress(); updateSaveLbl(); renderHome(); document.getElementById('saveLbl').textContent='✅ Loaded!'; setTimeout(updateSaveLbl,2000); }
-        else alert('Invalid save');
-      } catch { alert('Could not read'); }
+    function startLesson(cat, lvl) {
+      currentLvl = lvl;
+      qIdx=0; correct=0; wrong=0; mistakes=[]; answered=false; hintCount=0;
+      lessonData = LESSONS[cat][lvl-1];
+      questions = [];
+      for(let i=0;i<3;i++) questions.push(lessonData.gen());
+      document.getElementById('quizLabel').textContent = `${CATEGORIES[cat].label} · lesson ${lvl}`;
+      showScreen('quizScreen');
+      renderLessonPart();
+    }
+
+    function renderLessonPart() {
+      document.getElementById('lessonContainer').innerHTML = `
+        <div class="lesson-card">
+          <div class="lesson-badge">📘 learn first</div>
+          <div class="lesson-visual">${lessonData.visual}</div>
+          <div class="lesson-explanation">✨ ${lessonData.learn} <br> example: ${lessonData.example}</div>
+        </div>
+      `;
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      if(qIdx >= questions.length) { showResult(); return; }
+      answered = false;
+      const q = questions[qIdx];
+      document.getElementById('quizQNum').innerHTML = `question ${qIdx+1}/${questions.length}`;
+      document.getElementById('qsCorrect').textContent = correct;
+      document.getElementById('qsWrong').textContent = wrong;
+      document.getElementById('progFill').style.width = (qIdx/questions.length*100)+'%';
+      document.getElementById('feedback').className = 'feedback';
+      document.getElementById('checkBtn').style.display = 'inline-flex';
+      document.getElementById('nextBtn').style.display = 'none';
+      document.getElementById('hintBtn').disabled = false;
+      document.getElementById('hintBtn').style.display = qIdx<2?'inline-flex':'none';
+
+      let optsHtml = '<div class="options-grid">';
+      q.opts.forEach((opt,i)=> optsHtml += `<button class="opt-btn" onclick="window.selectOpt(${i}, ${typeof opt==='number'?opt:'\''+opt+'\''})">${opt}</button>`);
+      optsHtml += '</div>';
+      document.getElementById('questionContainer').innerHTML = `
+        <div class="q-card">
+          <div class="question-text">${q.q}</div>
+          ${optsHtml}
+        </div>
+      `;
+    }
+
+    window.selectOpt = function(idx, val) {
+      if(answered) return;
+      answered = true;
+      const q = questions[qIdx];
+      let isCorrect = (val == q.ans);
+      if(isCorrect) correct++;
+      else { wrong++; mistakes.push({q:q.q, exp:`correct: ${q.ans}`}); }
+      let btns = document.querySelectorAll('.opt-btn');
+      btns.forEach((btn,i)=>{
+        btn.disabled = true;
+        if(btn.innerText == q.ans) btn.classList.add('correct');
+        else if(i===idx && !isCorrect) btn.classList.add('wrong');
+      });
+      let fb = document.getElementById('feedback');
+      fb.textContent = isCorrect ? '✅ correct! ' + (lessonData.hint||'') : '❌ not this time – ' + (lessonData.hint||'');
+      fb.className = 'feedback show ' + (isCorrect?'ok':'bad');
+      document.getElementById('checkBtn').style.display = 'none';
+      document.getElementById('nextBtn').style.display = 'inline-flex';
+      document.getElementById('qsCorrect').textContent = correct;
+      document.getElementById('qsWrong').textContent = wrong;
     };
-    r.readAsText(file); e.target.value='';
-  }
 
-  function updateSaveLbl() {
-    let done=0,total=0,stars=0;
-    for (let c in CATEGORIES) { for (let l=1;l<=5;l++) { total++; if(progress[c]?.[l]?.done) { done++; stars += progress[c][l].stars||0; } } }
-    document.getElementById('saveLbl').textContent = done?`${done}/${total} lessons • ⭐ ${stars}`:'⭐ start';
-    let chart = document.getElementById('progressChart');
-    if (chart) {
-      let pct = Math.round((done/total)*100)||0;
-      chart.innerHTML = `<h3 style="color:#1f4e5f;">📊 my math path</h3><div class="progress-bar-cont"><div class="progress-bar-fill" style="width:${pct}%"></div></div><div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:15px;">⭐ ${stars} stars • ${done}/${total} lessons</div>`;
+    function checkAnswer() { /* handled by selectOpt */ }
+    function showHint() {
+      hintCount++;
+      let hintDiv = document.createElement('div');
+      hintDiv.className = 'hint-box show';
+      hintDiv.style.cssText = 'background:#322b4a;border-radius:40px;padding:15px;margin:10px 0;font-weight:800;border:2px solid #b497d6;color:#e0d2ff;';
+      hintDiv.textContent = '💡 ' + (lessonData.hint || 'think step by step');
+      document.getElementById('questionContainer').after(hintDiv);
+      document.getElementById('hintBtn').disabled = true;
     }
-  }
+    function nextQuestion() { qIdx++; loadQuestion(); }
 
-  function showScreen(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-  function showHome() { updateSaveLbl(); showScreen('homeScreen'); }
-  function renderHome() { updateSaveLbl(); }
+    function showResult() {
+      let total = questions.length;
+      let pct = Math.round((correct/total)*100);
+      let stars = Math.min(3, correct+1); // 0-1 ->1star, 2->2star, 3->3star
+      let passed = correct >= 2;
+      if(passed) {
+        progress[currentCat][currentLvl].done = true;
+        progress[currentCat][currentLvl].stars = Math.max(progress[currentCat][currentLvl].stars||0, stars);
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({v:1,progress}));
+      updateSaveLbl();
 
-  function openCategory(c) {
-    currentCat = c;
-    document.getElementById('levelsTitle').textContent = CATEGORIES[c].label + ' — choose lesson';
-    const grid = document.getElementById('levelsGrid'); grid.innerHTML = '';
-    const emojis = ['🌱','🌿','🍃','🌟','🏆'];
-    if (!progress[c]) progress[c] = {};
-    for (let l=1; l<=5; l++) {
-      if (!progress[c][l]) progress[c][l] = { done:false, stars:0 };
-      const p = progress[c][l];
-      const btn = document.createElement('button');
-      btn.className = 'lv-btn' + (p.done?' done':'');
-      btn.innerHTML = `<span class="lv-icon">${emojis[l-1]}</span>lesson ${l}${p.done?`<div class="lv-score">⭐ ${p.stars}</div>`:''}`;
-      btn.onclick = (ll=>()=> startLesson(c,ll))(l);
-      grid.appendChild(btn);
+      document.getElementById('resEmoji').textContent = stars>=3?'🏆':(stars>=2?'🌟':'⭐');
+      document.getElementById('resStars').innerHTML = '⭐'.repeat(stars);
+      document.getElementById('resMsg').innerHTML = `you got ${correct} out of ${total} correct. ${passed?'⭐ lesson passed!':'keep trying'}`;
+      let ms = document.getElementById('mistakeSection');
+      ms.innerHTML = mistakes.length ? '<div style="font-weight:900;margin:12px 0;color:#d9b8ff;">📝 review:</div>'+mistakes.map(m=>`<div class="mistake-item">❓ ${m.q}<br>💡 ${m.exp}</div>`).join('') : '';
+      document.getElementById('retryBtn').onclick = ()=> startLesson(currentCat, currentLvl);
+      let nb = document.getElementById('nextLvBtn');
+      if(passed && currentLvl < 5) { nb.style.display = 'inline-flex'; nb.onclick = ()=> startLesson(currentCat, currentLvl+1); }
+      else nb.style.display = 'none';
+      showScreen('resultScreen');
     }
-    showScreen('levelsScreen');
-  }
 
-  function startLesson(cat, lvl) {
-    currentLvl = lvl;
-    qIdx = 0; correct = 0; wrong = 0; mistakes = []; answered = false; hintCount = 0;
-    lessonData = LESSONS[cat][lvl-1];
-    // generate 3 practice questions
-    questions = [];
-    for (let i=0; i<3; i++) questions.push(lessonData.gen());
-    document.getElementById('quizLabel').textContent = `${CATEGORIES[cat].label} · lesson ${lvl}`;
-    showScreen('quizScreen');
-    renderLesson();
-  }
+    function leaveQuiz() { if(confirm('leave? progress not saved')) showHome(); }
 
-  function renderLesson() {
-    document.getElementById('lessonContainer').innerHTML = `
-      <div class="lesson-card">
-        <div class="lesson-badge">📘 learn first</div>
-        <div class="lesson-title">${lessonData.learn}</div>
-        <div class="lesson-visual">${lessonData.visual}</div>
-        <div class="lesson-explanation">✨ ${lessonData.example}</div>
-      </div>
-    `;
-    loadQuestion();
-  }
-
-  function loadQuestion() {
-    if (qIdx >= questions.length) { showResult(); return; }
-    answered = false;
-    const q = questions[qIdx];
-    document.getElementById('quizQNum').textContent = `question ${qIdx+1}/${questions.length}`;
-    document.getElementById('qsCorrect').textContent = correct;
-    document.getElementById('qsWrong').textContent = wrong;
-    document.getElementById('progFill').style.width = (qIdx/questions.length*100)+'%';
-    document.getElementById('feedback').className = 'feedback';
-    document.getElementById('checkBtn').style.display = 'inline-flex';
-    document.getElementById('nextBtn').style.display = 'none';
-    document.getElementById('hintBtn').disabled = false;
-    document.getElementById('hintBtn').style.display = qIdx<2?'inline-flex':'none';
-
-    let optsHtml = '<div class="options-grid">';
-    q.opts.forEach((opt,i)=> optsHtml += `<button class="opt-btn" onclick="window.selectOption(${i}, ${typeof opt==='string'?`'${opt}'`:opt})">${opt}</button>`);
-    optsHtml += '</div>';
-    document.getElementById('questionContainer').innerHTML = `
-      <div class="q-card">
-        <div class="question-text">${q.q}</div>
-        ${optsHtml}
-      </div>
-    `;
-  }
-
-  window.selectOption = function(idx, val) {
-    if (answered) return;
-    answered = true;
-    const q = questions[qIdx];
-    let isCorrect = (val == q.ans);
-    if (isCorrect) correct++;
-    else { wrong++; mistakes.push({q:q.q, exp:`answer: ${q.ans}`}); }
-    let btns = document.querySelectorAll('.opt-btn');
-    btns.forEach((btn,i)=>{
-      btn.disabled = true;
-      if (btn.innerText == q.ans) btn.classList.add('correct');
-      else if (i===idx && !isCorrect) btn.classList.add('wrong');
-    });
-    let fb = document.getElementById('feedback');
-    fb.textContent = isCorrect ? '✅ correct! ' + (lessonData.hint||'') : '❌ try again – ' + (lessonData.hint||'');
-    fb.className = 'feedback show ' + (isCorrect?'ok':'bad');
-    document.getElementById('checkBtn').style.display = 'none';
-    document.getElementById('nextBtn').style.display = 'inline-flex';
-    document.getElementById('qsCorrect').textContent = correct;
-    document.getElementById('qsWrong').textContent = wrong;
-  };
-
-  function checkAnswer() { /* handled by selectOption */ }
-  function showHint() {
-    hintCount++;
-    let hintDiv = document.createElement('div');
-    hintDiv.className = 'hint-box show';
-    hintDiv.style.cssText = 'background:#e3f2fd;border-radius:40px;padding:15px;margin:10px 0;font-weight:800;border:3px solid white';
-    hintDiv.textContent = '💡 ' + (lessonData.hint || 'think step by step');
-    document.getElementById('questionContainer').after(hintDiv);
-    document.getElementById('hintBtn').disabled = true;
-  }
-
-  function nextQuestion() {
-    qIdx++;
-    if (qIdx < questions.length) loadQuestion();
-    else showResult();
-  }
-
-  function showResult() {
-    let total = questions.length;
-    let pct = Math.round((correct/total)*100);
-    let stars = Math.min(3, Math.ceil(correct/1.5)||1);
-    let passed = correct >= 2;  // pass if at least 2 correct
-    if (passed) {
-      progress[currentCat][currentLvl].done = true;
-      progress[currentCat][currentLvl].stars = Math.max(progress[currentCat][currentLvl].stars||0, stars);
-    }
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({v:1,progress})); } catch {}
-    updateSaveLbl();
-    document.getElementById('resEmoji').textContent = stars===3?'🏆':(stars===2?'🌟':'⭐');
-    document.getElementById('resStars').innerHTML = '⭐'.repeat(stars);
-    document.getElementById('resMsg').textContent = `you got ${correct} out of ${total} correct. ${passed?'lesson passed!':'try again to earn stars'}`;
-    let ms = document.getElementById('mistakeSection');
-    ms.innerHTML = mistakes.length ? '<div style="font-weight:900;margin-bottom:8px;">📝 keep practicing:</div>'+mistakes.map(m=>`<div class="mistake-item">❓ ${m.q}<br>💡 ${m.exp}</div>`).join('') : '';
-    document.getElementById('retryBtn').onclick = ()=> startLesson(currentCat, currentLvl);
-    let nb = document.getElementById('nextLvBtn');
-    if (passed && currentLvl < 5) {
-      nb.style.display = 'inline-flex';
-      nb.onclick = ()=> startLesson(currentCat, currentLvl+1);
-    } else nb.style.display = 'none';
-    showScreen('resultScreen');
-  }
-
-  function leaveQuiz() { if (confirm('leave? progress won’t be saved')) showHome(); }
-
-  // init
-  (function init() {
-    try { let raw = localStorage.getItem(STORAGE_KEY); if (raw) { let d = JSON.parse(raw); if (d.v===1 && d.progress) progress = d.progress; } } catch {}
-    initProgress(); renderHome(); updateSaveLbl();
+    // init
+    renderHome(); updateSaveLbl();
+    window.saveProgress = saveProgress;
+    window.loadProgress = loadProgress;
+    window.loadFile = loadFile;
+    window.showHome = showHome;
+    window.openCategory = openCategory;
+    window.leaveQuiz = leaveQuiz;
+    window.checkAnswer = checkAnswer;
+    window.showHint = showHint;
+    window.nextQuestion = nextQuestion;
   })();
 </script>
 </body>

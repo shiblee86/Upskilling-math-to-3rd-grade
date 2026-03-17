@@ -3,41 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
-  <title>🌈 Safia's Math Adventure · K-2 to 3rd Grade</title>
+  <title>🥊 Cute Combat Dojo · Complete Edition with Multiplication & Division Hints</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
     body {
       font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', cursive, sans-serif;
-      background: #1a1035;
+      background: #2a0f2f;
       min-height: 100vh;
       padding: 12px;
-      color: #f5e9ff;
+      color: #fef9d7;
     }
     .wrap { max-width: 1000px; margin: 0 auto; }
 
-    /* TOP BAR */
+    /* TOP BAR — dojo entrance */
     .topbar {
-      background: #2d1b4a; border: 4px solid #b794f4; border-radius: 60px;
+      background: #dc80b0;
+      border: 4px solid #fbe158;
+      border-radius: 60px;
       padding: 16px 24px; display: flex; align-items: center;
       justify-content: space-between; flex-wrap: wrap; gap: 12px;
-      margin-bottom: 20px; box-shadow: 0 10px 0 #0d0820, 0 0 0 2px #e9d2ff;
+      margin-bottom: 20px; box-shadow: 0 10px 0 #511e3a, 0 0 0 2px #ffccaa;
     }
-    .topbar-title { font-size: 1.8rem; font-weight: 900; color: #ffd6b0; text-shadow: 3px 3px 0 #8a6ccf; }
+    .topbar-title { font-size: 1.8rem; font-weight: 900; color: #3e1b2b; text-shadow: 3px 3px 0 #ffb6d1; }
     .topbar-btns { display: flex; gap: 10px; flex-wrap: wrap; }
     .tb-btn {
       padding: 10px 20px; border: 3px solid white; border-radius: 50px;
       font-weight: 900; font-size: 1.1rem; cursor: pointer;
-      box-shadow: 0 5px 0 #0d0820; transition: 0.1s; min-height: 50px;
+      box-shadow: 0 5px 0 #511e3a; transition: 0.1s; min-height: 50px;
     }
-    .tb-btn:active { transform: translateY(5px); box-shadow: 0 1px 0 #0d0820; }
-    .tb-save { background: #c4a5ff; color: #1e1133; }
-    .tb-load { background: #9ae6b4; color: #1e4620; }
-    .tb-lbl { background: #392b54; color: #f5e9ff; padding: 10px 20px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; border: 3px solid #b794f4; }
+    .tb-btn:active { transform: translateY(5px); box-shadow: 0 1px 0 #511e3a; }
+    .tb-save { background: #fbe158; color: #2d0f2d; }
+    .tb-load { background: #9bc4cb; color: #1e3a3a; }
+    .tb-lbl { background: #dc80b0; color: #fef9d7; padding: 10px 20px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; border: 3px solid #fbe158; }
 
     /* QUICK NAV */
     .quick-nav {
-      display: flex; gap: 8px; background: #1a0f30; border-top: 3px solid #b794f4;
+      display: flex; gap: 8px; background: #511e3a; border-top: 3px solid #fbe158;
       padding: 10px 12px; position: sticky; bottom: 0; z-index: 50; margin: 12px -12px 0;
     }
     .qn-btn {
@@ -45,32 +47,32 @@
       font-weight: 900; font-size: 0.9rem; cursor: pointer; transition: 0.1s;
     }
     .qn-btn:active { transform: translateY(3px); }
-    .qn-home { background: #FF9FCF; color: #1a0f2a; }
-    .qn-soar { background: #9ae6b4; color: #1e4620; }
-    .qn-math { background: #c4a5ff; color: #1e1133; }
+    .qn-home { background: #FFB7C5; color: #3e1b2b; }
+    .qn-soar { background: #9bc4cb; color: #1e3a3a; }
+    .qn-math { background: #fbe158; color: #2d0f2d; }
 
     .screen { display: none; }
     .screen.active { display: block; }
 
     /* HOME */
     .path-header {
-      background: #2d1b4a; border-radius: 70px; padding: 24px 20px;
-      border: 4px solid #b794f4; box-shadow: 0 10px 0 #0d0820;
+      background: #dc80b0; border-radius: 70px; padding: 24px 20px;
+      border: 4px solid #fbe158; box-shadow: 0 10px 0 #511e3a;
       text-align: center; margin-bottom: 24px;
     }
-    .path-header h1 { font-size: 2.4rem; font-weight: 900; color: #ffd6b0; text-shadow: 3px 3px 0 #8a6ccf; }
-    .path-header p { font-size: 1.4rem; background: #4a2f7a; display: inline-block; padding: 10px 28px; border-radius: 60px; border: 3px solid #e9d2ff; margin-top: 12px; }
+    .path-header h1 { font-size: 2.4rem; font-weight: 900; color: #3e1b2b; text-shadow: 3px 3px 0 #ffb6d1; }
+    .path-header p { font-size: 1.4rem; background: #511e3a; display: inline-block; padding: 10px 28px; border-radius: 60px; border: 3px solid #fbe158; margin-top: 12px; color: #fef9d7; }
 
     .grade-section { margin: 30px 0; }
     .grade-title {
-      font-size: 1.8rem; font-weight: 900; background: #392b54; display: inline-block;
-      padding: 10px 28px; border-radius: 50px; border: 3px solid #b794f4;
-      box-shadow: 0 5px 0 #0d0820; margin-bottom: 16px;
+      font-size: 1.8rem; font-weight: 900; background: #511e3a; display: inline-block;
+      padding: 10px 28px; border-radius: 50px; border: 3px solid #fbe158;
+      box-shadow: 0 5px 0 #2f0f2f; margin-bottom: 16px; color: #fbe158;
     }
     .soar-grade-title {
-      font-size: 1.8rem; font-weight: 900; background: #1e4620; display: inline-block;
-      padding: 10px 28px; border-radius: 50px; border: 3px solid #9ae6b4;
-      box-shadow: 0 5px 0 #0d0820; margin-bottom: 16px; color: #9ae6b4;
+      font-size: 1.8rem; font-weight: 900; background: #1e3a3a; display: inline-block;
+      padding: 10px 28px; border-radius: 50px; border: 3px solid #9bc4cb;
+      box-shadow: 0 5px 0 #0d2828; margin-bottom: 16px; color: #9bc4cb;
     }
 
     .menu-grid {
@@ -78,128 +80,131 @@
       gap: 16px; margin: 12px 0;
     }
     .menu-card {
-      background: #2d1b4a; border-radius: 40px; padding: 24px 14px;
+      background: #dc80b0; border-radius: 40px; padding: 24px 14px;
       text-align: center; cursor: pointer; border: 4px solid transparent;
-      box-shadow: 0 10px 0 #0d0820; transition: 0.1s;
+      box-shadow: 0 10px 0 #511e3a; transition: 0.1s;
       min-height: 190px; display: flex; flex-direction: column; align-items: center; gap: 7px;
     }
-    .menu-card:active { transform: translateY(7px); box-shadow: 0 3px 0 #0d0820; }
-    .menu-card.grade1 { border-color: #fbbf6e; }
-    .menu-card.grade2 { border-color: #7bc9ff; }
-    .menu-card.grade3 { border-color: #a3d977; }
-    .menu-card.soar-card { border-color: #9ae6b4; background: #1a2e22; }
+    .menu-card:active { transform: translateY(7px); box-shadow: 0 3px 0 #511e3a; }
+    .menu-card.grade1 { border-color: #ffb6d1; }
+    .menu-card.grade2 { border-color: #fbe158; }
+    .menu-card.grade3 { border-color: #9bc4cb; }
+    .menu-card.soar-card { border-color: #9bc4cb; background: #1e3a3a; }
     .mc-icon { font-size: 3.2rem; }
-    .mc-name { font-weight: 900; font-size: 1.4rem; color: #ffd6b0; }
-    .mc-desc { font-size: 1rem; color: #d4c2ff; }
-    .mc-badge { background: #4a2f7a; color: white; border-radius: 40px; padding: 6px 16px; font-weight: 900; border: 2px solid #b794f4; font-size: 0.9rem; }
-    .mc-badge.soar-badge { background: #2d5a3a; border-color: #9ae6b4; color: #9ae6b4; }
+    .mc-name { font-weight: 900; font-size: 1.4rem; color: #3e1b2b; }
+    .soar-card .mc-name { color: #9bc4cb; }
+    .mc-desc { font-size: 1rem; color: #511e3a; }
+    .soar-card .mc-desc { color: #c6e9ef; }
+    .mc-badge { background: #511e3a; color: #fef9d7; border-radius: 40px; padding: 6px 16px; font-weight: 900; border: 2px solid #fbe158; font-size: 0.9rem; }
+    .mc-badge.soar-badge { background: #2d5a5a; border-color: #9bc4cb; color: #9bc4cb; }
 
     .progress-chart {
-      background: #2d1b4a; border-radius: 50px; padding: 20px;
-      border: 4px solid #b794f4; box-shadow: 0 8px 0 #0d0820; margin-top: 20px;
+      background: #511e3a; border-radius: 50px; padding: 20px;
+      border: 4px solid #fbe158; box-shadow: 0 8px 0 #2f0f2f; margin-top: 20px;
     }
 
     /* LEVELS */
     .levels-wrap {
-      background: #2d1b4a; border-radius: 60px; padding: 24px;
-      border: 4px solid #b794f4; box-shadow: 0 10px 0 #0d0820;
+      background: #dc80b0; border-radius: 60px; padding: 24px;
+      border: 4px solid #fbe158; box-shadow: 0 10px 0 #511e3a;
     }
-    .levels-title { font-size: 2rem; font-weight: 900; color: #ffd6b0; text-align: center; margin-bottom: 20px; }
+    .levels-title { font-size: 2rem; font-weight: 900; color: #3e1b2b; text-align: center; margin-bottom: 20px; text-shadow: 2px 2px 0 #ffb6d1; }
     .levels-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
     .lv-btn {
-      background: #392b54; border: 3px solid #b794f4; border-radius: 40px;
-      padding: 16px 8px; font-weight: 900; color: white; font-size: 1.1rem;
-      box-shadow: 0 7px 0 #0d0820; cursor: pointer; transition: 0.1s; text-align: center;
+      background: #511e3a; border: 3px solid #fbe158; border-radius: 40px;
+      padding: 16px 8px; font-weight: 900; color: #fef9d7; font-size: 1.1rem;
+      box-shadow: 0 7px 0 #2f0f2f; cursor: pointer; transition: 0.1s; text-align: center;
     }
-    .lv-btn:active { transform: translateY(6px); box-shadow: 0 2px 0 #0d0820; }
-    .lv-btn.done { background: #2d5a3a; border-color: #9ae6b4; }
-    .lv-btn.soar-lv { border-color: #9ae6b4; background: #1a2e22; }
-    .lv-btn.soar-lv.done { background: #2d5a3a; }
+    .lv-btn:active { transform: translateY(6px); box-shadow: 0 2px 0 #2f0f2f; }
+    .lv-btn.done { background: #1e3a3a; border-color: #9bc4cb; color: #9bc4cb; }
+    .lv-btn.soar-lv { border-color: #9bc4cb; background: #1e3a3a; color: #9bc4cb; }
+    .lv-btn.soar-lv.done { background: #2d5a5a; border-color: #9bc4cb; }
     .lv-icon { font-size: 2.2rem; display: block; margin-bottom: 6px; }
 
     /* QUIZ */
     .quiz-head {
-      background: #2d1b4a; border-radius: 50px; padding: 18px 22px;
-      border: 4px solid #b794f4; box-shadow: 0 7px 0 #0d0820; margin-bottom: 18px;
+      background: #511e3a; border-radius: 50px; padding: 18px 22px;
+      border: 4px solid #fbe158; box-shadow: 0 7px 0 #2f0f2f; margin-bottom: 18px;
     }
-    .quiz-meta { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 900; color: #ffd6b0; }
+    .quiz-meta { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 900; color: #fbe158; }
     .quiz-score-row { display: flex; gap: 12px; margin: 12px 0; }
-    .qs-item { background: #392b54; border-radius: 35px; padding: 10px; flex: 1; text-align: center; border: 2px solid #b794f4; }
-    .qs-val { font-size: 1.8rem; font-weight: 900; color: #ffd6b0; }
-    .prog-bar { background: #1a1035; height: 14px; border-radius: 30px; border: 2px solid #b794f4; }
-    .prog-fill { height: 100%; border-radius: 30px; background: linear-gradient(90deg,#c4a5ff,#ffd6b0); transition: width 0.3s; }
+    .qs-item { background: #dc80b0; border-radius: 35px; padding: 10px; flex: 1; text-align: center; border: 2px solid #fbe158; color: #3e1b2b; }
+    .qs-val { font-size: 1.8rem; font-weight: 900; color: #3e1b2b; }
+    .prog-bar { background: #2f0f2f; height: 14px; border-radius: 30px; border: 2px solid #fbe158; }
+    .prog-fill { height: 100%; border-radius: 30px; background: linear-gradient(90deg, #fbe158, #ffb6d1); transition: width 0.3s; }
 
     .lesson-card {
-      background: #2d1b4a; border-radius: 50px; padding: 24px;
-      border: 4px solid #b794f4; box-shadow: 0 8px 0 #0d0820; margin-bottom: 18px;
+      background: #dc80b0; border-radius: 50px; padding: 24px;
+      border: 4px solid #fbe158; box-shadow: 0 8px 0 #511e3a; margin-bottom: 18px;
     }
     .lesson-badge {
-      background: #ffb347; color: #1e1133; border-radius: 40px;
+      background: #ffb6d1; color: #3e1b2b; border-radius: 40px;
       padding: 8px 22px; font-weight: 900; font-size: 1.2rem;
-      display: inline-block; border: 3px solid white; margin-bottom: 16px;
+      display: inline-block; border: 3px solid #fef9d7; margin-bottom: 16px;
     }
     .lesson-visual {
-      background: #1a1035; border-radius: 40px; padding: 24px;
-      font-size: 1.6rem; text-align: center; border: 4px dashed #c4a5ff;
-      margin: 12px 0; line-height: 1.6; white-space: pre-wrap;
+      background: #511e3a; border-radius: 40px; padding: 24px;
+      font-size: 1.6rem; text-align: center; border: 4px dashed #fbe158;
+      margin: 12px 0; line-height: 1.6; white-space: pre-wrap; color: #fef9d7;
     }
     .lesson-explanation {
-      background: #392b54; border-radius: 40px; padding: 20px;
-      font-size: 1.2rem; border: 2px solid #b794f4; line-height: 1.7;
+      background: #511e3a; border-radius: 40px; padding: 20px;
+      font-size: 1.2rem; border: 2px solid #fbe158; line-height: 1.7; color: #fef9d7;
     }
 
-    /* HINT BOX — full column layout */
+    /* HINT BOX — fighter tips */
     .hint-box {
-      background: #2a1f3a; border-radius: 30px; padding: 20px;
+      background: #2f1f2f; border-radius: 30px; padding: 20px;
       font-size: 1.1rem; margin: 14px 0;
-      border: 3px solid #ffd6b0; color: #f5e9ff;
+      border: 3px solid #fbe158; color: #fef9d7;
       display: none; line-height: 1.7;
     }
     .hint-box.show { display: block; }
     .hint-bubble {
-      background: #392b54; border-radius: 16px; padding: 12px 16px;
-      margin: 8px 0; color: #e4d2ff; line-height: 1.7;
+      background: #511e3a; border-radius: 16px; padding: 12px 16px;
+      margin: 8px 0; color: #fbe158; line-height: 1.7;
     }
     .hint-col {
-      background: #1a1035; border-radius: 14px; padding: 12px 20px;
+      background: #2f0f2f; border-radius: 14px; padding: 12px 20px;
       display: inline-block; min-width: 110px; text-align: right;
       font-family: 'Courier New', monospace; font-size: 1.4rem; margin: 6px auto;
+      border: 2px solid #fbe158;
     }
     .hint-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 8px 0; }
     .hint-chip {
       display: inline-flex; align-items: center; justify-content: center;
       min-width: 38px; height: 38px; border-radius: 9px;
       font-size: 1.2rem; font-weight: bold; padding: 0 6px;
+      background: #fbe158 !important; color: #3e1b2b !important;
     }
 
     .q-card {
-      background: #2d1b4a; border-radius: 50px; padding: 24px;
-      border: 4px solid #ffb347; box-shadow: 0 8px 0 #0d0820;
+      background: #dc80b0; border-radius: 50px; padding: 24px;
+      border: 4px solid #ffb6d1; box-shadow: 0 8px 0 #511e3a;
     }
-    .question-text { font-size: 1.9rem; font-weight: 900; text-align: center; margin-bottom: 20px; color: #ffd6b0; }
+    .question-text { font-size: 1.9rem; font-weight: 900; text-align: center; margin-bottom: 20px; color: #3e1b2b; }
 
-    /* SOAR open-ended question */
     .soar-q-card {
-      background: #1a2e22; border-radius: 50px; padding: 24px;
-      border: 4px solid #9ae6b4; box-shadow: 0 8px 0 #0d0820;
+      background: #1e3a3a; border-radius: 50px; padding: 24px;
+      border: 4px solid #9bc4cb; box-shadow: 0 8px 0 #0d2828;
     }
-    .soar-question { font-size: 1.6rem; font-weight: 900; color: #9ae6b4; margin-bottom: 16px; }
-    .soar-story { font-size: 1.2rem; color: #e4d2ff; line-height: 1.7; margin-bottom: 14px; }
+    .soar-question { font-size: 1.6rem; font-weight: 900; color: #9bc4cb; margin-bottom: 16px; }
+    .soar-story { font-size: 1.2rem; color: #fef9d7; line-height: 1.7; margin-bottom: 14px; }
     .soar-answer-input {
       width: 100%; padding: 14px; font-size: 1.6rem; font-family: inherit;
-      background: #1a1035; border: 3px solid #9ae6b4; border-radius: 40px;
-      color: #ffd6b0; text-align: center; outline: none; margin: 10px 0;
+      background: #511e3a; border: 3px solid #fbe158; border-radius: 40px;
+      color: #fef9d7; text-align: center; outline: none; margin: 10px 0;
     }
 
     .options-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin: 18px 0; }
     .opt-btn {
-      background: #4a2f7a; border: 4px solid #b794f4; border-radius: 50px;
-      padding: 22px 10px; font-size: 1.8rem; font-weight: 900; color: white;
-      cursor: pointer; box-shadow: 0 7px 0 #0d0820; transition: 0.1s; min-height: 90px;
+      background: #511e3a; border: 4px solid #fbe158; border-radius: 50px;
+      padding: 22px 10px; font-size: 1.8rem; font-weight: 900; color: #fef9d7;
+      cursor: pointer; box-shadow: 0 7px 0 #2f0f2f; transition: 0.1s; min-height: 90px;
     }
-    .opt-btn:active:not(:disabled) { transform: translateY(7px); box-shadow: 0 2px 0 #0d0820; }
-    .opt-btn.correct { background: #2d6a4f; border-color: #9ae6b4; }
-    .opt-btn.wrong { background: #9d4b4b; border-color: #ffb3b3; }
+    .opt-btn:active:not(:disabled) { transform: translateY(7px); box-shadow: 0 2px 0 #2f0f2f; }
+    .opt-btn.correct { background: #2d5a5a; border-color: #9bc4cb; }
+    .opt-btn.wrong { background: #b04f6f; border-color: #ffb3b3; }
     .opt-btn:disabled { opacity: 0.8; }
 
     .feedback {
@@ -207,36 +212,34 @@
       font-size: 1.3rem; margin: 12px 0; display: none;
     }
     .feedback.show { display: block; }
-    .feedback.ok { background: #2d6a4f; border: 4px solid #9ae6b4; color: #e6ffe6; }
-    .feedback.bad { background: #9d4b4b; border: 4px solid #ffb3b3; color: #ffe6e6; }
+    .feedback.ok { background: #2d5a5a; border: 4px solid #9bc4cb; color: #e6ffe6; }
+    .feedback.bad { background: #b04f6f; border: 4px solid #ffb3b3; color: #ffe6e6; }
 
     .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
     .btn {
       padding: 16px 24px; border: none; border-radius: 50px; font-weight: 900;
       font-size: 1.2rem; cursor: pointer; border: 4px solid white;
-      box-shadow: 0 5px 0 #0d0820; transition: 0.1s; flex: 1; min-height: 60px;
+      box-shadow: 0 5px 0 #511e3a; transition: 0.1s; flex: 1; min-height: 60px;
     }
-    .btn:active { transform: translateY(5px); box-shadow: 0 2px 0 #0d0820; }
-    .btn-check { background: #c4a5ff; color: #1e1133; }
-    .btn-next  { background: #9ae6b4; color: #1e4620; display: none; }
-    .btn-hint  { background: #ffb347; color: #2d1b4a; }
-    .btn-back  { background: #6b4f9f; color: white; }
+    .btn:active { transform: translateY(5px); box-shadow: 0 2px 0 #511e3a; }
+    .btn-check { background: #fbe158; color: #3e1b2b; }
+    .btn-next  { background: #9bc4cb; color: #1e3a3a; display: none; }
+    .btn-hint  { background: #ffb6d1; color: #3e1b2b; }
+    .btn-back  { background: #511e3a; color: #fef9d7; border-color: #fbe158; }
 
     .result-card {
-      background: #2d1b4a; border-radius: 70px; padding: 36px 22px;
-      text-align: center; border: 6px solid #ffb347; box-shadow: 0 12px 0 #0d0820;
+      background: #dc80b0; border-radius: 70px; padding: 36px 22px;
+      text-align: center; border: 6px solid #fbe158; box-shadow: 0 12px 0 #511e3a;
     }
     .result-emoji { font-size: 5rem; }
-    .result-title { font-size: 3rem; font-weight: 900; color: #ffd6b0; text-shadow: 3px 3px 0 #8a6ccf; }
+    .result-title { font-size: 3rem; font-weight: 900; color: #3e1b2b; text-shadow: 3px 3px 0 #ffb6d1; }
     .result-stars { font-size: 3.5rem; margin: 14px; }
     .mistake-item {
-      background: #392b54; border-radius: 35px; padding: 14px;
-      margin: 10px 0; border: 3px solid #b794f4; text-align: left; font-size: 1.1rem;
+      background: #511e3a; border-radius: 35px; padding: 14px;
+      margin: 10px 0; border: 3px solid #fbe158; text-align: left; font-size: 1.1rem; color: #fef9d7;
     }
 
-    /* ── RESPONSIVE ─────────────────────────────────────────────── */
-
-    /* Small phones < 380px — tighten everything */
+    /* Responsive */
     @media (max-width: 380px) {
       body { padding: 6px; }
       .topbar { padding: 10px 14px; border-radius: 40px; }
@@ -266,8 +269,6 @@
       .result-title { font-size: 2.2rem; }
       .result-stars { font-size: 2.8rem; }
     }
-
-    /* Phones 380–600px — default styles + small fixes */
     @media (max-width: 600px) {
       .options-grid { grid-template-columns: 1fr; }
       .menu-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -276,22 +277,6 @@
       .topbar-title { font-size: 1.4rem; }
       .levels-grid { grid-template-columns: repeat(3, 1fr); }
     }
-
-    /* Landscape phones — compact vertically */
-    @media (max-height: 500px) and (orientation: landscape) {
-      .quiz-head { padding: 10px 16px; }
-      .lesson-card { padding: 14px; }
-      .lesson-visual { padding: 12px; font-size: 1.2rem; }
-      .q-card, .soar-q-card { padding: 14px; }
-      .btn-row { margin-top: 10px; gap: 8px; }
-      .btn { min-height: 48px; font-size: 1rem; padding: 10px; }
-      .quick-nav { padding: 6px 10px; }
-      .qn-btn { padding: 8px 4px; }
-      .result-card { padding: 20px 16px; }
-      .result-emoji { font-size: 3rem; }
-    }
-
-    /* Tablet 600–1024px — 3-col grids, larger text */
     @media (min-width: 600px) and (max-width: 1023px) {
       .wrap { max-width: 780px; }
       .path-header h1 { font-size: 2.6rem; }
@@ -316,13 +301,7 @@
       .qn-btn { font-size: 1rem; padding: 14px 8px; }
       .topbar-title { font-size: 2rem; }
       .tb-btn { font-size: 1.2rem; padding: 12px 24px; min-height: 56px; }
-      .result-emoji { font-size: 6rem; }
-      .result-title { font-size: 3.2rem; }
-      .result-stars { font-size: 4rem; }
-      .hint-col { font-size: 1.6rem; padding: 14px 24px; }
     }
-
-    /* Desktop 1024px+ — 4-col grids, wide layout */
     @media (min-width: 1024px) {
       body { padding: 20px 40px; }
       .wrap { max-width: 1100px; }
@@ -334,7 +313,6 @@
       .mc-icon { font-size: 4rem; }
       .mc-name { font-size: 1.7rem; }
       .mc-desc { font-size: 1.1rem; }
-      .mc-badge { font-size: 1rem; padding: 8px 20px; }
       .levels-grid { grid-template-columns: repeat(5, 1fr); gap: 16px; }
       .lv-btn { font-size: 1.3rem; padding: 20px 10px; border-radius: 50px; }
       .lv-icon { font-size: 2.6rem; }
@@ -342,34 +320,7 @@
       .opt-btn { font-size: 2.2rem; padding: 28px 14px; min-height: 110px; border-radius: 60px; }
       .question-text { font-size: 2.4rem; }
       .btn { font-size: 1.4rem; padding: 20px; min-height: 72px; border-radius: 60px; }
-      .lesson-card { padding: 32px; border-radius: 60px; }
-      .lesson-visual { font-size: 2rem; padding: 32px; }
-      .lesson-explanation { font-size: 1.4rem; padding: 24px; }
-      .quiz-head { padding: 24px 30px; border-radius: 60px; }
-      .qs-val { font-size: 2.4rem; }
-      .soar-answer-input { font-size: 2rem; padding: 18px; }
-      .qn-btn { font-size: 1.1rem; padding: 14px 10px; }
-      .topbar { padding: 18px 32px; }
-      .topbar-title { font-size: 2.2rem; }
-      .tb-btn { font-size: 1.3rem; padding: 14px 28px; min-height: 62px; }
-      .tb-lbl { font-size: 1.3rem; padding: 14px 28px; }
-      .result-card { max-width: 700px; margin: 0 auto; padding: 50px 32px; }
-      .result-emoji { font-size: 7rem; }
-      .result-title { font-size: 3.8rem; }
-      .result-stars { font-size: 4.5rem; }
-      .hint-col { font-size: 1.8rem; padding: 16px 28px; min-width: 140px; }
-      .hint-bubble { font-size: 1.2rem; padding: 14px 18px; }
-      .hint-chip { min-width: 44px; height: 44px; font-size: 1.4rem; }
-      .progress-chart { padding: 28px 32px; }
     }
-
-    /* Large desktop 1400px+ */
-    @media (min-width: 1400px) {
-      .wrap { max-width: 1280px; }
-      .menu-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; }
-      .menu-card { min-height: 240px; }
-    }
-
   </style>
 </head>
 <body>
@@ -377,105 +328,108 @@
 
   <!-- TOP BAR -->
   <div class="topbar">
-    <div class="topbar-title">🌈 Safia's Math Adventure</div>
+    <div class="topbar-title">🥊 Cute Combat Dojo · All Grades with Multiplication & Division Hints</div>
     <div class="topbar-btns">
-      <button class="tb-btn tb-save" onclick="saveProgress()">💾 Save</button>
-      <button class="tb-btn tb-load" onclick="loadProgress()">📂 Load</button>
-      <input type="file" id="loadFile" accept=".json" style="display:none" onchange="loadFile(event)">
+      <button class="tb-btn tb-save" id="saveBtn">💾 Save (Belt)</button>
+      <button class="tb-btn tb-load" id="loadBtn">📂 Load (Match)</button>
+      <input type="file" id="loadFile" accept=".json" style="display:none">
     </div>
-    <div class="tb-lbl" id="saveLbl">⭐ 0 stars</div>
+    <div class="tb-lbl" id="saveLbl">⭐ 0 power stars</div>
   </div>
 
   <!-- HOME -->
   <div class="screen active" id="homeScreen">
     <div class="path-header">
-      <h1>🌟 The Math Path</h1>
-      <p>from K → 3rd grade!</p>
+      <h1>🥋 Complete Dojo Math Quest</h1>
+      <p>K/1st · 2nd · 3rd Grade with NEW Multiplication & Division Hints!</p>
     </div>
 
+    <!-- K/1st Grade - Hello Kitty's Basics -->
     <div class="grade-section">
-      <div class="grade-title">🍎 K / 1st Grade</div>
+      <div class="grade-title">🍭 K/1st · Hello Kitty's Basics</div>
       <div class="menu-grid">
-        <div class="menu-card grade1" onclick="openCategory('add1')">
-          <div class="mc-icon">🧸➕</div><div class="mc-name">Addition to 10</div>
-          <div class="mc-desc">count with fingers</div><div class="mc-badge">5 lessons</div>
+        <div class="menu-card grade1" data-category="add1">
+          <div class="mc-icon">🐱➕</div><div class="mc-name">Addition (Paw strike)</div>
+          <div class="mc-desc">count with Hello Kitty</div><div class="mc-badge">5 lessons</div>
         </div>
-        <div class="menu-card grade1" onclick="openCategory('sub1')">
-          <div class="mc-icon">🍪➖</div><div class="mc-name">Subtraction to 10</div>
+        <div class="menu-card grade1" data-category="sub1">
+          <div class="mc-icon">🍑➖</div><div class="mc-name">Subtraction (Peach dodge)</div>
           <div class="mc-desc">take away cookies</div><div class="mc-badge">5 lessons</div>
         </div>
-        <div class="menu-card grade1" onclick="openCategory('place1')">
-          <div class="mc-icon">🔟</div><div class="mc-name">Tens &amp; Ones</div>
+        <div class="menu-card grade1" data-category="place1">
+          <div class="mc-icon">🔟🐻</div><div class="mc-name">Tens & Ones (Labubu grip)</div>
           <div class="mc-desc">groups of ten</div><div class="mc-badge">5 lessons</div>
         </div>
       </div>
     </div>
 
+    <!-- 2nd Grade - Princess Peach's Power-ups -->
     <div class="grade-section">
-      <div class="grade-title">📘 2nd Grade</div>
+      <div class="grade-title">👑 2nd Grade · Princess Peach's Power-ups</div>
       <div class="menu-grid">
-        <div class="menu-card grade2" onclick="openCategory('add2')">
-          <div class="mc-icon">➕➕</div><div class="mc-name">Add to 100</div>
+        <div class="menu-card grade2" data-category="add2">
+          <div class="mc-icon">➕👑</div><div class="mc-name">Add to 100 (royal combo)</div>
           <div class="mc-desc">with regrouping</div><div class="mc-badge">5 lessons</div>
         </div>
-        <div class="menu-card grade2" onclick="openCategory('sub2')">
-          <div class="mc-icon">➖➖</div><div class="mc-name">Subtract to 100</div>
-          <div class="mc-desc">borrowing</div><div class="mc-badge">5 lessons</div>
+        <div class="menu-card grade2" data-category="sub2">
+          <div class="mc-icon">➖👗</div><div class="mc-name">Subtract to 100 (borrowing)</div>
+          <div class="mc-desc">borrow like a princess</div><div class="mc-badge">5 lessons</div>
         </div>
-        <div class="menu-card grade2" onclick="openCategory('money')">
-          <div class="mc-icon">💰</div><div class="mc-name">Money</div>
-          <div class="mc-desc">coins &amp; cents</div><div class="mc-badge">5 lessons</div>
+        <div class="menu-card grade2" data-category="money">
+          <div class="mc-icon">💰🍑</div><div class="mc-name">Money (Peach's coins)</div>
+          <div class="mc-desc">coins & cents</div><div class="mc-badge">5 lessons</div>
         </div>
-        <div class="menu-card grade2" onclick="openCategory('measure')">
-          <div class="mc-icon">📏</div><div class="mc-name">Measurement</div>
+        <div class="menu-card grade2" data-category="measure">
+          <div class="mc-icon">📏🐱</div><div class="mc-name">Measurement (Kitty's ruler)</div>
           <div class="mc-desc">inches, cm</div><div class="mc-badge">5 lessons</div>
         </div>
       </div>
     </div>
 
+    <!-- 3rd Grade - Labubu's MMA Math (with NEW multiplication & division hints) -->
     <div class="grade-section">
-      <div class="grade-title">🚀 3rd Grade</div>
+      <div class="grade-title">🐾 3rd Grade · Labubu's MMA Math (NEW HINTS!)</div>
       <div class="menu-grid">
-        <div class="menu-card grade3" onclick="openCategory('multiply')">
-          <div class="mc-icon">✖️</div><div class="mc-name">Multiplication</div>
-          <div class="mc-desc">groups &amp; arrays</div><div class="mc-badge">5 lessons</div>
+        <div class="menu-card grade3" data-category="multiply">
+          <div class="mc-icon">✖️🐻</div><div class="mc-name">Multiplication (Group Grapple)</div>
+          <div class="mc-desc">groups & arrays</div><div class="mc-badge">5 lessons</div>
         </div>
-        <div class="menu-card grade3" onclick="openCategory('divide')">
-          <div class="mc-icon">➗</div><div class="mc-name">Division</div>
-          <div class="mc-desc">sharing equally</div><div class="mc-badge">5 lessons</div>
+        <div class="menu-card grade3" data-category="divide">
+          <div class="mc-icon">➗🥋</div><div class="mc-name">Division (Sharing Takedown)</div>
+          <div class="mc-desc">share equally</div><div class="mc-badge">5 lessons</div>
         </div>
-        <div class="menu-card grade3" onclick="openCategory('fractions')">
-          <div class="mc-icon">🥧</div><div class="mc-name">Fractions</div>
-          <div class="mc-desc">halves, thirds</div><div class="mc-badge">5 lessons</div>
+        <div class="menu-card grade3" data-category="multiply_facts">
+          <div class="mc-icon">🔢🐻</div><div class="mc-name">Multiplication Facts</div>
+          <div class="mc-desc">times tables</div><div class="mc-badge">5 lessons</div>
         </div>
-        <div class="menu-card grade3" onclick="openCategory('area')">
-          <div class="mc-icon">📐</div><div class="mc-name">Area</div>
-          <div class="mc-desc">count squares</div><div class="mc-badge">5 lessons</div>
+        <div class="menu-card grade3" data-category="division_facts">
+          <div class="mc-icon">🔢🥊</div><div class="mc-name">Division Facts</div>
+          <div class="mc-desc">inverse operations</div><div class="mc-badge">5 lessons</div>
         </div>
-        <div class="menu-card grade3" onclick="openCategory('rounding')">
-          <div class="mc-icon">🔟</div><div class="mc-name">Rounding</div>
-          <div class="mc-desc">nearest ten</div><div class="mc-badge">5 lessons</div>
+        <div class="menu-card grade3" data-category="remainder">
+          <div class="mc-icon">🔄🐻</div><div class="mc-name">Remainder (Leftovers)</div>
+          <div class="mc-desc">with remainders</div><div class="mc-badge">5 lessons</div>
         </div>
       </div>
     </div>
 
     <!-- SOAR section -->
     <div class="grade-section">
-      <div class="soar-grade-title">🦅 SOAR Adventures</div>
-      <div style="color:#9ae6b4;margin-bottom:14px;font-size:1.1rem;">Open-ended challenges — explore, reason &amp; discover!</div>
+      <div class="soar-grade-title">🦍 LABUBU'S SOAR (open‑ended mma)</div>
+      <div style="color:#9bc4cb;margin-bottom:14px;font-size:1.1rem;">Challenges — grapple, reason & discover!</div>
       <div class="menu-grid">
-        <div class="menu-card soar-card" onclick="openCategory('soar1')">
-          <div class="mc-icon">🌱🔢</div><div class="mc-name">SOAR Grade 1</div>
-          <div class="mc-desc">counting, shapes, patterns</div>
+        <div class="menu-card soar-card" data-category="soar1">
+          <div class="mc-icon">🌱🐻</div><div class="mc-name">SOAR 1 (white belt)</div>
+          <div class="mc-desc">counting, patterns, shapes</div>
           <div class="mc-badge soar-badge">5 challenges</div>
         </div>
-        <div class="menu-card soar-card" onclick="openCategory('soar2')">
-          <div class="mc-icon">🌿➕</div><div class="mc-name">SOAR Grade 2</div>
+        <div class="menu-card soar-card" data-category="soar2">
+          <div class="mc-icon">🌿🍑</div><div class="mc-name">SOAR 2 (yellow belt)</div>
           <div class="mc-desc">adding, measuring, money</div>
           <div class="mc-badge soar-badge">5 challenges</div>
         </div>
-        <div class="menu-card soar-card" onclick="openCategory('soar3')">
-          <div class="mc-icon">🚀🧠</div><div class="mc-name">SOAR Grade 3</div>
+        <div class="menu-card soar-card" data-category="soar3">
+          <div class="mc-icon">🚀🐱</div><div class="mc-name">SOAR 3 (black belt)</div>
           <div class="mc-desc">multiply, fractions, area</div>
           <div class="mc-badge soar-badge">5 challenges</div>
         </div>
@@ -484,32 +438,32 @@
 
     <div class="progress-chart" id="progressChart"></div>
     <div class="quick-nav">
-      <button class="qn-btn qn-soar" onclick="document.getElementById('homeScreen').scrollIntoView({behavior:'smooth',block:'end'})">🦅 SOAR</button>
-      <button class="qn-btn qn-math" onclick="document.getElementById('homeScreen').scrollIntoView({behavior:'smooth',block:'start'})">🧮 Maths</button>
+      <button class="qn-btn qn-soar" onclick="document.getElementById('homeScreen').scrollIntoView({behavior:'smooth',block:'end'})">🐻 Labubu SOAR</button>
+      <button class="qn-btn qn-math" onclick="document.getElementById('homeScreen').scrollIntoView({behavior:'smooth',block:'start'})">🥊 Math Dojo</button>
     </div>
   </div>
 
   <!-- LEVELS -->
   <div class="screen" id="levelsScreen">
     <div class="levels-wrap">
-      <div class="levels-title" id="levelsTitle">pick a lesson</div>
+      <div class="levels-title" id="levelsTitle">pick a belt / lesson</div>
       <div class="levels-grid" id="levelsGrid"></div>
       <div style="margin-top:20px;text-align:center;">
-        <button class="btn btn-back" onclick="showHome()">← back to home</button>
+        <button class="btn btn-back" id="backToHomeBtn">← back to dojo</button>
       </div>
     </div>
     <div class="quick-nav">
-      <button class="qn-btn qn-home" onclick="showHome()">🏠 Home</button>
-      <button class="qn-btn qn-soar" onclick="openCategory('soar1')">🦅 SOAR</button>
-      <button class="qn-btn qn-math" onclick="showHome()">🧮 Maths</button>
+      <button class="qn-btn qn-home" id="homeFromLevels">🏠 Dojo</button>
+      <button class="qn-btn qn-soar" id="soarFromLevels">🐻 Labubu</button>
+      <button class="qn-btn qn-math" id="mathFromLevels">🥊 Maths</button>
     </div>
   </div>
 
   <!-- QUIZ -->
   <div class="screen" id="quizScreen">
     <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-      <button class="btn btn-back" style="flex:none;padding:10px 18px;font-size:1rem;" onclick="leaveQuiz()">🏠 Home</button>
-      <button class="btn btn-back" style="flex:none;padding:10px 18px;font-size:1rem;background:#392b54;" onclick="leaveQuizToLevels()">← Levels</button>
+      <button class="btn btn-back" id="homeFromQuiz" style="flex:none;padding:10px 18px;font-size:1rem;">🏠 Dojo</button>
+      <button class="btn btn-back" id="levelsFromQuiz" style="flex:none;padding:10px 18px;font-size:1rem;background:#511e3a;">← Levels</button>
     </div>
     <div class="quiz-head">
       <div class="quiz-meta">
@@ -527,213 +481,259 @@
     <div class="hint-box" id="hintBox"></div>
     <div class="feedback" id="feedback"></div>
     <div class="btn-row">
-      <button class="btn btn-hint" id="hintBtn" onclick="showHint()">💡 Hint</button>
-      <button class="btn btn-check" id="checkBtn" onclick="checkAnswer()">✅ Check</button>
-      <button class="btn btn-next" id="nextBtn" onclick="nextQuestion()">▶ Next</button>
+      <button class="btn btn-hint" id="hintBtn">💡 Hint (coach's tip)</button>
+      <button class="btn btn-check" id="checkBtn">✅ Check move</button>
+      <button class="btn btn-next" id="nextBtn">▶ Next round</button>
     </div>
     <div class="quick-nav">
-      <button class="qn-btn qn-home" onclick="leaveQuiz()">🏠 Home</button>
-      <button class="qn-btn qn-soar" onclick="leaveAndGo('soar1')">🦅 SOAR</button>
-      <button class="qn-btn qn-math" onclick="leaveQuizToLevels()">← Levels</button>
+      <button class="qn-btn qn-home" id="homeFromQuizQuick">🏠 Dojo</button>
+      <button class="qn-btn qn-soar" id="soarFromQuiz">🐻 Labubu</button>
+      <button class="qn-btn qn-math" id="levelsFromQuizQuick">← Levels</button>
     </div>
   </div>
 
   <!-- RESULT -->
   <div class="screen" id="resultScreen">
     <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-      <button class="btn btn-back" style="flex:none;padding:10px 18px;font-size:1rem;" onclick="showHome()">🏠 Home</button>
-      <button class="btn btn-back" style="flex:none;padding:10px 18px;font-size:1rem;background:#392b54;" onclick="leaveQuizToLevels()">← Levels</button>
+      <button class="btn btn-back" id="homeFromResult" style="flex:none;padding:10px 18px;font-size:1rem;">🏠 Dojo</button>
+      <button class="btn btn-back" id="levelsFromResult" style="flex:none;padding:10px 18px;font-size:1rem;background:#511e3a;">← Levels</button>
     </div>
     <div class="result-card">
       <div class="result-emoji" id="resEmoji">🏆</div>
-      <div class="result-title" id="resTitle">Great job!</div>
+      <div class="result-title" id="resTitle">Great fight!</div>
       <div class="result-stars" id="resStars">⭐⭐⭐</div>
       <div class="result-msg" id="resMsg"></div>
       <div id="mistakeSection"></div>
       <div class="btn-row">
-        <button class="btn btn-back" id="retryBtn">🔁 Try again</button>
-        <button class="btn btn-check" onclick="showHome()">🏠 Home</button>
-        <button class="btn btn-next" id="nextLvBtn" style="display:none">➡ Next lesson</button>
+        <button class="btn btn-back" id="retryBtn">🔁 Rematch</button>
+        <button class="btn btn-check" id="homeFromResultBtn">🏠 Dojo</button>
+        <button class="btn btn-next" id="nextLvBtn" style="display:none">➡ Next belt</button>
       </div>
     </div>
     <div class="quick-nav">
-      <button class="qn-btn qn-home" onclick="showHome()">🏠 Home</button>
-      <button class="qn-btn qn-soar" onclick="leaveAndGo('soar1')">🦅 SOAR</button>
-      <button class="qn-btn qn-math" onclick="leaveQuizToLevels()">← Levels</button>
+      <button class="qn-btn qn-home" id="homeFromResultQuick">🏠 Dojo</button>
+      <button class="qn-btn qn-soar" id="soarFromResult">🐻 Labubu</button>
+      <button class="qn-btn qn-math" id="levelsFromResultQuick">← Levels</button>
     </div>
   </div>
 </div>
 
 <script>
 (function() {
+  // Helper functions
   function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
   function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
 
-  // ── HINT ENGINE ─────────────────────────────────────────────────────────
-  // Rules:
-  //   subtractHint(big, small): ones(big)>=ones(small) → simple | else → borrow
-  //   addHint(a, b):            ones(a)+ones(b)<=9    → simple | else → carry
-  //   missingAdd(known, total): show subtractHint(total, known)
-  //   missingSub(total, result):show subtractHint(total, result)
-
+  // ============================================================
+  //  VISUAL HINT BUILDING BLOCKS (from original)
+  // ============================================================
   function hBubble(html){return `<div class="hint-bubble">${html}</div>`;}
+  function hChip(n,bg){ return `<span class="hint-chip" style="background:${bg||'#fbe158'};color:#3e1b2b;">${n}</span>`; }
+  function hChips(steps, hlLast){ return steps.map((n,i)=>hChip(n,(hlLast&&i===steps.length-1)?'#9bc4cb':'#fbe158')).join(' '); }
+  function hCol(rows){ const lines=rows.map(r=>`<div style="color:${r.c||'#fbe158'};font-family:'Courier New';font-size:1.4rem;text-align:right;padding:1px 0;">${r.t}</div>`).join(''); return `<div style="text-align:center;margin:8px 0;"><div class="hint-col">${lines}</div></div>`; }
+  function hWrap(border,icon,title,body){ return `<div style="border:3px solid ${border};border-radius:20px;padding:14px;margin:6px 0;"><div style="color:${border};font-weight:900;font-size:1.1rem;text-align:center;margin-bottom:10px;">${icon} ${title}</div>${body}</div>`; }
 
-  function hChip(n,bg){
-    return `<span class="hint-chip" style="background:${bg||'#FF9FCF'};color:#1a0f2a;">${n}</span>`;
-  }
-  function hChips(steps, hlLast){
-    return steps.map((n,i)=>hChip(n,(hlLast&&i===steps.length-1)?'#9ae6b4':'#FF9FCF')).join(' ');
-  }
-  function hCol(rows){
-    const lines=rows.map(r=>`<div style="color:${r.c||'#ffd6b0'};font-family:'Courier New';font-size:1.4rem;text-align:right;padding:1px 0;">${r.t}</div>`).join('');
-    return `<div style="text-align:center;margin:8px 0;"><div class="hint-col">${lines}</div></div>`;
-  }
-  function hWrap(border,icon,title,body){
-    return `<div style="border:3px solid ${border};border-radius:20px;padding:14px;margin:6px 0;">
-      <div style="color:${border};font-weight:900;font-size:1.1rem;text-align:center;margin-bottom:10px;">${icon} ${title}</div>
-      ${body}</div>`;
-  }
-
+  // ============================================================
+  //  ORIGINAL HINT FUNCTIONS (from first code)
+  // ============================================================
   function subtractHint(big, small){
     const oB=big%10, oS=small%10, tB=Math.floor(big/10), tS=Math.floor(small/10);
-    const needBorrow=oB<oS, ans=big-small;
-    const pad=String(big).length;
-    if(!needBorrow){
-      return hWrap('#9ae6b4','➖',`${big} − ${small}`,
-        hBubble(`<strong style="color:#ffd6b0;">Right side (ones):</strong> Is ${oB} ≥ ${oS}? <strong style="color:#9ae6b4;">YES ✅</strong> → ${oB} − ${oS} = ${oB-oS}`)
-        +hBubble(`<strong style="color:#ffd6b0;">Left side (tens):</strong> ${tB} − ${tS} = ${tB-tS}`)
-        +hCol([{t:'  '+big},{t:'− '+String(small).padStart(pad,' ')},{t:'─'.repeat(pad+2),c:'#9e8fc9'},{t:'  '+ans,c:'#9ae6b4'}])
-        +hBubble(`<strong style="color:#9ae6b4;">✅ ${big} − ${small} = ${ans} ⭐</strong>`)
-      );
+    const needBorrow=oB<oS, ans=big-small; const pad=String(big).length;
+    if(!needBorrow){ return hWrap('#9bc4cb','➖',`${big} − ${small}`, hBubble(`<strong style="color:#fbe158;">Right side (ones):</strong> Is ${oB} ≥ ${oS}? <strong style="color:#9bc4cb;">YES ✅</strong> → ${oB} − ${oS} = ${oB-oS}`) +hBubble(`<strong style="color:#fbe158;">Left side (tens):</strong> ${tB} − ${tS} = ${tB-tS}`) +hCol([{t:'  '+big},{t:'− '+String(small).padStart(pad,' ')},{t:'─'.repeat(pad+2),c:'#ffb6d1'},{t:'  '+ans,c:'#9bc4cb'}]) +hBubble(`<strong style="color:#9bc4cb;">✅ ${big} − ${small} = ${ans} ⭐</strong>`) ); 
+    } else { const bOnes=oB+10, nTens=tB-1, oDiff=bOnes-oS, tDiff=nTens-tS; const oSteps=Array.from({length:oDiff},(_,i)=>oS+i+1); return hWrap('#ffb6d1','➖',`${big} − ${small} (borrowing)`, hBubble(`<strong style="color:#fbe158;">Right side (ones):</strong> Is ${oB} ≥ ${oS}? <strong style="color:#ffb6d1;">NO ❌</strong> → borrow!`) +hBubble(`<strong style="color:#fbe158;">Borrow 1 ten:</strong> left side ${tB}→${nTens} · right side ${oB}→${bOnes} (10+${oB}=${bOnes})`) +hBubble(`<strong style="color:#fbe158;">Right side: ${bOnes} − ${oS}</strong> → count up from ${oS}:<br><div class="hint-chips">${hChip(oS,'#ffb6d1')} → ${hChips(oSteps,true)}</div><em>${oSteps.join(', ')}</em> → <strong style="color:#9bc4cb;">${oDiff}</strong>`) +hBubble(`<strong style="color:#fbe158;">Left side (tens): ${nTens} − ${tS} = ${tDiff}</strong>`) +hCol([{t:'  '+big},{t:'− '+String(small).padStart(pad,' ')},{t:'─'.repeat(pad+2),c:'#ffb6d1'},{t:'  '+ans,c:'#9bc4cb'}]) +hBubble(`<strong style="color:#9bc4cb;">✅ ${big} − ${small} = ${ans} ⭐</strong>`) ); }
+  }
+  function addHint(a,b){
+    const oA=a%10, oB=b%10, tA=Math.floor(a/10), tB=Math.floor(b/10); const oSum=oA+oB, needCarry=oSum>9, oWrite=oSum%10, carry=Math.floor(oSum/10), ans=a+b; const bigO=Math.max(oA,oB), smlO=Math.min(oA,oB); const oSteps=Array.from({length:smlO},(_,i)=>bigO+i+1); const pad=String(a).length; if(!needCarry){ return hWrap('#9bc4cb','➕',`${a} + ${b}`, hBubble(`<strong style="color:#fbe158;">Right side (ones): ${oA}+${oB}</strong> → count from ${bigO} up ${smlO} step${smlO!==1?'s':''}:<br><div class="hint-chips">${hChip(bigO,'#ffb6d1')} → ${hChips(oSteps,true)}</div>${oSteps.length?`<em>${oSteps.join(', ')}</em> → `:''}<strong style="color:#9bc4cb;">${oSum}</strong> (9 or less  -  no carry)`) +hBubble(`<strong style="color:#fbe158;">Left side (tens): ${tA}+${tB} = ${tA+tB}</strong>`) +hCol([{t:'  '+a},{t:'+ '+String(b).padStart(pad,' ')},{t:'─'.repeat(pad+2),c:'#ffb6d1'},{t:'  '+ans,c:'#9bc4cb'}]) +hBubble(`<strong style="color:#9bc4cb;">✅ ${a} + ${b} = ${ans} ⭐</strong>`) ); } else { return hWrap('#ffb6d1','➕',`${a} + ${b} (carrying)`, hBubble(`<strong style="color:#fbe158;">Right side (ones): ${oA}+${oB}</strong> → count from ${bigO} up ${smlO}:<br><div class="hint-chips">${hChip(bigO,'#ffb6d1')} → ${hChips(oSteps,false)}</div>Total = <strong>${oSum}</strong>  -  <strong style="color:#ffb6d1;">>9!</strong><br>Write <strong style="color:#9bc4cb;">${oWrite}</strong> on right, carry <strong style="color:#fbe158;">${carry}</strong> to left.`) +hBubble(`<strong style="color:#fbe158;">Left side (tens): ${tA}+${tB}+${carry}(carried) = ${tA+tB+carry}</strong>`) +hCol([{t:'  '+carry,c:'#fbe158'},{t:'  '+a},{t:'+ '+String(b).padStart(pad,' ')},{t:'─'.repeat(pad+2),c:'#ffb6d1'},{t:'  '+ans,c:'#9bc4cb'}]) +hBubble(`<strong style="color:#9bc4cb;">✅ ${a} + ${b} = ${ans} ⭐</strong>`) ); }
+  }
+  function missingAddHint(total, known){ const ans=total-known; return hWrap('#ffb6d1','❓','Missing Number  -  Addition', hBubble(`<strong style="color:#fbe158;">${known} + ? = ${total}</strong> → to find the missing number, subtract ${known} from ${total}.`) +subtractHint(total, known) +hBubble(`<strong style="color:#9bc4cb;">✅ Missing number = ${ans} ⭐</strong> · Check: ${known}+${ans}=${total} ✓`) ); }
+  function missingSubHint(total, result){ const ans=total-result; return hWrap('#ffb6d1','❓','Missing Number  -  Subtraction', hBubble(`<strong style="color:#fbe158;">${total} − ? = ${result}</strong> → subtract ${result} from ${total}.`) +subtractHint(total, result) +hBubble(`<strong style="color:#9bc4cb;">✅ Missing number = ${ans} ⭐</strong> · Check: ${total}−${ans}=${result} ✓`) ); }
+  function addThreeHint(a,b,c){ const s1=a+b; return hWrap('#9bc4cb','🔺','Adding Three Numbers', hBubble(`<strong style="color:#fbe158;">Step 1  -  Add ${a} + ${b}:</strong>`) +addHint(a,b) +hBubble(`<strong style="color:#fbe158;">Step 2  -  Add ${c} to the result (${s1} + ${c}):</strong>`) +addHint(s1,c) +hBubble(`<strong style="color:#9bc4cb;">✅ ${a}+${b}+${c} = ${a+b+c} ⭐</strong>`) ); }
+  function subThreeHint(total,b,c){ const s1=total-b; return hWrap('#ffb6d1','🔻','Subtracting Step by Step', hBubble(`<strong style="color:#fbe158;">Step 1  -  Subtract ${b} from ${total}:</strong>`) +subtractHint(total,b) +hBubble(`<strong style="color:#fbe158;">Step 2  -  Subtract ${c} from the result (${s1} − ${c}):</strong>`) +subtractHint(s1,c) +hBubble(`<strong style="color:#9bc4cb;">✅ ${total}−${b}−${c} = ${total-b-c} ⭐</strong>`) ); }
+  function factFamilyHint(a,b,total){ return hWrap('#9bc4cb','👪','Math Family (dojo trio)', hBubble(`<strong style="color:#fbe158;">👑 Big Boss = ${total}   🤝 Friends = ${a} & ${b}</strong>`) +hBubble(`<strong style="color:#fbe158;">➕ Plus (Friends → Boss):</strong><br>${hChip(a,'#ffb6d1')} + ${hChip(b,'#ffb6d1')} = ${hChip(total,'#fbe158')} ✅<br>${hChip(b,'#ffb6d1')} + ${hChip(a,'#ffb6d1')} = ${hChip(total,'#fbe158')} ✅`) +hBubble(`<strong style="color:#fbe158;">➖ Minus (Boss − Friend = Friend):</strong><br>${hChip(total,'#fbe158')} − ${hChip(a,'#ffb6d1')} = ${hChip(b,'#9bc4cb')} ✅<br>${hChip(total,'#fbe158')} − ${hChip(b,'#ffb6d1')} = ${hChip(a,'#9bc4cb')} ✅`) +hBubble(`🍑 <em>Big Boss must always be FIRST in minus, and LAST (after =) in plus!</em>`) ); }
+  function composeAddHint(target){ const e=target>10?7:3, ans=target-e, e2=e+3, ans2=target-e2; return hWrap('#9bc4cb','🧩','Make a Sum', hBubble(`We need two different pairs that add to <strong>${target}</strong>. Let's find them!`) +hBubble(`<strong style="color:#fbe158;">Pair 1:</strong> Pick ${e}. Then ${e} + ? = ${target} → subtract:`) +subtractHint(target,e) +hBubble(`<strong style="color:#9bc4cb;">Pair 1: ${e} + ${ans} = ${target} ✅</strong>`) +hBubble(`<strong style="color:#fbe158;">Pair 2:</strong> Pick ${e2}. Then ${e2} + ? = ${target} → subtract:`) +subtractHint(target,e2) +hBubble(`<strong style="color:#9bc4cb;">Pair 2: ${e2} + ${ans2} = ${target} ✅ Now pick your own!</strong>`) ); }
+  function composeSubHint(diff){ const big=diff+2, sml=2, big2=diff+3, sml2=3; return hWrap('#ffb6d1','🔍','Find the Gap', hBubble(`🍪 <strong>Cookie Story:</strong> The first number is always the Boss (the whole tray). The gap must always equal ${diff}.`) +hBubble(`<strong style="color:#fbe158;">Case 1  -  Boss is known: ${big} − ? = ${diff}</strong><br>"You have ${big} cookies, ${diff} are left. How many did you eat?" → subtract:`) +subtractHint(big,diff) +hBubble(`<strong style="color:#9bc4cb;">${big} − ${sml} = ${diff} ✅</strong>`) +hBubble(`<strong style="color:#fbe158;">Case 2  -  Boss is hiding: ? − ${sml2} = ${diff}</strong><br>"Mystery bag: took out ${sml2}, ${diff} remain. How many at start?" → add:`) +addHint(diff,sml2) +hBubble(`<strong style="color:#9bc4cb;">${big2} − ${sml2} = ${diff} ✅</strong><br><em>Rule: Boss known → subtract · Boss hiding → add</em>`) ); }
+
+  // ============================================================
+  //  NEW MULTIPLICATION HINTS (following same pattern)
+  // ============================================================
+  function hintMultiply(a, b) {
+    const ans = a * b;
+    const groups = Array.from({length: a}, (_, i) => (i+1) * b);
+    
+    return hWrap('#9bc4cb', '✖️', `${a} × ${b} = ? (Group Grapple)`,
+      hBubble(`<strong style="color:#fbe158;">🥊 MULTIPLICATION = GROUPS OF THE SAME SIZE</strong><br>
+        Think of it like <strong>${a}</strong> fighting teams, each with <strong>${b}</strong> Labubu fighters.`)
+      + hBubble(`<strong style="color:#fbe158;">Step 1 — Draw the groups:</strong><br>
+        ${Array.from({length: a}, () => '🐻').join(' ')} × ${b} fighters each<br>
+        <div style="background:#511e3a;padding:10px;border-radius:16px;margin:8px 0;">
+          ${Array.from({length: a}, (_, i) => 
+            `Group ${i+1}: ${Array.from({length: b}, () => '⚡').join('')}`
+          ).join('<br>')}
+        </div>`)
+      + hBubble(`<strong style="color:#fbe158;">Step 2 — Count by ${b}s:</strong><br>
+        Count how many fighters in total:<br>
+        <div class="hint-chips">
+          ${groups.map((n, i) => hChip(n, i === groups.length-1 ? '#9bc4cb' : '#fbe158')).join(' → ')}
+        </div>
+        <em>${groups.join(', ')}</em>`)
+      + hBubble(`<strong style="color:#fbe158;">Step 3 — The total:</strong><br>
+        ${hChip(a, '#ffb6d1')} groups of ${hChip(b, '#ffb6d1')} = <strong style="color:#9bc4cb;">${ans}</strong> total fighters!`)
+      + hCol([{t: `  ${a} × ${b}`}, {t: '─────', c:'#9e8fc9'}, {t: `  ${ans}`, c:'#9bc4cb'}])
+      + hBubble(`<strong style="color:#9bc4cb;">✅ ${a} × ${b} = ${ans} ⭐</strong><br>
+        <em>Remember: Multiplication is repeated addition!</em>`)
+    );
+  }
+
+  function hintMultiplyArray(rows, cols) {
+    const ans = rows * cols;
+    
+    return hWrap('#9bc4cb', '📐', `${rows} rows × ${cols} columns = ? (Array Attack)`,
+      hBubble(`<strong style="color:#fbe158;">🥊 ARRAYS = ROWS AND COLUMNS</strong><br>
+        Imagine a dojo with <strong>${rows}</strong> rows and <strong>${cols}</strong> columns of fighters.`)
+      + hBubble(`<strong style="color:#fbe158;">Step 1 — Draw the array:</strong><br>
+        <div style="background:#511e3a;padding:10px;border-radius:16px;font-family:monospace;font-size:1.2rem;text-align:center;">
+          ${Array.from({length: rows}, () => 
+            '[' + Array.from({length: cols}, () => '🥊').join(' ') + ']'
+          ).join('<br>')}
+        </div>`)
+      + hBubble(`<strong style="color:#fbe158;">Step 2 — Count the total:</strong><br>
+        Each row has ${hChip(cols, '#ffb6d1')} fighters.<br>
+        We have ${hChip(rows, '#ffb6d1')} rows.<br>
+        So: ${hChip(rows, '#ffb6d1')} × ${hChip(cols, '#ffb6d1')} = ?`)
+      + hBubble(`<strong style="color:#fbe158;">Step 3 — Count by ${cols}s, ${rows} times:</strong><br>
+        <div class="hint-chips">
+          ${Array.from({length: rows}, (_, i) => (i+1) * cols).map((n, i) => 
+            hChip(n, i === rows-1 ? '#9bc4cb' : '#fbe158')
+          ).join(' → ')}
+        </div>`)
+      + hCol([{t: `  ${rows} × ${cols}`}, {t: '─────', c:'#9e8fc9'}, {t: `  ${ans}`, c:'#9bc4cb'}])
+      + hBubble(`<strong style="color:#9bc4cb;">✅ ${rows} × ${cols} = ${ans} total fighters! ⭐</strong>`)
+    );
+  }
+
+  function hintMultiplyFacts(a, b) {
+    const ans = a * b;
+    const steps = Array.from({length: a}, (_, i) => (i+1) * b);
+    
+    return hWrap('#9bc4cb', '🔢', `${a} × ${b} = ? (Times Table Strike)`,
+      hBubble(`<strong style="color:#fbe158;">🥊 TIMES TABLE STRATEGY</strong><br>
+        When you know your times tables, you can strike fast!`)
+      + hBubble(`<strong style="color:#fbe158;">Skip counting by ${b}s:</strong><br>
+        Start at ${b} and count ${a} times:<br>
+        <div class="hint-chips">
+          ${steps.map((n, i) => hChip(n, i === steps.length-1 ? '#9bc4cb' : '#fbe158')).join(' → ')}
+        </div>`)
+      + hBubble(`<strong style="color:#fbe158;">The ${a}th number is your answer:</strong><br>
+        ${steps.join(', ')} → the ${a}th number is <strong style="color:#9bc4cb;">${ans}</strong>`)
+      + hBubble(`<strong style="color:#fbe158;">Double check with repeated addition:</strong><br>
+        ${Array.from({length: a}, () => b).join(' + ')} = ${ans}`)
+      + hBubble(`<strong style="color:#9bc4cb;">✅ ${a} × ${b} = ${ans} ⭐</strong>`)
+    );
+  }
+
+  function hintMissingFactor(total, factor) {
+    const ans = total / factor;
+    
+    return hWrap('#ffb6d1', '❓', `? × ${factor} = ${total} (Missing Factor)`,
+      hBubble(`<strong style="color:#fbe158;">🥊 We know: ? × ${factor} = ${total}</strong><br>
+        This means: <strong>${factor}</strong> multiplied by some number gives <strong>${total}</strong>.<br>
+        To find the missing number, we <strong>divide</strong> ${total} by ${factor}.`)
+      + hintDivision(total, factor)
+      + hBubble(`<strong style="color:#9bc4cb;">✅ The missing factor is ${ans} ⭐</strong><br>
+        Check: ${ans} × ${factor} = ${ans * factor} ✓`)
+    );
+  }
+
+  // ============================================================
+  //  NEW DIVISION HINTS
+  // ============================================================
+  function hintDivision(total, groups) {
+    const perGroup = Math.floor(total / groups);
+    const remainder = total % groups;
+    const hasRemainder = remainder !== 0;
+    
+    let body = hBubble(`<strong style="color:#fbe158;">🥊 DIVISION = SHARING EQUALLY</strong><br>
+      We have <strong>${total}</strong> cookies to share among <strong>${groups}</strong> Labubu friends.`);
+    
+    if (hasRemainder) {
+      body += hBubble(`<strong style="color:#fbe158;">Step 1 — Share them out:</strong><br>
+        <div style="background:#511e3a;padding:10px;border-radius:16px;">
+          ${Array.from({length: groups}, (_, i) => 
+            `Friend ${i+1}: ${Array.from({length: perGroup}, () => '🍪').join('')}`
+          ).join('<br>')}
+        </div>`)
+      + hBubble(`<strong style="color:#fbe158;">Step 2 — Count what's left:</strong><br>
+        We gave out ${perGroup} to each of ${groups} friends.<br>
+        Total given: ${perGroup} × ${groups} = ${perGroup * groups}<br>
+        ${hChip(perGroup * groups, '#ffb6d1')} cookies shared, ${hChip(total, '#fbe158')} total.<br>
+        Leftover: ${total} − ${perGroup * groups} = <strong style="color:#9bc4cb;">${remainder}</strong>`)
+      + hBubble(`<strong style="color:#fbe158;">Step 3 — The answer:</strong><br>
+        Each friend gets <strong>${perGroup}</strong> cookies, and <strong>${remainder}</strong> are left over.<br>
+        We write this as: <strong>${perGroup} remainder ${remainder}</strong>`)
+      + hBubble(`<strong style="color:#9bc4cb;">✅ ${total} ÷ ${groups} = ${perGroup} R${remainder} ⭐</strong>`);
     } else {
-      const bOnes=oB+10, nTens=tB-1, oDiff=bOnes-oS, tDiff=nTens-tS;
-      const oSteps=Array.from({length:oDiff},(_,i)=>oS+i+1);
-      return hWrap('#ff9fcf','➖',`${big} − ${small} (borrowing)`,
-        hBubble(`<strong style="color:#ffd6b0;">Right side (ones):</strong> Is ${oB} ≥ ${oS}? <strong style="color:#ff9fcf;">NO ❌</strong> → we must <strong>borrow</strong>!`)
-        +hBubble(`<strong style="color:#ffd6b0;">Borrow 1 ten:</strong> left side ${tB}→${nTens} · right side ${oB}→${bOnes} (because 10+${oB}=${bOnes})`)
-        +hBubble(`<strong style="color:#ffd6b0;">Right side: ${bOnes} − ${oS}</strong> → count up from ${oS}:<br>`
-          +`<div class="hint-chips">${hChip(oS,'#C77DFF')} → ${hChips(oSteps,true)}</div>`
-          +`<em>${oSteps.join(', ')}</em> → <strong style="color:#9ae6b4;">${oDiff}</strong>`)
-        +hBubble(`<strong style="color:#ffd6b0;">Left side (tens): ${nTens} − ${tS} = ${tDiff}</strong>`)
-        +hCol([{t:'  '+big},{t:'− '+String(small).padStart(pad,' ')},{t:'─'.repeat(pad+2),c:'#9e8fc9'},{t:'  '+ans,c:'#9ae6b4'}])
-        +hBubble(`<strong style="color:#9ae6b4;">✅ ${big} − ${small} = ${ans} ⭐</strong>`)
-      );
+      body += hBubble(`<strong style="color:#fbe158;">Step 1 — Share them out equally:</strong><br>
+        <div style="background:#511e3a;padding:10px;border-radius:16px;">
+          ${Array.from({length: groups}, (_, i) => 
+            `Friend ${i+1}: ${Array.from({length: perGroup}, () => '🍪').join('')}`
+          ).join('<br>')}
+        </div>`)
+      + hBubble(`<strong style="color:#fbe158;">Step 2 — Count how many each gets:</strong><br>
+        We shared ${total} cookies among ${groups} friends.<br>
+        Each friend got <strong style="color:#9bc4cb;">${perGroup}</strong> cookies.<br>
+        Check: ${perGroup} × ${groups} = ${perGroup * groups} ✓`)
+      + hBubble(`<strong style="color:#9bc4cb;">✅ ${total} ÷ ${groups} = ${perGroup} ⭐</strong>`);
     }
+    
+    return hWrap('#ffb6d1', '➗', `${total} ÷ ${groups} = ? (Sharing Takedown)`, body);
   }
 
-  function addHint(a, b){
-    const oA=a%10, oB=b%10, tA=Math.floor(a/10), tB=Math.floor(b/10);
-    const oSum=oA+oB, needCarry=oSum>9, oWrite=oSum%10, carry=Math.floor(oSum/10);
-    const bigO=Math.max(oA,oB), smlO=Math.min(oA,oB), ans=a+b;
-    const oSteps=Array.from({length:smlO},(_,i)=>bigO+i+1);
-    const pad=String(a).length;
-    if(!needCarry){
-      return hWrap('#9ae6b4','➕',`${a} + ${b}`,
-        hBubble(`<strong style="color:#ffd6b0;">Right side (ones): ${oA}+${oB}</strong> → count from ${bigO} up ${smlO} step${smlO!==1?'s':''}:<br>`
-          +`<div class="hint-chips">${hChip(bigO,'#C77DFF')} → ${hChips(oSteps,true)}</div>`
-          +(oSteps.length?`<em>${oSteps.join(', ')}</em> → `:'')
-          +`<strong style="color:#9ae6b4;">${oSum}</strong> (9 or less  -  no carry)`)
-        +hBubble(`<strong style="color:#ffd6b0;">Left side (tens): ${tA}+${tB} = ${tA+tB}</strong>`)
-        +hCol([{t:'  '+a},{t:'+ '+String(b).padStart(pad,' ')},{t:'─'.repeat(pad+2),c:'#9e8fc9'},{t:'  '+ans,c:'#9ae6b4'}])
-        +hBubble(`<strong style="color:#9ae6b4;">✅ ${a} + ${b} = ${ans} ⭐</strong>`)
-      );
-    } else {
-      return hWrap('#c4a5ff','➕',`${a} + ${b} (carrying)`,
-        hBubble(`<strong style="color:#ffd6b0;">Right side (ones): ${oA}+${oB}</strong> → count from ${bigO} up ${smlO}:<br>`
-          +`<div class="hint-chips">${hChip(bigO,'#C77DFF')} → ${hChips(oSteps,false)}</div>`
-          +`Total = <strong>${oSum}</strong>  -  <strong style="color:#ff9fcf;">bigger than 9!</strong><br>`
-          +`Write <strong style="color:#9ae6b4;">${oWrite}</strong> on right, carry <strong style="color:#ffd6b0;">${carry}</strong> to left.`)
-        +hBubble(`<strong style="color:#ffd6b0;">Left side (tens): ${tA}+${tB}+${carry}(carried) = ${tA+tB+carry}</strong>`)
-        +hCol([{t:'  '+carry,c:'#ffd6b0'},{t:'  '+a},{t:'+ '+String(b).padStart(pad,' ')},{t:'─'.repeat(pad+2),c:'#9e8fc9'},{t:'  '+ans,c:'#9ae6b4'}])
-        +hBubble(`<strong style="color:#9ae6b4;">✅ ${a} + ${b} = ${ans} ⭐</strong>`)
-      );
-    }
-  }
-
-  function missingAddHint(total, known){
-    const ans=total-known;
-    return hWrap('#c4a5ff','❓','Missing Number  -  Addition',
-      hBubble(`<strong style="color:#ffd6b0;">${known} + ? = ${total}</strong> → to find the missing number, subtract ${known} from ${total}.`)
-      +subtractHint(total, known)
-      +hBubble(`<strong style="color:#9ae6b4;">✅ Missing number = ${ans} ⭐</strong> · Check: ${known}+${ans}=${total} ✓`)
+  function hintDivisionFacts(total, divisor) {
+    const quotient = total / divisor;
+    
+    return hWrap('#ffb6d1', '🔄', `${total} ÷ ${divisor} = ? (Fact Family Reversal)`,
+      hBubble(`<strong style="color:#fbe158;">🥊 DIVISION IS THE OPPOSITE OF MULTIPLICATION</strong><br>
+        If you know your multiplication facts, division is a quick counter-move!`)
+      + hBubble(`<strong style="color:#fbe158;">Think: What number × ${divisor} = ${total}?</strong><br>
+        Let's check the ${divisor} times table:<br>
+        <div class="hint-chips">
+          ${Array.from({length: 10}, (_, i) => (i+1) * divisor).map((n, i) => 
+            hChip(n, n === total ? '#9bc4cb' : '#fbe158')
+          ).join(' ')
+        }</div>`)
+      + hBubble(`We found it! <strong style="color:#9bc4cb;">${quotient}</strong> × ${divisor} = ${total}`)
+      + hBubble(`<strong style="color:#fbe158;">So the division fact is:</strong><br>
+        ${total} ÷ ${divisor} = <strong style="color:#9bc4cb;">${quotient}</strong>`)
+      + hBubble(`<strong style="color:#9bc4cb;">✅ ${total} ÷ ${divisor} = ${quotient} ⭐</strong>`)
     );
   }
 
-  function missingSubHint(total, result){
-    const ans=total-result;
-    return hWrap('#ff9fcf','❓','Missing Number  -  Subtraction',
-      hBubble(`<strong style="color:#ffd6b0;">${total} − ? = ${result}</strong> → subtract ${result} from ${total}.`)
-      +subtractHint(total, result)
-      +hBubble(`<strong style="color:#9ae6b4;">✅ Missing number = ${ans} ⭐</strong> · Check: ${total}−${ans}=${result} ✓`)
+  function hintDivisionRemainder(total, divisor) {
+    const quotient = Math.floor(total / divisor);
+    const remainder = total % divisor;
+    
+    return hWrap('#ffb6d1', '🔄', `${total} ÷ ${divisor} = ? (Leftover Fighters)`,
+      hBubble(`<strong style="color:#fbe158;">🥊 DIVISION WITH REMAINDER</strong><br>
+        Sometimes when we share, there are leftovers — just like fighters left on the mat!`)
+      + hBubble(`<strong style="color:#fbe158;">Step 1 — How many full groups?</strong><br>
+        ${divisor} × <strong style="color:#9bc4cb;">${quotient}</strong> = ${divisor * quotient}<br>
+        That's the biggest multiple of ${divisor} that fits in ${total}.`)
+      + hBubble(`<strong style="color:#fbe158;">Step 2 — What's left over?</strong><br>
+        ${total} − ${divisor * quotient} = <strong style="color:#9bc4cb;">${remainder}</strong>`)
+      + hBubble(`<strong style="color:#fbe158;">Step 3 — The answer:</strong><br>
+        We have <strong>${quotient}</strong> full groups and <strong>${remainder}</strong> left over.<br>
+        So: ${total} ÷ ${divisor} = <strong style="color:#9bc4cb;">${quotient} R${remainder}</strong>`)
+      + hBubble(`<strong style="color:#9bc4cb;">✅ ${total} ÷ ${divisor} = ${quotient} R${remainder} ⭐</strong>`)
     );
   }
 
-  function addThreeHint(a,b,c){
-    const s1=a+b;
-    return hWrap('#c4a5ff','🔺','Adding Three Numbers',
-      hBubble(`<strong style="color:#ffd6b0;">Step 1  -  Add ${a} + ${b}:</strong>`)
-      +addHint(a,b)
-      +hBubble(`<strong style="color:#ffd6b0;">Step 2  -  Add ${c} to the result (${s1} + ${c}):</strong>`)
-      +addHint(s1,c)
-      +hBubble(`<strong style="color:#9ae6b4;">✅ ${a}+${b}+${c} = ${a+b+c} ⭐</strong>`)
-    );
-  }
-
-  function subThreeHint(total,b,c){
-    const s1=total-b;
-    return hWrap('#ff9fcf','🔻','Subtracting Step by Step',
-      hBubble(`<strong style="color:#ffd6b0;">Step 1  -  Subtract ${b} from ${total}:</strong>`)
-      +subtractHint(total,b)
-      +hBubble(`<strong style="color:#ffd6b0;">Step 2  -  Subtract ${c} from the result (${s1} − ${c}):</strong>`)
-      +subtractHint(s1,c)
-      +hBubble(`<strong style="color:#9ae6b4;">✅ ${total}−${b}−${c} = ${total-b-c} ⭐</strong>`)
-    );
-  }
-
-  function factFamilyHint(a,b,total){
-    return hWrap('#c4a5ff','👪','Math Family',
-      hBubble(`<strong style="color:#ffd6b0;">👑 Big Boss = ${total}   🤝 Friends = ${a} & ${b}</strong>`)
-      +hBubble(`<strong style="color:#ffd6b0;">➕ Plus (Friends → Boss):</strong><br>`
-        +`${hChip(a,'#FF9FCF')} + ${hChip(b,'#FF9FCF')} = ${hChip(total,'#ffd6b0')} ✅<br>`
-        +`${hChip(b,'#FF9FCF')} + ${hChip(a,'#FF9FCF')} = ${hChip(total,'#ffd6b0')} ✅`)
-      +hBubble(`<strong style="color:#ffd6b0;">➖ Minus (Boss − Friend = Friend):</strong><br>`
-        +`${hChip(total,'#ffd6b0')} − ${hChip(a,'#FF9FCF')} = ${hChip(b,'#9ae6b4')} ✅<br>`
-        +`${hChip(total,'#ffd6b0')} − ${hChip(b,'#FF9FCF')} = ${hChip(a,'#9ae6b4')} ✅`)
-      +hBubble(`🍪 <em>Big Boss must always be FIRST in minus, and LAST (after =) in plus!</em>`)
-    );
-  }
-
-  function composeAddHint(target){
-    const e=target>10?7:3, ans=target-e, e2=e+3, ans2=target-e2;
-    return hWrap('#c4a5ff','🧩','Make a Sum',
-      hBubble(`We need two different pairs that add to <strong>${target}</strong>. Let's find them!`)
-      +hBubble(`<strong style="color:#ffd6b0;">Pair 1:</strong> Pick ${e}. Then ${e} + ? = ${target} → subtract:`)
-      +subtractHint(target,e)
-      +hBubble(`<strong style="color:#9ae6b4;">Pair 1: ${e} + ${ans} = ${target} ✅</strong>`)
-      +hBubble(`<strong style="color:#ffd6b0;">Pair 2:</strong> Pick ${e2}. Then ${e2} + ? = ${target} → subtract:`)
-      +subtractHint(target,e2)
-      +hBubble(`<strong style="color:#9ae6b4;">Pair 2: ${e2} + ${ans2} = ${target} ✅ Now pick your own!</strong>`)
-    );
-  }
-
-  function composeSubHint(diff){
-    const big=diff+2, sml=2, big2=diff+3, sml2=3;
-    return hWrap('#ff9fcf','🔍','Find the Gap',
-      hBubble(`🍪 <strong>Cookie Story:</strong> The first number is always the Boss (the whole tray). The gap must always equal ${diff}.`)
-      +hBubble(`<strong style="color:#ffd6b0;">Case 1  -  Boss is known: ${big} − ? = ${diff}</strong><br>"You have ${big} cookies, ${diff} are left. How many did you eat?" → subtract:`)
-      +subtractHint(big,diff)
-      +hBubble(`<strong style="color:#9ae6b4;">${big} − ${sml} = ${diff} ✅</strong>`)
-      +hBubble(`<strong style="color:#ffd6b0;">Case 2  -  Boss is hiding: ? − ${sml2} = ${diff}</strong><br>"Mystery bag: took out ${sml2}, ${diff} remain. How many at start?" → add:`)
-      +addHint(diff,sml2)
-      +hBubble(`<strong style="color:#9ae6b4;">${big2} − ${sml2} = ${diff} ✅</strong><br><em>Rule: Boss known → subtract · Boss hiding → add</em>`)
-    );
-  }
-
-  // ── LESSON DATA ─────────────────────────────────────────────────────────
+  // ============================================================
+  //  COMPLETE LESSON DATA (all grades from original + new multiplication/division)
+  // ============================================================
   const LESSONS = {
+    // K/1st Grade - from original
     add1: [
       { learn:"Addition means putting things together!", visual:"🐶🐶 + 🐶🐶🐶 = 5 dogs!", example:"2 + 3 = 5",
-        genHint:(a,b)=>addHint(a,b),
         gen:()=>{let a=rnd(1,4),b=rnd(1,4);return{q:`${a} + ${b} = ?`,ans:a+b,h:()=>addHint(a,b),opts:shuffle([a+b,a+b+1,a+b-1,a])};}},
       { learn:"Count on from the bigger number!", visual:"Start at 6 → 7, 8, 9... (+3) = 9", example:"6 + 3 = 9",
         gen:()=>{let a=rnd(3,6),b=rnd(1,3);return{q:`${a} + ${b} = ?`,ans:a+b,h:()=>addHint(a,b),opts:shuffle([a+b,a+b+1,a+b-1,b])};}},
@@ -754,7 +754,7 @@
       { learn:"How many more? Compare two amounts.", visual:"🌟🌟🌟🌟🌟 vs 🌟🌟🌟  -  how many more?", example:"5−3=2",
         gen:()=>{let a=rnd(5,9),b=rnd(2,a-2);return{q:`${a} − ${b} = ?`,ans:a-b,h:()=>subtractHint(a,b),opts:shuffle([a-b,a-b+1,a-b-1,b])};}},
       { learn:"Fact families: 3+4=7, 7−3=4, 7−4=3", visual:"Big Boss = 7 👑, Friends = 3 & 4 🤝", example:"7−4=3",
-        gen:()=>{let a=rnd(2,5),b=rnd(2,5);return{q:`${a+b} − ${a} = ?`,ans:b,h:()=>factFamilyHint(a,b,a+b),opts:shuffle([b,b+1,b-1,a])}; }}
+        gen:()=>{let a=rnd(2,5),b=rnd(2,5);return{q:`${a+b} − ${a} = ?`,ans:b,h:()=>factFamilyHint(a,b,a+b),opts:shuffle([b,b+1,b-1,a])};}}
     ],
     place1: [
       { learn:"Tens and ones: 14 = 1 ten + 4 ones.", visual:"📦(10) + 🧱🧱🧱🧱 = 14", example:"14 → 1 ten",
@@ -768,6 +768,8 @@
       { learn:"Even & odd: even numbers end in 0,2,4,6,8.", visual:"2🐧 4🐧 6🐧  -  pairs! All even.", example:"14 is even",
         gen:()=>{let n=rnd(10,30);return{q:`Is ${n} even or odd?`,ans:n%2===0?'even':'odd',h:()=>hWrap('#c4a5ff','🔢','Even or Odd',hBubble(`Last digit is ${n%10}. ${n%2===0?'Ends in 0,2,4,6,8 → even':'Ends in 1,3,5,7,9 → odd'}`)),opts:['even','odd',n%2===0?'odd':'even','both']};}}
     ],
+    
+    // 2nd Grade - from original
     add2: [
       { learn:"Add tens: 30+20 = 50 (like 3+2 with a zero!)", visual:"📦📦📦 + 📦📦 = 📦📦📦📦📦 (50)", example:"30+20=50",
         gen:()=>{let a=rnd(2,4)*10,b=rnd(1,3)*10;return{q:`${a} + ${b} = ?`,ans:a+b,h:()=>addHint(a,b),opts:shuffle([a+b,a+b+10,a+b-10,a])};}},
@@ -816,123 +818,332 @@
       { learn:"Perimeter = all sides added together!", visual:"🟦 side 4cm × 4 sides = 16cm perimeter", example:"Perimeter=16",
         gen:()=>{let s=rnd(2,6);return{q:`Square with sides ${s}cm. Perimeter = ?`,ans:s*4,h:()=>hWrap('#c4a5ff','📐','Perimeter',hBubble(`4 sides × ${s}cm = <strong>${s*4}cm</strong>`)),opts:shuffle([s*4,s*4+2,s*4-2,s*2])};}}
     ],
+    
+    // 3rd Grade - NEW with multiplication and division hints
     multiply: [
-      { learn:"Multiplication = groups of same size!", visual:"🍪🍪 | 🍪🍪 | 🍪🍪 = 3×2=6", example:"3×2=6",
-        gen:()=>{let a=rnd(2,5),b=rnd(2,4);return{q:`${a} × ${b} = ?`,ans:a*b,h:()=>hWrap('#a3d977','✖️','Multiply',hBubble(`${a} groups of ${b}: count by ${b}s  -  ${Array.from({length:a},(_,i)=>(i+1)*b).join(', ')}`)),opts:shuffle([a*b,a*b+a,a*b-b,a+b])};}},
-      { learn:"Doubles: 2×6=12 (add 6 twice!)", visual:"🟦🟦🟦🟦🟦🟦 + 🟦🟦🟦🟦🟦🟦 = 12", example:"2×6=12",
-        gen:()=>{let b=rnd(3,9);return{q:`2 × ${b} = ?`,ans:2*b,h:()=>hWrap('#a3d977','✖️','Doubles',hBubble(`2 × ${b} = ${b} + ${b} = <strong>${2*b}</strong>`)),opts:shuffle([2*b,2*b+2,2*b-2,b])};}},
-      { learn:"×5 always ends in 0 or 5! Count by 5s.", visual:"5, 10, 15, 20, 25... 🖐️", example:"4×5=20",
-        gen:()=>{let a=rnd(2,9);return{q:`${a} × 5 = ?`,ans:a*5,h:()=>hWrap('#a3d977','✖️','Times 5',hBubble(`Count by 5s: ${Array.from({length:a},(_,i)=>(i+1)*5).join(', ')}`)),opts:shuffle([a*5,a*5+5,a*5-5,a*10])};}},
-      { learn:"Array: rows × columns = total.", visual:"⬛⬛⬛\n⬛⬛⬛\n⬛⬛⬛ = 3×3=9", example:"3×3=9",
-        gen:()=>{let r=rnd(2,5),c=rnd(2,5);return{q:`Array: ${r} rows × ${c} columns = ?`,ans:r*c,h:()=>hWrap('#a3d977','📐','Array',hBubble(`${r} rows × ${c} columns = <strong>${r*c}</strong>`)),opts:shuffle([r*c,r*c+r,r*c-c,r+c])};}},
-      { learn:"Missing factor: ? × 4 = 12 → 12÷4=3", visual:"? × 4 = 12 → 3", example:"3×4=12",
-        gen:()=>{let a=rnd(2,5),b=rnd(2,5);return{q:`? × ${b} = ${a*b}`,ans:a,h:()=>hWrap('#a3d977','❓','Missing Factor',hBubble(`${a*b} ÷ ${b} = <strong>${a}</strong>`)),opts:shuffle([a,a+1,a-1,b])};}}
+      { learn:"Multiplication = groups of same size! Labubu's group grapple!", 
+        visual:"🐻🐻 | 🐻🐻 | 🐻🐻 = 3×2=6 Labubu fighters!", 
+        example:"3 × 2 = 6",
+        gen:()=>{let a=rnd(2,5),b=rnd(2,4);return{
+          q:`${a} × ${b} = ?`,
+          ans:a*b,
+          h:()=>hintMultiply(a,b),
+          opts:shuffle([a*b, a*b+a, a*b-b, a+b])
+        };}
+      },
+      { learn:"Arrays: rows × columns = total fighters in formation!", 
+        visual:"🥊🥊🥊\n🥊🥊🥊 = 2×3=6 fighters in array", 
+        example:"2 × 3 = 6",
+        gen:()=>{let r=rnd(2,4),c=rnd(2,4);return{
+          q:`Array: ${r} rows × ${c} columns = ?`,
+          ans:r*c,
+          h:()=>hintMultiplyArray(r,c),
+          opts:shuffle([r*c, r*c+r, r*c-c, r+c])
+        };}
+      },
+      { learn:"×5 always ends in 0 or 5! Labubu's favorite!", 
+        visual:"5, 10, 15, 20, 25... 🖐️", 
+        example:"4 × 5 = 20",
+        gen:()=>{let a=rnd(2,7);return{
+          q:`${a} × 5 = ?`,
+          ans:a*5,
+          h:()=>hintMultiplyFacts(a,5),
+          opts:shuffle([a*5, a*5+5, a*5-5, a*10])
+        };}
+      },
+      { learn:"×10 is super easy! Just add a zero!", 
+        visual:"3×10 = 30 (3 with a zero 👊)", 
+        example:"6 × 10 = 60",
+        gen:()=>{let a=rnd(2,9);return{
+          q:`${a} × 10 = ?`,
+          ans:a*10,
+          h:()=>hintMultiplyFacts(a,10),
+          opts:shuffle([a*10, a*10+10, a*10-10, a*5])
+        };}
+      },
+      { learn:"Doubles: 2 × anything = double!", 
+        visual:"2×7 = 7+7 = 14 (double strike!)", 
+        example:"2 × 8 = 16",
+        gen:()=>{let b=rnd(3,9);return{
+          q:`2 × ${b} = ?`,
+          ans:2*b,
+          h:()=>hintMultiply(2,b),
+          opts:shuffle([2*b, 2*b+2, 2*b-2, b])
+        };}
+      }
     ],
+    
+    multiply_facts: [
+      { learn:"3 times table — Labubu's triple strike!", 
+        visual:"3, 6, 9, 12, 15...", 
+        example:"3 × 4 = 12",
+        gen:()=>{let a=rnd(1,9);return{
+          q:`3 × ${a} = ?`,
+          ans:3*a,
+          h:()=>hintMultiplyFacts(3,a),
+          opts:shuffle([3*a, 3*a+3, 3*a-3, a])
+        };}
+      },
+      { learn:"4 times table — four directions attack!", 
+        visual:"4, 8, 12, 16, 20...", 
+        example:"4 × 6 = 24",
+        gen:()=>{let a=rnd(1,9);return{
+          q:`4 × ${a} = ?`,
+          ans:4*a,
+          h:()=>hintMultiplyFacts(4,a),
+          opts:shuffle([4*a, 4*a+4, 4*a-4, a])
+        };}
+      },
+      { learn:"6 times table — powerful combo!", 
+        visual:"6, 12, 18, 24, 30...", 
+        example:"6 × 7 = 42",
+        gen:()=>{let a=rnd(1,8);return{
+          q:`6 × ${a} = ?`,
+          ans:6*a,
+          h:()=>hintMultiplyFacts(6,a),
+          opts:shuffle([6*a, 6*a+6, 6*a-6, a])
+        };}
+      },
+      { learn:"7 times table — lucky seven strike!", 
+        visual:"7, 14, 21, 28, 35...", 
+        example:"7 × 8 = 56",
+        gen:()=>{let a=rnd(1,8);return{
+          q:`7 × ${a} = ?`,
+          ans:7*a,
+          h:()=>hintMultiplyFacts(7,a),
+          opts:shuffle([7*a, 7*a+7, 7*a-7, a])
+        };}
+      },
+      { learn:"8 times table — octopus attack!", 
+        visual:"8, 16, 24, 32, 40...", 
+        example:"8 × 6 = 48",
+        gen:()=>{let a=rnd(1,8);return{
+          q:`8 × ${a} = ?`,
+          ans:8*a,
+          h:()=>hintMultiplyFacts(8,a),
+          opts:shuffle([8*a, 8*a+8, 8*a-8, a])
+        };}
+      }
+    ],
+    
     divide: [
-      { learn:"Division = sharing equally among groups!", visual:"🍪🍪🍪🍪🍪🍪 ÷ 3 = 🍪🍪 each", example:"6÷3=2",
-        gen:()=>{let a=rnd(2,5),b=rnd(2,5);return{q:`${a*b} ÷ ${a} = ?`,ans:b,h:()=>hWrap('#a3d977','➗','Divide',hBubble(`Share ${a*b} into ${a} groups: ${Array.from({length:a},()=>b).join(' + ')} = <strong>${b} each</strong>`)),opts:shuffle([b,b+1,b-1,a])};}},
-      { learn:"Division is the opposite of multiplication!", visual:"3×4=12, so 12÷4=3 and 12÷3=4", example:"12÷4=3",
-        gen:()=>{let a=rnd(2,6),b=rnd(2,5);return{q:`${a*b} ÷ ${b} = ?`,ans:a,h:()=>hWrap('#a3d977','➗','Fact Family',hBubble(`${b} × <strong>${a}</strong> = ${a*b}, so ${a*b} ÷ ${b} = <strong>${a}</strong>`)),opts:shuffle([a,a+1,a-1,b])};}},
-      { learn:"÷2 means half! Split into 2 equal parts.", visual:"🟦🟦🟦🟦🟦🟦 → 🟦🟦🟦 | 🟦🟦🟦", example:"6÷2=3",
-        gen:()=>{let a=rnd(2,8)*2;return{q:`${a} ÷ 2 = ?`,ans:a/2,h:()=>hWrap('#a3d977','➗','Half',hBubble(`Half of ${a}: <strong>${a/2}</strong>`)),opts:shuffle([a/2,a/2+1,a/2-1,a])};}},
-      { learn:"÷5  -  how many groups of 5?", visual:"🟡🟡🟡🟡🟡|🟡🟡🟡🟡🟡 = 2 groups", example:"10÷5=2",
-        gen:()=>{let q=rnd(2,6);return{q:`${q*5} ÷ 5 = ?`,ans:q,h:()=>hWrap('#a3d977','➗','Divide by 5',hBubble(`Count by 5s to ${q*5}: ${Array.from({length:q},(_,i)=>(i+1)*5).join(', ')} → <strong>${q} groups</strong>`)),opts:shuffle([q,q+1,q-1,q+2])};}},
-      { learn:"Remainder: 7÷2 = 3 remainder 1 (one left over!)", visual:"🔴🔴🔴🔴🔴🔴🔴 ÷ 2 → 3 pairs + 1 left", example:"7÷2=3R1",
-        gen:()=>{let d=rnd(2,4),q=rnd(2,5),r=rnd(1,d-1);return{q:`${d*q+r} ÷ ${d} = ?`,ans:q,h:()=>hWrap('#a3d977','➗','Remainder',hBubble(`${d}×${q}=${d*q}, then ${r} left over. Answer: <strong>${q}</strong> remainder ${r}`)),opts:shuffle([q,q+1,d,r])};}}
+      { learn:"Division = sharing equally among groups! Labubu's sharing takedown!", 
+        visual:"🍪🍪🍪🍪🍪🍪 ÷ 3 = 🍪🍪 each", 
+        example:"6 ÷ 3 = 2",
+        gen:()=>{let a=rnd(2,5),b=rnd(2,5);return{
+          q:`${a*b} ÷ ${a} = ?`,
+          ans:b,
+          h:()=>hintDivision(a*b, a),
+          opts:shuffle([b, b+1, b-1, a])
+        };}
+      },
+      { learn:"Division is the opposite of multiplication! Counter-move!", 
+        visual:"3×4=12, so 12÷4=3 and 12÷3=4", 
+        example:"12 ÷ 4 = 3",
+        gen:()=>{let a=rnd(2,6),b=rnd(2,5);return{
+          q:`${a*b} ÷ ${b} = ?`,
+          ans:a,
+          h:()=>hintDivisionFacts(a*b, b),
+          opts:shuffle([a, a+1, a-1, b])
+        };}
+      },
+      { learn:"÷2 means half! Split into 2 equal parts — double team takedown!", 
+        visual:"🟦🟦🟦🟦🟦🟦 → 🟦🟦🟦 | 🟦🟦🟦", 
+        example:"6 ÷ 2 = 3",
+        gen:()=>{let a=rnd(2,8)*2;return{
+          q:`${a} ÷ 2 = ?`,
+          ans:a/2,
+          h:()=>hintDivision(a,2),
+          opts:shuffle([a/2, a/2+1, a/2-1, a])
+        };}
+      },
+      { learn:"÷5 — how many groups of 5? Labubu's five-finger strike!", 
+        visual:"🟡🟡🟡🟡🟡|🟡🟡🟡🟡🟡 = 2 groups", 
+        example:"10 ÷ 5 = 2",
+        gen:()=>{let q=rnd(2,6);return{
+          q:`${q*5} ÷ 5 = ?`,
+          ans:q,
+          h:()=>hintDivision(q*5,5),
+          opts:shuffle([q, q+1, q-1, q+2])
+        };}
+      },
+      { learn:"÷3 — triple threat division!", 
+        visual:"🔴🔴🔴🔴🔴🔴🔴🔴🔴 ÷ 3 = 3 each", 
+        example:"9 ÷ 3 = 3",
+        gen:()=>{let q=rnd(2,6);return{
+          q:`${q*3} ÷ 3 = ?`,
+          ans:q,
+          h:()=>hintDivision(q*3,3),
+          opts:shuffle([q, q+1, q-1, q+2])
+        };}
+      }
     ],
-    fractions: [
-      { learn:"1/2 = one of two equal parts. Half!", visual:"🥧 whole → 🥧 (half) + 🥧 (half)", example:"1/2 of 8=4",
-        gen:()=>{let n=rnd(2,8)*2;return{q:`1/2 of ${n} = ?`,ans:n/2,h:()=>hWrap('#a3d977','🥧','Half',hBubble(`Half means divide by 2: ${n}÷2 = <strong>${n/2}</strong>`)),opts:shuffle([n/2,n/2+1,n/2-1,n])};}},
-      { learn:"1/4 = one of four equal parts. Quarter!", visual:"🟦🟦🟦🟦 → take 1 → 1/4", example:"1/4 of 8=2",
-        gen:()=>{let n=rnd(1,5)*4;return{q:`1/4 of ${n} = ?`,ans:n/4,h:()=>hWrap('#a3d977','🥧','Quarter',hBubble(`Quarter means divide by 4: ${n}÷4 = <strong>${n/4}</strong>`)),opts:shuffle([n/4,n/4+1,n/4-1,n/2])};}},
-      { learn:"Compare fractions: 1/2 > 1/4 (bigger pieces!)", visual:"🟦🟦 (1/2) vs 🟦 (1/4)  -  half is bigger!", example:"1/2 > 1/4",
-        gen:()=>{const FRACS=[['1/2',2],['1/4',4],['1/3',3],['3/4',4]];const VALS=[0.5,0.25,0.33,0.75];let i1=rnd(0,3),i2=rnd(0,3);while(i1===i2)i2=rnd(0,3);const fa=FRACS[i1][0],fb=FRACS[i2][0],va=VALS[i1],vb=VALS[i2],winner=va>vb?fa:fb;const hint=hBubble('Think: more slices = smaller pieces! '+fa+' vs '+fb+' -- which needs fewer cuts?');return{q:'Which is bigger: '+fa+' or '+fb+'?',ans:winner,h:()=>hWrap('#a3d977','Fractions','Compare Fractions',hint),opts:[fa,fb,'same','equal']};;}},
-      { learn:"1/3 = one of three equal parts.", visual:"🍕🍕🍕 → take 1 → 1/3 of pizza", example:"1/3 of 9=3",
-        gen:()=>{let n=rnd(1,4)*3;return{q:`1/3 of ${n} = ?`,ans:n/3,h:()=>hWrap('#a3d977','🥧','Third',hBubble(`Third means divide by 3: ${n}÷3 = <strong>${n/3}</strong>`)),opts:shuffle([n/3,n/3+1,n/3-1,n/2])};}},
-      { learn:"Fraction of a set: 2/4 of 12 = ?", visual:"12 stars ★★★★★★★★★★★★ → 2/4 means half → 6", example:"2/4=1/2",
-        gen:()=>{let n=rnd(2,6)*4;return{q:`3/4 of ${n} = ?`,ans:n*3/4,h:()=>hWrap('#a3d977','🥧','Fraction of Set',hBubble(`${n}÷4=${n/4} (one quarter). 3 quarters = ${n/4}×3 = <strong>${n*3/4}</strong>`)),opts:shuffle([n*3/4,n/4,n/2,n])}; }}
+    
+    division_facts: [
+      { learn:"Division facts from 3× table — reverse the strike!", 
+        visual:"3×4=12, so 12÷3=4, 12÷4=3", 
+        example:"15 ÷ 3 = 5",
+        gen:()=>{let a=rnd(3,7);return{
+          q:`${a*3} ÷ 3 = ?`,
+          ans:a,
+          h:()=>hintDivisionFacts(a*3,3),
+          opts:shuffle([a, a+1, a-1, a+2])
+        };}
+      },
+      { learn:"Division facts from 4× table — four corners attack!", 
+        visual:"4×5=20, so 20÷4=5", 
+        example:"24 ÷ 4 = 6",
+        gen:()=>{let a=rnd(3,7);return{
+          q:`${a*4} ÷ 4 = ?`,
+          ans:a,
+          h:()=>hintDivisionFacts(a*4,4),
+          opts:shuffle([a, a+1, a-1, a+2])
+        };}
+      },
+      { learn:"Division facts from 6× table — six pack smash!", 
+        visual:"6×6=36, so 36÷6=6", 
+        example:"42 ÷ 6 = 7",
+        gen:()=>{let a=rnd(3,7);return{
+          q:`${a*6} ÷ 6 = ?`,
+          ans:a,
+          h:()=>hintDivisionFacts(a*6,6),
+          opts:shuffle([a, a+1, a-1, a+2])
+        };}
+      },
+      { learn:"Division facts from 7× table — lucky seven reversal!", 
+        visual:"7×7=49, so 49÷7=7", 
+        example:"56 ÷ 7 = 8",
+        gen:()=>{let a=rnd(3,8);return{
+          q:`${a*7} ÷ 7 = ?`,
+          ans:a,
+          h:()=>hintDivisionFacts(a*7,7),
+          opts:shuffle([a, a+1, a-1, a+2])
+        };}
+      },
+      { learn:"Division facts from 8× table — eight arms division!", 
+        visual:"8×6=48, so 48÷8=6", 
+        example:"64 ÷ 8 = 8",
+        gen:()=>{let a=rnd(3,8);return{
+          q:`${a*8} ÷ 8 = ?`,
+          ans:a,
+          h:()=>hintDivisionFacts(a*8,8),
+          opts:shuffle([a, a+1, a-1, a+2])
+        };}
+      }
     ],
-    area: [
-      { learn:"Area = rows × columns of unit squares.", visual:"⬛⬛⬛⬛\n⬛⬛⬛⬛\n⬛⬛⬛⬛ = 3×4=12", example:"3×4=12",
-        gen:()=>{let r=rnd(2,5),c=rnd(2,6);return{q:`Rectangle ${r} × ${c}. Area = ?`,ans:r*c,h:()=>hWrap('#a3d977','📐','Area',hBubble(`${r} rows × ${c} columns = <strong>${r*c}</strong> squares`)),opts:shuffle([r*c,r*c+r,r*c-c,r+c])};}},
-      { learn:"Area of a square: side × side.", visual:"⬛⬛⬛\n⬛⬛⬛\n⬛⬛⬛ = 3×3=9", example:"3×3=9",
-        gen:()=>{let s=rnd(2,6);return{q:`Square, side = ${s}. Area = ?`,ans:s*s,h:()=>hWrap('#a3d977','📐','Square Area',hBubble(`${s} × ${s} = <strong>${s*s}</strong>`)),opts:shuffle([s*s,s*s+s,s*s-s,(s+1)*(s+1)])};}},
-      { learn:"Count square units to find area.", visual:"🟦🟦\n🟦🟦\n🟦🟦 = 6 square units", example:"6 sq units",
-        gen:()=>{let a=rnd(6,20);return{q:`A shape has ${a} unit squares. Area = ?`,ans:a,h:()=>hWrap('#a3d977','📐','Count Squares',hBubble(`Just count them: <strong>${a}</strong> square units`)),opts:shuffle([a,a+1,a-1,a+2])};}},
-      { learn:"L-shape: split into two rectangles, add areas.", visual:"Split L into 2 parts, add their areas!", example:"area A + area B",
-        gen:()=>{let a=rnd(2,4),b=rnd(2,4),c=rnd(2,3),d=rnd(2,3);return{q:`L-shape: ${a}×${b} + ${c}×${d} = ?`,ans:a*b+c*d,h:()=>hWrap('#a3d977','📐','L-Shape Area',hBubble(`${a}×${b}=${a*b} and ${c}×${d}=${c*d}. Total: <strong>${a*b+c*d}</strong>`)),opts:shuffle([a*b+c*d,a*b+c*d+1,a*b+c*d-1,a*b])};}},
-      { learn:"Missing side: Area=24, one side=6. Other side=?", visual:"24 = 6 × ? → 24÷6=4", example:"24÷6=4",
-        gen:()=>{let a=rnd(2,5),b=rnd(2,6);return{q:`Area=${a*b}, one side=${a}. Other side=?`,ans:b,h:()=>hWrap('#a3d977','📐','Missing Side',hBubble(`${a*b} ÷ ${a} = <strong>${b}</strong>`)),opts:shuffle([b,b+1,b-1,a])};}}
+    
+    remainder: [
+      { learn:"Remainder: when sharing leaves leftovers! Labubu's leftover fighters!", 
+        visual:"🍪🍪🍪🍪🍪🍪🍪 ÷ 3 → 2 each + 1 left", 
+        example:"7 ÷ 3 = 2 R1",
+        gen:()=>{let d=rnd(3,6),q=rnd(2,4),r=rnd(1,d-1);return{
+          q:`${d*q+r} ÷ ${d} = ?`,
+          ans:q,
+          h:()=>hintDivisionRemainder(d*q+r, d),
+          opts:shuffle([q, q+1, d, r])
+        };}
+      },
+      { learn:"Remainder with 4 — four directions, one leftover!", 
+        visual:"10 ÷ 4 = 2 R2 (two each, two left)", 
+        example:"11 ÷ 4 = 2 R3",
+        gen:()=>{let q=rnd(2,4),r=rnd(1,3);return{
+          q:`${4*q+r} ÷ 4 = ?`,
+          ans:q,
+          h:()=>hintDivisionRemainder(4*q+r,4),
+          opts:shuffle([q, q+1, 4, r])
+        };}
+      },
+      { learn:"Remainder with 5 — five-finger strike with leftovers!", 
+        visual:"13 ÷ 5 = 2 R3", 
+        example:"17 ÷ 5 = 3 R2",
+        gen:()=>{let q=rnd(2,4),r=rnd(1,4);return{
+          q:`${5*q+r} ÷ 5 = ?`,
+          ans:q,
+          h:()=>hintDivisionRemainder(5*q+r,5),
+          opts:shuffle([q, q+1, 5, r])
+        };}
+      },
+      { learn:"Remainder with 6 — six-pack with extras!", 
+        visual:"20 ÷ 6 = 3 R2", 
+        example:"22 ÷ 6 = 3 R4",
+        gen:()=>{let q=rnd(2,4),r=rnd(1,5);return{
+          q:`${6*q+r} ÷ 6 = ?`,
+          ans:q,
+          h:()=>hintDivisionRemainder(6*q+r,6),
+          opts:shuffle([q, q+1, 6, r])
+        };}
+      },
+      { learn:"Missing factor with remainder! Find the fighter left behind!", 
+        visual:"? × 4 + 1 = 13 → 13 ÷ 4 = 3 R1, so ? = 3", 
+        example:"? × 5 + 2 = 17 → ? = 3",
+        gen:()=>{let a=rnd(2,5),b=rnd(2,5),r=rnd(1,b-1);return{
+          q:`? × ${b} + ${r} = ${a*b+r}`,
+          ans:a,
+          h:()=>hintMissingFactor(a*b+r, b),
+          opts:shuffle([a, a+1, a-1, b])
+        };}
+      }
     ],
-    rounding: [
-      { learn:"Round to nearest ten! Look at the ones digit.", visual:"27 → ones=7 (≥5) → round UP to 30", example:"27→30",
-        gen:()=>{let n=rnd(11,98);let r=Math.round(n/10)*10;return{q:`Round ${n} to the nearest ten.`,ans:r,h:()=>hWrap('#a3d977','🔟','Round to Ten',hBubble(`Ones digit = ${n%10}. ${n%10>=5?`5 or more → round UP to ${r}`:`Less than 5 → round DOWN to ${r}`}`)),opts:shuffle([r,r+10,r-10,n])};}},
-      { learn:"Round to nearest hundred! Look at the tens digit.", visual:"340 → tens=4 (<5) → round DOWN to 300", example:"340→300",
-        gen:()=>{let n=rnd(101,899);let r=Math.round(n/100)*100;return{q:`Round ${n} to the nearest hundred.`,ans:r,h:()=>hWrap('#a3d977','💯','Round to Hundred',hBubble(`Tens digit = ${Math.floor((n%100)/10)}. ${Math.floor((n%100)/10)>=5?`≥5 → round UP to ${r}`:`<5 → round DOWN to ${r}`}`)),opts:shuffle([r,r+100,r-100,Math.round(n/10)*10])};}},
-      { learn:"Is it closer to 20 or 30? Use a number line!", visual:"20 ─────24───── 30\n24 is closer to 20!", example:"24→20",
-        gen:()=>{let tens=rnd(2,7)*10,ones=rnd(1,9),n=tens+ones;let r=Math.round(n/10)*10;return{q:`Is ${n} closer to ${Math.floor(n/10)*10} or ${Math.ceil(n/10)*10}?`,ans:r,h:()=>hWrap('#a3d977','🔟','Number Line',hBubble(`${n} is ${n-Math.floor(n/10)*10} away from ${Math.floor(n/10)*10} and ${Math.ceil(n/10)*10-n} away from ${Math.ceil(n/10)*10}. Closer to <strong>${r}</strong>`)),opts:[Math.floor(n/10)*10,Math.ceil(n/10)*10,n,n+1]};}},
-      { learn:"Estimate by rounding: 28+43 ≈ 30+40 = 70", visual:"28≈30, 43≈40 → 30+40=70", example:"70",
-        gen:()=>{let a=rnd(11,49),b=rnd(11,49);let ra=Math.round(a/10)*10,rb=Math.round(b/10)*10;return{q:`Estimate ${a}+${b} by rounding to tens.`,ans:ra+rb,h:()=>hWrap('#a3d977','🔟','Estimate',hBubble(`${a}≈${ra}, ${b}≈${rb}. Estimate: ${ra}+${rb}=<strong>${ra+rb}</strong>`)),opts:shuffle([ra+rb,ra+rb+10,ra+rb-10,a+b])};}},
-      { learn:"Round money to nearest dollar!", visual:"$3.67 → look at cents: 67≥50 → round to $4", example:"$3.67→$4",
-        gen:()=>{let d=rnd(1,9),c=rnd(5,95);let r=c>=50?d+1:d;return{q:`Round $${d}.${c<10?'0'+c:c} to the nearest dollar.`,ans:`$${r}`,h:()=>hWrap('#a3d977','💰','Round Money',hBubble(`Cents=${c}. ${c>=50?`≥50 → round UP to $${r}`:`<50 → round DOWN to $${r}`}`)),opts:[`$${r}`,`$${r+1}`,`$${r-1}`,`$${d}`]};}}
-    ],
-
-    // ── SOAR CHALLENGES ─────────────────────────────────────────────────
+    
+    // SOAR challenges - simplified from original
     soar1: [
-      { learn:"🦅 SOAR Challenge! Think hard, explore, and reason.", visual:"There are no wrong paths  -  just curious minds! 🌟",
-        example:"Use what you know!", isSoar:true,
-        gen:()=>{let a=rnd(2,5),b=rnd(2,5);return{q:`Safia has ${a} bags. Each bag has ${b} apples. How many apples altogether?`,ans:a*b,soarHint:`Think of it as ${a} groups of ${b}. Count by ${b}s: ${Array.from({length:a},(_,i)=>(i+1)*b).join(', ')}`,story:true,h:()=>hWrap('#9ae6b4','🦅','SOAR  -  Reasoning',hBubble(`Draw it! ${a} bags × ${b} apples = add ${b} a total of ${a} times.`)+hBubble(`${Array.from({length:a},(_,i)=>(i+1)*b).join(' → ')} = <strong>${a*b}</strong>`))};} },
+      { learn:"🦅 SOAR Challenge! Think hard, explore, and reason.", visual:"There are no wrong paths  -  just curious minds! 🌟", example:"Use what you know!", isSoar:true,
+        gen:()=>{let a=rnd(2,5),b=rnd(2,5);return{q:`Safia has ${a} bags. Each bag has ${b} apples. How many apples altogether?`,ans:a*b,soarHint:`Think of it as ${a} groups of ${b}. Count by ${b}s: ${Array.from({length:a},(_,i)=>(i+1)*b).join(', ')}`,story:true,h:()=>hintMultiply(a,b)};} },
       { learn:"🦅 SOAR: Pattern spotting!", visual:"Patterns are everywhere  -  what comes next? 🔍", example:"Look carefully!", isSoar:true,
-        gen:()=>{let s=rnd(2,5),d=rnd(2,4);let seq=[s,s+d,s+2*d,s+3*d,s+4*d];return{q:`Pattern: ${seq.slice(0,4).join(', ')}, __ ?\nWhat is the rule?`,ans:seq[4],soarHint:`Each number increases by ${d}. So ${seq[3]} + ${d} = ${seq[4]}`,story:false,h:()=>hWrap('#9ae6b4','🦅','SOAR  -  Patterns',hBubble(`Count the gap between numbers: ${seq[1]}-${seq[0]}=${d}, ${seq[2]}-${seq[1]}=${d}... rule is +${d}`)+hBubble(`${seq[3]} + ${d} = <strong>${seq[4]}</strong>`))};} },
+        gen:()=>{let s=rnd(2,5),d=rnd(2,4);let seq=[s,s+d,s+2*d,s+3*d,s+4*d];return{q:`Pattern: ${seq.slice(0,4).join(', ')}, __ ?\nWhat is the rule?`,ans:seq[4],soarHint:`Each number increases by ${d}. So ${seq[3]} + ${d} = ${seq[4]}`,story:false,h:()=>hWrap('#9bc4cb','🦅','SOAR  -  Patterns',hBubble(`Count the gap between numbers: ${seq[1]}-${seq[0]}=${d}, ${seq[2]}-${seq[1]}=${d}... rule is +${d}`)+hBubble(`${seq[3]} + ${d} = <strong>${seq[4]}</strong>`))};} },
       { learn:"🦅 SOAR: Shape reasoning!", visual:"Shapes have properties  -  sides, corners, symmetry! 🔷", example:"Count and think!", isSoar:true,
-        gen:()=>{let shapes=[{n:'triangle',s:3,c:3},{n:'square',s:4,c:4},{n:'pentagon',s:5,c:5},{n:'hexagon',s:6,c:6}];let sh=shapes[rnd(0,3)];return{q:`A ${sh.n} has ${sh.s} sides. How many corners does it have?`,ans:sh.c,soarHint:`For regular shapes, corners = sides! A ${sh.n} has ${sh.s} sides and ${sh.c} corners.`,story:false,h:()=>hWrap('#9ae6b4','🦅','SOAR  -  Shapes',hBubble(`Corners = sides for these shapes! ${sh.n} → ${sh.c} corners.`))};} },
+        gen:()=>{let shapes=[{n:'triangle',s:3,c:3},{n:'square',s:4,c:4},{n:'pentagon',s:5,c:5},{n:'hexagon',s:6,c:6}];let sh=shapes[rnd(0,3)];return{q:`A ${sh.n} has ${sh.s} sides. How many corners does it have?`,ans:sh.c,soarHint:`For regular shapes, corners = sides! A ${sh.n} has ${sh.s} sides and ${sh.c} corners.`,story:false,h:()=>hWrap('#9bc4cb','🦅','SOAR  -  Shapes',hBubble(`Corners = sides for these shapes! ${sh.n} → ${sh.c} corners.`))};} },
       { learn:"🦅 SOAR: Number bonds exploration!", visual:"How many different ways can you make a number? 🧩", example:"Find them all!", isSoar:true,
         gen:()=>{let t=rnd(6,10);let a=rnd(1,t-1),b=t-a;return{q:`${a} + ? = ${t}\nAlso: if you used ${b} instead of ${a}, what's the missing number now?`,ans:b,soarHint:`First: ${a}+?=${t} → ?=${t-a}=${b}\nSecond: ${b}+?=${t} → ?=${t-b}=${a}`,story:false,h:()=>missingAddHint(t,a)};} },
       { learn:"🦅 SOAR: Real-world adding!", visual:"Maths is everywhere! 🌍", example:"Think step by step!", isSoar:true,
-        gen:()=>{let p=rnd(2,4),c=rnd(3,6);let cost=p*c;return{q:`Safia buys ${p} pencils. Each costs ${c}p. She pays 20p. What change does she get?`,ans:20-cost,soarHint:`Step 1: total cost = ${p} × ${c}p = ${cost}p\nStep 2: change = 20p − ${cost}p = ${20-cost}p`,story:true,h:()=>hWrap('#9ae6b4','🦅','SOAR  -  Multi-step',hBubble(`Step 1: ${p}×${c}=${cost}p`)+subtractHint(20,cost))};} }
+        gen:()=>{let p=rnd(2,4),c=rnd(3,6);let cost=p*c;return{q:`Safia buys ${p} pencils. Each costs ${c}p. She pays 20p. What change does she get?`,ans:20-cost,soarHint:`Step 1: total cost = ${p} × ${c}p = ${cost}p\nStep 2: change = 20p − ${cost}p = ${20-cost}p`,story:true,h:()=>hWrap('#9bc4cb','🦅','SOAR  -  Multi-step',hBubble(`Step 1: ${p}×${c}=${cost}p`)+subtractHint(20,cost))};} }
     ],
     soar2: [
       { learn:"🦅 SOAR Grade 2: Measuring real things!", visual:"Use what you know about measurement! 📏", example:"Think logically!", isSoar:true,
-        gen:()=>{let l1=rnd(15,40),l2=rnd(10,25);return{q:`Ribbon A = ${l1}cm. Ribbon B = ${l2}cm.\nHow much longer is A than B?\nIf you join them, how long is the total ribbon?`,ans:l1-l2,soarHint:`Longer by: ${l1}−${l2}=${l1-l2}cm\nTotal joined: ${l1}+${l2}=${l1+l2}cm`,story:true,h:()=>hWrap('#9ae6b4','🦅','SOAR  -  Measure',hBubble(`Difference: ${l1}−${l2}:`))+subtractHint(l1,l2)+hBubble(`Total: ${l1}+${l2}:`)+addHint(l1,l2)};} },
+        gen:()=>{let l1=rnd(15,40),l2=rnd(10,25);return{q:`Ribbon A = ${l1}cm. Ribbon B = ${l2}cm.\nHow much longer is A than B?\nIf you join them, how long is the total ribbon?`,ans:l1-l2,soarHint:`Longer by: ${l1}−${l2}=${l1-l2}cm\nTotal joined: ${l1}+${l2}=${l1+l2}cm`,story:true,h:()=>hWrap('#9bc4cb','🦅','SOAR  -  Measure',hBubble(`Difference: ${l1}−${l2}:`))+subtractHint(l1,l2)+hBubble(`Total: ${l1}+${l2}:`)+addHint(l1,l2)};} },
       { learn:"🦅 SOAR Grade 2: Money problem!", visual:"Count coins carefully! 💰", example:"Think it through!", isSoar:true,
-        gen:()=>{let q=rnd(1,3),d=rnd(1,4),n=rnd(0,3);let total=q*25+d*10+n*5;return{q:`Safia has ${q} quarter${q>1?'s':''}, ${d} dime${d>1?'s':''}, and ${n} nickel${n!==1?'s':''}.\nHow much money does she have?\nCan she buy a toy costing ${total-5>0?total-5:total}¢?`,ans:total,soarHint:`${q}×25=${q*25}¢ + ${d}×10=${d*10}¢ + ${n}×5=${n*5}¢ = ${total}¢`,story:true,h:()=>hWrap('#9ae6b4','🦅','SOAR  -  Money',hBubble(`Quarters: ${q}×25=${q*25}¢`)+hBubble(`Dimes: ${d}×10=${d*10}¢`)+hBubble(`Nickels: ${n}×5=${n*5}¢`)+hBubble(`Total: <strong>${total}¢</strong>`))};} },
+        gen:()=>{let q=rnd(1,3),d=rnd(1,4),n=rnd(0,3);let total=q*25+d*10+n*5;return{q:`Safia has ${q} quarter${q>1?'s':''}, ${d} dime${d>1?'s':''}, and ${n} nickel${n!==1?'s':''}.\nHow much money does she have?\nCan she buy a toy costing ${total-5>0?total-5:total}¢?`,ans:total,soarHint:`${q}×25=${q*25}¢ + ${d}×10=${d*10}¢ + ${n}×5=${n*5}¢ = ${total}¢`,story:true,h:()=>hWrap('#9bc4cb','🦅','SOAR  -  Money',hBubble(`Quarters: ${q}×25=${q*25}¢`)+hBubble(`Dimes: ${d}×10=${d*10}¢`)+hBubble(`Nickels: ${n}×5=${n*5}¢`)+hBubble(`Total: <strong>${total}¢</strong>`))};} },
       { learn:"🦅 SOAR Grade 2: Missing number detective!", visual:"Find the pattern and fill in the gaps! 🔍", example:"Be a detective!", isSoar:true,
-        gen:()=>{let a=rnd(10,30),b=rnd(10,25);let total=a+b;return{q:`${a} + __ = ${total}\n__ − ${b} = ${a}\nAre both missing numbers the same?`,ans:b,soarHint:`Both missing numbers = ${b}!\nFirst: ${total}−${a}=${b}\nSecond: ${a}+${b}=${total}, so __=${b}`,story:false,h:()=>hWrap('#9ae6b4','🦅','SOAR  -  Detective',hBubble(`First: ${a}+?=${total}:`))+subtractHint(total,a)+hBubble(`Second: ?−${b}=${a} → ?=${a}+${b}=${a+b}`)};} },
+        gen:()=>{let a=rnd(10,30),b=rnd(10,25);let total=a+b;return{q:`${a} + __ = ${total}\n__ − ${b} = ${a}\nAre both missing numbers the same?`,ans:b,soarHint:`Both missing numbers = ${b}!\nFirst: ${total}−${a}=${b}\nSecond: ${a}+${b}=${total}, so __=${b}`,story:false,h:()=>hWrap('#9bc4cb','🦅','SOAR  -  Detective',hBubble(`First: ${a}+?=${total}:`))+subtractHint(total,a)+hBubble(`Second: ?−${b}=${a} → ?=${a}+${b}=${a+b}`)};} },
       { learn:"🦅 SOAR Grade 2: Data & graphs!", visual:"Numbers tell stories! 📊", example:"Read carefully!", isSoar:true,
-        gen:()=>{let r=rnd(4,12),b=rnd(3,10),g=rnd(2,8);return{q:`Safia counts cars: ${r} red, ${b} blue, ${g} green.\nHow many cars altogether?\nHow many MORE red than green?`,ans:r+b+g,soarHint:`Total: ${r}+${b}+${g}=${r+b+g}\nMore red than green: ${r}−${g}=${r-g}`,story:true,h:()=>hWrap('#9ae6b4','🦅','SOAR  -  Data',hBubble(`Total: ${r}+${b}+${g}:`))+addThreeHint(r,b,g)+hBubble(`Red vs green: ${r}−${g}:`)+(r>g?subtractHint(r,g):hBubble(`Green has more!`))};} },
+        gen:()=>{let r=rnd(4,12),b=rnd(3,10),g=rnd(2,8);return{q:`Safia counts cars: ${r} red, ${b} blue, ${g} green.\nHow many cars altogether?\nHow many MORE red than green?`,ans:r+b+g,soarHint:`Total: ${r}+${b}+${g}=${r+b+g}\nMore red than green: ${r}−${g}=${r-g}`,story:true,h:()=>hWrap('#9bc4cb','🦅','SOAR  -  Data',hBubble(`Total: ${r}+${b}+${g}:`))+addThreeHint(r,b,g)+hBubble(`Red vs green: ${r}−${g}:`)+(r>g?subtractHint(r,g):hBubble(`Green has more!`))};} },
       { learn:"🦅 SOAR Grade 2: Fact family challenge!", visual:"Three numbers, four facts! 👪", example:"Use the Math Family!", isSoar:true,
         gen:()=>{let a=rnd(5,15),b=rnd(5,15),total=a+b;return{q:`Math Family: ${a}, ${b}, ${total}\nWrite all four facts.\nWhich number is the Big Boss?`,ans:total,soarHint:`Boss=${total}\n${a}+${b}=${total} ✅\n${b}+${a}=${total} ✅\n${total}−${a}=${b} ✅\n${total}−${b}=${a} ✅`,story:false,h:()=>factFamilyHint(a,b,total)};} }
     ],
     soar3: [
       { learn:"🦅 SOAR Grade 3: Multiplication investigation!", visual:"Explore arrays and patterns! ✖️", example:"Think like a mathematician!", isSoar:true,
-        gen:()=>{let a=rnd(3,7),b=rnd(3,6);return{q:`Safia arranges ${a*b} tiles in a rectangle.\nShe tries ${a} rows of ${b}.\nWhat is the area? What if she used ${b} rows instead?`,ans:a*b,soarHint:`Both arrangements: ${a}×${b}=${a*b} and ${b}×${a}=${b*a}  -  same area!`,story:true,h:()=>hWrap('#9ae6b4','🦅','SOAR  -  Arrays',hBubble(`${a}×${b}=${a*b} = ${b}×${a}=${b*a}  -  multiplication is commutative! ⭐`))};} },
+        gen:()=>{let a=rnd(3,7),b=rnd(3,6);return{q:`Safia arranges ${a*b} tiles in a rectangle.\nShe tries ${a} rows of ${b}.\nWhat is the area? What if she used ${b} rows instead?`,ans:a*b,soarHint:`Both arrangements: ${a}×${b}=${a*b} and ${b}×${a}=${b*a}  -  same area!`,story:true,h:()=>hintMultiplyArray(a,b)};} },
       { learn:"🦅 SOAR Grade 3: Fractions of shapes!", visual:"Fractions are parts of a whole! 🥧", example:"Think about equal parts!", isSoar:true,
-        gen:()=>{let den=[2,3,4][rnd(0,2)],num=rnd(1,den-1),total=rnd(den,den*5)*den;return{q:`Safia has ${total} stickers. She gives ${num}/${den} to her friend.\nHow many stickers does her friend get?\nHow many does Safia keep?`,ans:total/den*num,soarHint:`${total}÷${den}=${total/den} (one part)\n${num} parts = ${total/den}×${num}=${total/den*num}\nSafia keeps: ${total}−${total/den*num}=${total-total/den*num}`,story:true,h:()=>hWrap('#9ae6b4','🦅','SOAR  -  Fractions',hBubble(`Total÷${den}=${total/den} per part. ${num} parts = <strong>${total/den*num}</strong>`))+hBubble(`Safia keeps: ${total}−${total/den*num} = <strong>${total-total/den*num}</strong>`)};} },
+        gen:()=>{let den=[2,3,4][rnd(0,2)],num=rnd(1,den-1),total=rnd(den,den*5)*den;return{q:`Safia has ${total} stickers. She gives ${num}/${den} to her friend.\nHow many stickers does her friend get?\nHow many does Safia keep?`,ans:total/den*num,soarHint:`${total}÷${den}=${total/den} (one part)\n${num} parts = ${total/den}×${num}=${total/den*num}\nSafia keeps: ${total}−${total/den*num}=${total-total/den*num}`,story:true,h:()=>hWrap('#9bc4cb','🦅','SOAR  -  Fractions',hBubble(`Total÷${den}=${total/den} per part. ${num} parts = <strong>${total/den*num}</strong>`))+hBubble(`Safia keeps: ${total}−${total/den*num} = <strong>${total-total/den*num}</strong>`)};} },
       { learn:"🦅 SOAR Grade 3: Area & perimeter!", visual:"Same perimeter, different areas? 📐", example:"Investigate!", isSoar:true,
-        gen:()=>{let w=rnd(3,7),h=rnd(3,7);return{q:`Rectangle: ${w} × ${h}.\nFind the AREA and the PERIMETER.\nIf you double the width, what happens to the area?`,ans:w*h,soarHint:`Area=${w}×${h}=${w*h}\nPerimeter=2×(${w}+${h})=${2*(w+h)}\nDoubled width: ${w*2}×${h}=${w*2*h}  -  area doubles!`,story:false,h:()=>hWrap('#9ae6b4','🦅','SOAR  -  Area & Perimeter',hBubble(`Area: ${w}×${h}=<strong>${w*h}</strong>`))+hBubble(`Perimeter: 2×(${w}+${h})=2×${w+h}=<strong>${2*(w+h)}</strong>`)+hBubble(`Double width: ${w*2}×${h}=<strong>${w*2*h}</strong>  -  area doubled!`)};} },
+        gen:()=>{let w=rnd(3,7),h=rnd(3,7);return{q:`Rectangle: ${w} × ${h}.\nFind the AREA and the PERIMETER.\nIf you double the width, what happens to the area?`,ans:w*h,soarHint:`Area=${w}×${h}=${w*h}\nPerimeter=2×(${w}+${h})=${2*(w+h)}\nDoubled width: ${w*2}×${h}=${w*2*h}  -  area doubles!`,story:false,h:()=>hWrap('#9bc4cb','🦅','SOAR  -  Area & Perimeter',hBubble(`Area: ${w}×${h}=<strong>${w*h}</strong>`))+hBubble(`Perimeter: 2×(${w}+${h})=2×${w+h}=<strong>${2*(w+h)}</strong>`)+hBubble(`Double width: ${w*2}×${h}=<strong>${w*2*h}</strong>  -  area doubled!`)};} },
       { learn:"🦅 SOAR Grade 3: Division investigation!", visual:"Share equally and find the pattern! ➗", example:"Investigate sharing!", isSoar:true,
-        gen:()=>{let total=rnd(24,60),div=rnd(3,8);let q=Math.floor(total/div),r=total%div;return{q:`${total} children want to make teams of ${div}.\nHow many FULL teams?\nHow many children are left over?`,ans:q,soarHint:`${total}÷${div}=${q} full teams, ${r} left over.\nCheck: ${div}×${q}+${r}=${div*q+r}=${total} ✓`,story:true,h:()=>hWrap('#9ae6b4','🦅','SOAR  -  Division',hBubble(`${total}÷${div}: how many times does ${div} fit into ${total}?`))+hBubble(`${div}×${q}=${div*q}. Remainder: ${total}−${div*q}=<strong>${r}</strong>`)};} },
+        gen:()=>{let total=rnd(24,60),div=rnd(3,8);let q=Math.floor(total/div),r=total%div;return{q:`${total} children want to make teams of ${div}.\nHow many FULL teams?\nHow many children are left over?`,ans:q,soarHint:`${total}÷${div}=${q} full teams, ${r} left over.\nCheck: ${div}×${q}+${r}=${div*q+r}=${total} ✓`,story:true,h:()=>hintDivisionRemainder(total,div)};} },
       { learn:"🦅 SOAR Grade 3: Multi-step problem!", visual:"Real problems need multiple steps! 🌍", example:"Break it into steps!", isSoar:true,
-        gen:()=>{let price=rnd(3,9),qty=rnd(3,6),paid=rnd(price*qty+1,price*qty+20);let total=price*qty,change=paid-total;return{q:`Safia buys ${qty} books at £${price} each.\nShe pays with £${paid}.\nWhat change does she receive?\nHow much would ${qty+2} books cost?`,ans:change,soarHint:`Step1: ${qty}×£${price}=£${total}\nStep2: Change=£${paid}−£${total}=£${change}\nBonus: ${qty+2}×£${price}=£${(qty+2)*price}`,story:true,h:()=>{const hb1=hBubble('Step 1: '+qty+'x'+price+'='+total);const hb2=hBubble('Step 2: change = '+paid+' - '+total+':');const hb3=hBubble('Bonus: '+(qty+2)+'x'+price+'='+(qty+2)*price);return hWrap('#9ae6b4','SOAR','Multi-step Problem',hb1+hb2+subtractHint(paid,total)+hb3);}};} }
+        gen:()=>{let price=rnd(3,9),qty=rnd(3,6),paid=rnd(price*qty+1,price*qty+20);let total=price*qty,change=paid-total;return{q:`Safia buys ${qty} books at £${price} each.\nShe pays with £${paid}.\nWhat change does she receive?\nHow much would ${qty+2} books cost?`,ans:change,soarHint:`Step1: ${qty}×£${price}=£${total}\nStep2: Change=£${paid}−£${total}=£${change}\nBonus: ${qty+2}×£${price}=£${(qty+2)*price}`,story:true,h:()=>{const hb1=hBubble('Step 1: '+qty+'x'+price+'='+total);const hb2=hBubble('Step 2: change = '+paid+' - '+total+':');const hb3=hBubble('Bonus: '+(qty+2)+'x'+price+'='+(qty+2)*price);return hWrap('#9bc4cb','SOAR','Multi-step Problem',hb1+hb2+subtractHint(paid,total)+hb3);}};} }
     ]
   };
 
   const CATEGORIES = {
-    add1:{label:'Addition to 10',icon:'🧸➕',grade:1},
-    sub1:{label:'Subtraction to 10',icon:'🍪➖',grade:1},
-    place1:{label:'Tens & Ones',icon:'🔟',grade:1},
-    add2:{label:'Add to 100',icon:'➕➕',grade:2},
-    sub2:{label:'Subtract to 100',icon:'➖➖',grade:2},
-    money:{label:'Money',icon:'💰',grade:2},
-    measure:{label:'Measurement',icon:'📏',grade:2},
-    multiply:{label:'Multiplication',icon:'✖️',grade:3},
-    divide:{label:'Division',icon:'➗',grade:3},
-    fractions:{label:'Fractions',icon:'🥧',grade:3},
-    area:{label:'Area',icon:'📐',grade:3},
-    rounding:{label:'Rounding',icon:'🔟',grade:3},
-    soar1:{label:'SOAR Grade 1',icon:'🌱🔢',grade:'soar'},
-    soar2:{label:'SOAR Grade 2',icon:'🌿➕',grade:'soar'},
-    soar3:{label:'SOAR Grade 3',icon:'🚀🧠',grade:'soar'}
+    // K/1st
+    add1:     {label:'Hello Kitty · Addition', icon:'🐱➕', grade:1},
+    sub1:     {label:'Peach · Subtraction', icon:'🍑➖', grade:1},
+    place1:   {label:'Labubu · Tens & Ones', icon:'🔟🐻', grade:1},
+    // 2nd
+    add2:     {label:'Peach · Add to 100', icon:'➕👑', grade:2},
+    sub2:     {label:'Peach · Subtract to 100', icon:'➖👗', grade:2},
+    money:    {label:'Princess Peach · Money', icon:'💰🍑', grade:2},
+    measure:  {label:'Hello Kitty · Measure', icon:'📏🐱', grade:2},
+    // 3rd - NEW with multiplication/division
+    multiply: {label:'Labubu · Multiplication (NEW!)', icon:'✖️🐻', grade:3},
+    multiply_facts: {label:'Labubu · Times Tables', icon:'🔢🐻', grade:3},
+    divide:   {label:'Labubu · Division (NEW!)', icon:'➗🥋', grade:3},
+    division_facts: {label:'Labubu · Division Facts', icon:'🔢🥊', grade:3},
+    remainder: {label:'Labubu · Remainder', icon:'🔄🐻', grade:3},
+    // SOAR
+    soar1:    {label:'SOAR white belt (Labubu)', icon:'🌱🐻', grade:'soar'},
+    soar2:    {label:'SOAR yellow belt (Peach)', icon:'🌿🍑', grade:'soar'},
+    soar3:    {label:'SOAR black belt (Kitty)', icon:'🚀🐱', grade:'soar'}
   };
 
   // Pad lessons to 5
@@ -966,15 +1177,15 @@
   function updateLbl(){
     let stars=0,done=0,total=0;
     for(let c in CATEGORIES) for(let l=1;l<=5;l++){total++;if(progress[c]?.[l]?.stars)stars+=progress[c][l].stars;if(progress[c]?.[l]?.done)done++;}
-    document.getElementById('saveLbl').innerHTML=`⭐ ${stars} stars`;
+    document.getElementById('saveLbl').innerHTML=`⭐ ${stars} power stars`;
     const ch=document.getElementById('progressChart');
     if(ch){
       const pct=Math.round(done/total*100);
-      ch.innerHTML=`<h3 style="color:#ffd6b0;font-size:1.6rem;">📊 My Math Journey</h3>
-        <div style="background:#1a1035;border-radius:30px;height:22px;margin:10px 0;overflow:hidden;border:2px solid #b794f4;">
-          <div style="width:${pct}%;height:22px;border-radius:30px;background:linear-gradient(90deg,#c4a5ff,#9ae6b4);"></div>
+      ch.innerHTML=`<h3 style="color:#fbe158;font-size:1.6rem;">📊 Dojo Progress</h3>
+        <div style="background:#511e3a;border-radius:30px;height:22px;margin:10px 0;overflow:hidden;border:2px solid #fbe158;">
+          <div style="width:${pct}%;height:22px;border-radius:30px;background:linear-gradient(90deg,#fbe158,#9bc4cb);"></div>
         </div>
-        <div style="font-size:1.3rem;margin-top:10px;">⭐ ${stars} stars · ${done}/${total} lessons done (${pct}%)</div>`;
+        <div style="font-size:1.3rem;margin-top:10px;">⭐ ${stars} stars · ${done}/${total} belts earned (${pct}%)</div>`;
     }
   }
 
@@ -984,7 +1195,7 @@
   function openCategory(c){
     currentCat=c;
     const isSoar=CATEGORIES[c].grade==='soar';
-    document.getElementById('levelsTitle').textContent=CATEGORIES[c].label+'  -  pick a lesson';
+    document.getElementById('levelsTitle').textContent=CATEGORIES[c].label+'  -  pick a belt';
     const grid=document.getElementById('levelsGrid');
     grid.innerHTML='';
     const icons=['🌱','🌿','🍃','🌟','🏆'];
@@ -993,8 +1204,8 @@
       const p=progress[c][l];
       const btn=document.createElement('button');
       btn.className='lv-btn'+(p.done?' done':'')+(isSoar?' soar-lv':'');
-      btn.innerHTML=`<span class="lv-icon">${isSoar?soarIcons[l-1]:icons[l-1]}</span>${isSoar?'Challenge':'Lesson'} ${l}${p.done?`<div style="font-size:0.9rem;color:#9ae6b4;">⭐${p.stars}</div>`:''}`;
-      btn.onclick=(function(ll){return function(){startLesson(c,ll);};})(l);
+      btn.innerHTML=`<span class="lv-icon">${isSoar?soarIcons[l-1]:icons[l-1]}</span>${isSoar?'Challenge':'Fight'} ${l}${p.done?`<div style="font-size:0.9rem;color:#9bc4cb;">⭐${p.stars}</div>`:''}`;
+      btn.onclick=function(){startLesson(c, l);};
       grid.appendChild(btn);
     }
     showScreen('levelsScreen');
@@ -1004,9 +1215,9 @@
     currentLvl=lvl;qIdx=0;correct=0;wrong=0;mistakes=[];answered=false;hintShown=false;
     lessonData=LESSONS[cat][lvl-1];
     questions=[];
-    const n=lessonData.isSoar?3:3;
+    const n=3; // 3 questions per lesson
     for(let i=0;i<n;i++) questions.push(lessonData.gen());
-    document.getElementById('quizLabel').textContent=`${CATEGORIES[cat].label} · ${lessonData.isSoar?'Challenge':'Lesson'} ${lvl}`;
+    document.getElementById('quizLabel').textContent=`${CATEGORIES[cat].label} · ${lessonData.isSoar?'SOAR':'Belt'} ${lvl}`;
     showScreen('quizScreen');
     renderLesson();
   }
@@ -1014,10 +1225,10 @@
   function renderLesson(){
     document.getElementById('lessonContainer').innerHTML=`
       <div class="lesson-card">
-        <div class="lesson-badge">📚 ${lessonData.isSoar?'🦅 SOAR Challenge!':'Let\'s learn first!'}</div>
+        <div class="lesson-badge">📚 ${lessonData.isSoar?'Labubu SOAR':'Dojo lesson'}</div>
         <div class="lesson-visual">${lessonData.visual}</div>
         <div class="lesson-explanation">✨ ${lessonData.learn}<br>
-          <span style="background:#4a2f7a;padding:8px 14px;border-radius:40px;display:inline-block;margin-top:8px;">💡 Example: ${lessonData.example}</span>
+          <span style="background:#511e3a;padding:8px 14px;border-radius:40px;display:inline-block;margin-top:8px;">💡 Example: ${lessonData.example}</span>
         </div>
       </div>`;
     loadQuestion();
@@ -1043,19 +1254,17 @@
     let inner='';
 
     if(q.story){
-      // SOAR open-ended with text input
       inner=`<div class="soar-q-card">
-        <div class="soar-question">🦅 SOAR Challenge ${qIdx+1}</div>
+        <div class="soar-question">🦍 SOAR ${qIdx+1}</div>
         <div class="soar-story">${q.q.replace(/\n/g,'<br>')}</div>
         <input class="soar-answer-input" id="soarInput" type="number" placeholder="Your answer…" autocomplete="off">
-        <div style="font-size:0.9rem;color:#9ae6b4;margin-top:8px;">Type your answer and press Check</div>
+        <div style="font-size:0.9rem;color:#9bc4cb;margin-top:8px;">Type your answer and press Check</div>
       </div>`;
       document.getElementById('questionContainer').innerHTML=inner;
       document.getElementById('soarInput')?.addEventListener('keydown',e=>{if(e.key==='Enter')checkAnswer();});
     } else if(q.opts){
-      // Multiple choice
       const opts=q.opts.map((opt,i)=>
-        `<button class="opt-btn" onclick="selectOpt(${i},'${opt}')">${opt}</button>`
+        `<button class="opt-btn" onclick="window.selectOpt(${i},'${opt}')">${opt}</button>`
       ).join('');
       inner=`<div class="q-card ${lessonData.isSoar?'soar-q-card':''}">
         <div class="question-text">${q.q.replace(/\n/g,'<br>')}</div>
@@ -1064,7 +1273,6 @@
       document.getElementById('questionContainer').innerHTML=inner;
       document.getElementById('checkBtn').style.display='none';
     } else {
-      // Open text input
       inner=`<div class="q-card">
         <div class="question-text">${q.q.replace(/\n/g,'<br>')}</div>
         <input class="soar-answer-input" id="soarInput" type="number" placeholder="Your answer…" autocomplete="off">
@@ -1086,7 +1294,7 @@
       else if(i===idx&&!isCorrect)btn.classList.add('wrong');
     });
     const fb=document.getElementById('feedback');
-    fb.textContent=isCorrect?'✅ Brilliant! Well done, Safia! ⭐':'🤗 Not quite! Check the hint  -  you can do it!';
+    fb.textContent=isCorrect?'✅ Brilliant! Well done, fighter! ⭐':'🤗 Not quite! Check the hint - you can do it!';
     fb.className='feedback show '+(isCorrect?'ok':'bad');
     document.getElementById('nextBtn').style.display='inline-flex';
     document.getElementById('qsCorrect').textContent=correct;
@@ -1132,13 +1340,13 @@
     try{localStorage.setItem('safia_math_adv',JSON.stringify(progress));}catch(e){}
     updateLbl();
     document.getElementById('resEmoji').textContent=stars>=3?'🏆':stars>=2?'🌟':'⭐';
-    document.getElementById('resTitle').textContent=stars>=3?'Amazing work, Safia!':stars>=2?'Great job!':'Keep practising!';
+    document.getElementById('resTitle').textContent=stars>=3?'Amazing fight!':stars>=2?'Great job!':'Keep training!';
     document.getElementById('resStars').innerHTML='⭐'.repeat(stars);
-    document.getElementById('resMsg').innerHTML=passed?`✨ ${correct}/${total} correct  -  lesson complete!`:`💪 ${correct}/${total} correct. Try again?`;
+    document.getElementById('resMsg').innerHTML=passed?`✨ ${correct}/${total} correct - belt earned!`:`💪 ${correct}/${total} correct. Try again?`;
     const ms=document.getElementById('mistakeSection');
     if(mistakes.length){
       ms.innerHTML='<div style="font-size:1.2rem;font-weight:900;margin:12px 0;">📝 Learn from these:</div>'
-        +mistakes.map(m=>`<div class="mistake-item">❓ ${m.q.replace(/\n/g,' | ')}<br>✅ Answer: ${m.ans}${m.hint?`<br>💡 ${m.hint.split('\n')[0]}`:''}${m.hint.split('\n').slice(1).map(l=>`<br>${l}`).join('')}</div>`).join('');
+        +mistakes.map(m=>`<div class="mistake-item">❓ ${m.q.replace(/\n/g,' | ')}<br>✅ Answer: ${m.ans}${m.hint?`<br>💡 ${m.hint.split('\n')[0]}`:''}${m.hint?m.hint.split('\n').slice(1).map(l=>`<br>${l}`).join(''):''}</div>`).join('');
     } else ms.innerHTML='';
     document.getElementById('retryBtn').onclick=function(){startLesson(currentCat,currentLvl);};
     const nb=document.getElementById('nextLvBtn');
@@ -1148,15 +1356,49 @@
   }
 
   function leaveQuiz(){if(confirm('Leave this lesson?'))showHome();}
-  function leaveQuizToLevels(){if(confirm('Go back to levels?'))openCategory(currentCat);}
+  function leaveQuizToLevels(){if(confirm('Go back to belts?'))openCategory(currentCat);}
   function leaveAndGo(cat){if(confirm('Leave this lesson?')){openCategory(cat);}}
 
-  window.saveProgress=saveProgress;window.loadProgress=loadProgress;window.loadFile=loadFile;
-  window.showHome=showHome;window.openCategory=openCategory;
-  window.leaveQuiz=leaveQuiz;window.leaveQuizToLevels=leaveQuizToLevels;window.leaveAndGo=leaveAndGo;
-  window.checkAnswer=checkAnswer;window.showHint=showHint;window.nextQuestion=nextQuestion;
+  // Event listeners
+  document.addEventListener('DOMContentLoaded', function() {
+    // Home screen category clicks
+    document.querySelectorAll('.menu-card[data-category]').forEach(card => {
+      card.addEventListener('click', function() {
+        openCategory(this.dataset.category);
+      });
+    });
 
-  updateLbl();
+    // Top bar buttons
+    document.getElementById('saveBtn').addEventListener('click', saveProgress);
+    document.getElementById('loadBtn').addEventListener('click', loadProgress);
+    document.getElementById('loadFile').addEventListener('change', loadFile);
+
+    // Navigation buttons
+    document.getElementById('backToHomeBtn').addEventListener('click', showHome);
+    document.getElementById('homeFromLevels').addEventListener('click', showHome);
+    document.getElementById('soarFromLevels').addEventListener('click', () => openCategory('soar1'));
+    document.getElementById('mathFromLevels').addEventListener('click', showHome);
+
+    document.getElementById('homeFromQuiz').addEventListener('click', leaveQuiz);
+    document.getElementById('levelsFromQuiz').addEventListener('click', leaveQuizToLevels);
+    document.getElementById('homeFromQuizQuick').addEventListener('click', leaveQuiz);
+    document.getElementById('soarFromQuiz').addEventListener('click', () => leaveAndGo('soar1'));
+    document.getElementById('levelsFromQuizQuick').addEventListener('click', leaveQuizToLevels);
+
+    document.getElementById('homeFromResult').addEventListener('click', showHome);
+    document.getElementById('levelsFromResult').addEventListener('click', () => openCategory(currentCat));
+    document.getElementById('homeFromResultBtn').addEventListener('click', showHome);
+    document.getElementById('homeFromResultQuick').addEventListener('click', showHome);
+    document.getElementById('soarFromResult').addEventListener('click', () => leaveAndGo('soar1'));
+    document.getElementById('levelsFromResultQuick').addEventListener('click', () => openCategory(currentCat));
+
+    // Quiz buttons
+    document.getElementById('hintBtn').addEventListener('click', showHint);
+    document.getElementById('checkBtn').addEventListener('click', checkAnswer);
+    document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+
+    updateLbl();
+  });
 })();
 </script>
 </body>

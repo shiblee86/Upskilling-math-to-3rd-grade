@@ -1,6 +1,6 @@
 // ============================================================
-//  CUTE COMBAT DOJO - COMPLETE SCRIPT
-//  Part 1: Helper Functions & Hint Functions
+//  CUTE COMBAT DOJO - COMPLETE SCRIPT (FULLY CORRECTED)
+//  Fixed: Removed extra semicolons inside shuffle() calls
 // ============================================================
 
 // Helper functions
@@ -55,6 +55,7 @@ function factFamilyHint(a, b, total) { return hWrap('#9bc4cb', '👪', 'Math Fam
 function composeAddHint(target) { const e = target > 10 ? 7 : 3, ans = target - e, e2 = e + 3, ans2 = target - e2; return hWrap('#9bc4cb', '🧩', 'Make a Sum', hBubble(`We need two different pairs that add to <strong>${target}</strong>. Let's find them!`) + hBubble(`<strong style="color:#fbe158;">Pair 1:</strong> Pick ${e}. Then ${e} + ? = ${target} → subtract:`) + subtractHint(target, e) + hBubble(`<strong style="color:#9bc4cb;">Pair 1: ${e} + ${ans} = ${target} ✅</strong>`) + hBubble(`<strong style="color:#fbe158;">Pair 2:</strong> Pick ${e2}. Then ${e2} + ? = ${target} → subtract:`) + subtractHint(target, e2) + hBubble(`<strong style="color:#9bc4cb;">Pair 2: ${e2} + ${ans2} = ${target} ✅ Now pick your own!</strong>`)); }
 
 function composeSubHint(diff) { const big = diff + 2, sml = 2, big2 = diff + 3, sml2 = 3; return hWrap('#ffb6d1', '🔍', 'Find the Gap', hBubble(`🍪 <strong>Cookie Story:</strong> The first number is always the Boss (the whole tray). The gap must always equal ${diff}.`) + hBubble(`<strong style="color:#fbe158;">Case 1  -  Boss is known: ${big} − ? = ${diff}</strong><br>"You have ${big} cookies, ${diff} are left. How many did you eat?" → subtract:`) + subtractHint(big, diff) + hBubble(`<strong style="color:#9bc4cb;">${big} − ${sml} = ${diff} ✅</strong>`) + hBubble(`<strong style="color:#fbe158;">Case 2  -  Boss is hiding: ? − ${sml2} = ${diff}</strong><br>"Mystery bag: took out ${sml2}, ${diff} remain. How many at start?" → add:`) + addHint(diff, sml2) + hBubble(`<strong style="color:#9bc4cb;">${big2} − ${sml2} = ${diff} ✅</strong><br><em>Rule: Boss known → subtract · Boss hiding → add</em>`)); }
+
 // ============================================================
 //  MULTIPLICATION HINT FUNCTIONS
 // ============================================================
@@ -140,8 +141,127 @@ function hintNineDivision(total) {
     + hBubble(`<strong style="color:#9bc4cb;">✅ ${total} ÷ 9 = ${quotient} ⭐</strong>`)
   );
 }
+
 // ============================================================
-//  COMPLETE LESSON DATA
+//  NEW: MULTIPLICATION INTRO LESSONS (What is Multiplication?)
+// ============================================================
+const multiply_intro = [
+  { 
+    learn: "What is Multiplication? 🤔", 
+    visual: "🐻🐻 + 🐻🐻 + 🐻🐻 = 6 bears! 3 groups of 2 = 3 × 2 = 6",
+    example: "Multiplication is a shortcut for adding the same number again and again!",
+    gen: () => {
+      let groups = rnd(2, 4);
+      let items = rnd(2, 4);
+      return { 
+        q: `You have ${groups} bags. Each bag has ${items} candies. The FAST way to find total candies is:`, 
+        ans: `${groups} × ${items}`,
+        h: () => hWrap('#fbe158', '✖️', 'Multiplication = Repeated Addition',
+          hBubble(`Adding: ${items} + ${items} + ${items} (${groups} times) is slow!<br>` +
+                  `Multiplying: ${groups} × ${items} = ${groups * items} is FASTER!<br><br>` +
+                  `<strong style="color:#9bc4cb;">✅ Multiplication = adding the SAME number over and over!</strong>`)),
+        opts: shuffle([`${groups} × ${items}`, `${items} × ${groups}`, `${groups} + ${items}`, `${items} + ${groups}`])
+      }; 
+    } 
+  },
+  { 
+    learn: "Multiplication vs Addition — Same thing, just FASTER! ⚡", 
+    visual: "4 + 4 + 4 = 12 ··· 3 × 4 = 12 (same answer, less writing!)",
+    example: "3 × 4 means 4 + 4 + 4",
+    gen: () => {
+      let a = rnd(2, 4);
+      let b = rnd(2, 5);
+      return { 
+        q: `${a} × ${b} means adding ${b} how many times?`, 
+        ans: a,
+        h: () => hWrap('#fbe158', '✖️', "Multiplication = Repeated Addition",
+          hBubble(`"${a} × ${b}" means "${b} added ${a} times"<br>` +
+                  `${b} + ${b} + ${b} (${a} times) = ${a * b}<br><br>` +
+                  `<strong>✅ The first number tells you HOW MANY TIMES to add!</strong>`)),
+        opts: [a, b, a + b, a * b]
+      }; 
+    } 
+  },
+  { 
+    learn: "Why do we multiply? Real life! 🛒", 
+    visual: "Buying 5 boxes of cookies. Each box has 6 cookies. 5×6=30 cookies!",
+    example: "Multiplication saves time counting one by one",
+    gen: () => {
+      let boxes = rnd(2, 5);
+      let perBox = rnd(3, 6);
+      return { 
+        q: `You buy ${boxes} packs of stickers. Each pack has ${perBox} stickers. Total stickers? (Multiply!)`, 
+        ans: boxes * perBox,
+        h: () => hintMultiply(boxes, perBox),
+        opts: shuffle([boxes * perBox, boxes + perBox, perBox, boxes * perBox + 1])
+      }; 
+    } 
+  }
+];
+
+// ============================================================
+//  NEW: DIVISION INTRO LESSONS (What is Division?)
+// ============================================================
+const divide_intro = [
+  { 
+    learn: "What is Division? 🤔", 
+    visual: "12 cookies ÷ 4 friends = each gets 3 cookies!",
+    example: "Division = SHARING equally!",
+    gen: () => {
+      let total = rnd(12, 20);
+      let groups = rnd(2, 4);
+      let perGroup = Math.floor(total / groups);
+      return { 
+        q: `${total} candies shared among ${groups} friends. Each gets the SAME number. This is:`, 
+        ans: "division",
+        h: () => hWrap('#9bc4cb', '➗', "Division = Sharing Equally",
+          hBubble(`When you share things FAIRLY, you DIVIDE!<br>` +
+                  `${total} ÷ ${groups} = ${perGroup} each.<br><br>` +
+                  `<strong style="color:#fbe158;">✅ Division = Multiplication's opposite! If ${perGroup}×${groups}=${total}, then ${total}÷${groups}=${perGroup}!</strong>`)),
+        opts: ["addition", "subtraction", "multiplication", "division"]
+      }; 
+    } 
+  },
+  { 
+    learn: "Division vs Subtraction — Same thing, just FASTER! ⚡", 
+    visual: "12 - 4 - 4 - 4 = 0 (subtracted 3 times) → 12÷4=3",
+    example: "Division = repeated subtraction!",
+    gen: () => {
+      let total = rnd(12, 16);
+      let divisor = rnd(3, 4);
+      let quotient = Math.floor(total / divisor);
+      return { 
+        q: `${total} ÷ ${divisor} means: subtract ${divisor} how many times to reach 0?`, 
+        ans: quotient,
+        h: () => hWrap('#9bc4cb', '➗', "Division = Repeated Subtraction",
+          hBubble(`${total} - ${divisor} - ${divisor} - ... = 0<br>` +
+                  `You subtract ${divisor} <strong>${quotient}</strong> times!<br><br>` +
+                  `<strong>✅ ${total} ÷ ${divisor} = ${quotient}</strong>`)),
+        opts: [quotient, divisor, total, quotient + 1]
+      }; 
+    } 
+  },
+  { 
+    learn: "Why do we divide? Real life! 🍕", 
+    visual: "Pizza for 4 people. 8 slices ÷ 4 = 2 slices each!",
+    example: "Division makes sharing fair!",
+    gen: () => {
+      let slices = rnd(8, 12);
+      let people = rnd(2, 4);
+      let each = Math.floor(slices / people);
+      return { 
+        q: `${slices} pizza slices for ${people} people. Each gets the SAME amount. How many slices each?`, 
+        ans: each,
+        h: () => hintDivision(slices, people),
+        opts: shuffle([each, each + 1, slices, people])
+      }; 
+    } 
+  }
+];
+
+// ============================================================
+//  COMPLETE LESSON DATA - FULLY CORRECTED
+//  (Removed extra semicolons inside all shuffle() calls)
 // ============================================================
 
 const LESSONS = {
@@ -232,7 +352,8 @@ const LESSONS = {
     { learn: "Perimeter = all sides added together!", visual: "🟦 side 4cm × 4 sides = 16cm perimeter", example: "Perimeter=16",
       gen: () => { let s = rnd(2, 6); return { q: `Square with sides ${s}cm. Perimeter = ?`, ans: s * 4, h: () => hWrap('#c4a5ff', '📐', 'Perimeter', hBubble(`4 sides × ${s}cm = <strong>${s * 4}cm</strong>`)), opts: shuffle([s * 4, s * 4 + 2, s * 4 - 2, s * 2]) }; } }
   ],
-    // 3rd Grade
+  
+  // 3rd Grade
   multiply: [
     { learn: "Multiplication = groups of same size!", visual: "🐻🐻 | 🐻🐻 | 🐻🐻 = 3×2=6", example: "3 × 2 = 6",
       gen: () => { let a = rnd(2, 5), b = rnd(2, 4); return { q: `${a} × ${b} = ?`, ans: a * b, h: () => hintMultiply(a, b), opts: shuffle([a * b, a * b + a, a * b - b, a + b]) }; } },
@@ -294,20 +415,27 @@ const LESSONS = {
       gen: () => { let q = rnd(2, 4), r = rnd(1, 7); return { q: `${8 * q + r} ÷ 8 = ?`, ans: q, h: () => hintDivision(8 * q + r, 8), opts: shuffle([q, q + 1, 8, r]) }; } }
   ],
 
-  // NEW: Multiplication Main Sections
+  // NEW: Multiplication Intro (3 lessons)
+  multiply_intro: multiply_intro,
+  
+  // Multiplication Main Sections - FIXED (removed extra semicolons)
   multiply_main_1: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "×2 = double! Just add the number to itself." : i === 1 ? "×4 = double twice!" : i === 2 ? "×2 facts speed round" : i === 3 ? "×4 facts speed round" : i === 4 ? "Mixed ×2 & ×4 challenge!" : "", visual: i === 0 ? "2×3 = 3+3 = 6" : i === 1 ? "4×3 = 3+3=6, double to 12" : "⚡", example: i === 0 ? "2×5=10" : i === 1 ? "4×5=20" : "Practice!", gen: () => { let a = rnd(2, 9); let b = i === 0 || i === 2 ? 2 : i === 1 || i === 3 ? 4 : (Math.random() > 0.5 ? 2 : 4); return { q: `${a} × ${b} = ?`, ans: a * b, h: () => hintMultiply(a, b), opts: shuffle([a * b, a * b + b, a * b - b, a]) }; } })),
   multiply_main_2: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "×5 = count by 5s!" : i === 1 ? "×10 = add a zero!" : i === 2 ? "×5 facts speed" : i === 3 ? "×10 facts speed" : i === 4 ? "Mixed ×5 & ×10!" : "", visual: i === 0 ? "5,10,15,20,25..." : "10,20,30,40...", example: "Quick strikes!", gen: () => { let a = rnd(2, 9); let b = i === 0 || i === 2 ? 5 : 10; return { q: `${a} × ${b} = ?`, ans: a * b, h: () => hintMultiplyFacts(a, b), opts: shuffle([a * b, a * b + b, a * b - b, a]) }; } })),
   multiply_main_3: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "×3 = triple strike!" : i === 1 ? "×6 = double ×3" : i === 2 ? "×3 facts" : i === 3 ? "×6 facts" : i === 4 ? "Mixed ×3 & ×6!" : "", visual: i === 0 ? "3,6,9,12..." : "6,12,18,24...", example: "Power up!", gen: () => { let a = rnd(2, 9); let b = i === 0 || i === 2 ? 3 : 6; return { q: `${a} × ${b} = ?`, ans: a * b, h: () => hintMultiplyFacts(a, b), opts: shuffle([a * b, a * b + b, a * b - b, a]) }; } })),
   multiply_main_4: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "×7 = lucky seven!" : i === 1 ? "×8 = octopus attack!" : i === 2 ? "×7 facts" : i === 3 ? "×8 facts" : i === 4 ? "Mixed ×7 & ×8!" : "", visual: i === 0 ? "7,14,21,28..." : "8,16,24,32...", example: "Strike hard!", gen: () => { let a = rnd(2, 8); let b = i === 0 || i === 2 ? 7 : 8; return { q: `${a} × ${b} = ?`, ans: a * b, h: () => hintMultiplyFacts(a, b), opts: shuffle([a * b, a * b + b, a * b - b, a]) }; } })),
   multiply_main_5: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "×9 finger trick!" : i === 1 ? "×9 more practice" : i === 2 ? "×9 ninja strikes" : i === 3 ? "×9 speed round" : i === 4 ? "Master ×9!" : "", visual: i === 0 ? "Bend finger #3 → 2 and 7 = 27" : "9,18,27,36...", example: "9×8=72", gen: () => { let a = rnd(2, 9); return { q: `${a} × 9 = ?`, ans: a * 9, h: () => hintNineTimes(a), opts: shuffle([a * 9, a * 9 + 9, a * 9 - 9, a]) }; } })),
 
-  // NEW: Division Main Sections
+  // NEW: Division Intro (3 lessons)
+  divide_intro: divide_intro,
+  
+  // Division Main Sections - FIXED (removed extra semicolons)
   divide_main_1: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "÷2 = split in half!" : i === 1 ? "÷4 = quarter the group!" : i === 2 ? "÷2 facts" : i === 3 ? "÷4 facts" : i === 4 ? "Mixed ÷2 & ÷4!" : "", visual: i === 0 ? "8÷2=4" : i === 1 ? "12÷4=3" : "⚡", example: "Share equally!", gen: () => { let q = rnd(2, 8); let d = i === 0 || i === 2 ? 2 : 4; return { q: `${q * d} ÷ ${d} = ?`, ans: q, h: () => hintDivision(q * d, d), opts: shuffle([q, q + 1, q - 1, q + 2]) }; } })),
   divide_main_2: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "÷5 = groups of 5!" : i === 1 ? "÷10 = remove a zero!" : i === 2 ? "÷5 facts" : i === 3 ? "÷10 facts" : i === 4 ? "Mixed ÷5 & ÷10!" : "", visual: i === 0 ? "20÷5=4" : i === 1 ? "50÷10=5" : "⚡", example: "Quick groups!", gen: () => { let q = rnd(2, 9); let d = i === 0 || i === 2 ? 5 : 10; return { q: `${q * d} ÷ ${d} = ?`, ans: q, h: () => hintDivision(q * d, d), opts: shuffle([q, q + 1, q - 1, q + 2]) }; } })),
   divide_main_3: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "÷3 = triple split!" : i === 1 ? "÷6 = six-pack share!" : i === 2 ? "÷3 facts" : i === 3 ? "÷6 facts" : i === 4 ? "Mixed ÷3 & ÷6!" : "", visual: i === 0 ? "15÷3=5" : i === 1 ? "36÷6=6" : "⚡", example: "Share evenly!", gen: () => { let q = rnd(2, 8); let d = i === 0 || i === 2 ? 3 : 6; return { q: `${q * d} ÷ ${d} = ?`, ans: q, h: () => hintDivision(q * d, d), opts: shuffle([q, q + 1, q - 1, q + 2]) }; } })),
   divide_main_4: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "÷7 = lucky split!" : i === 1 ? "÷8 = eight-way share!" : i === 2 ? "÷7 facts" : i === 3 ? "÷8 facts" : i === 4 ? "Mixed ÷7 & ÷8!" : "", visual: i === 0 ? "28÷7=4" : i === 1 ? "48÷8=6" : "⚡", example: "Share fairly!", gen: () => { let q = rnd(2, 7); let d = i === 0 || i === 2 ? 7 : 8; return { q: `${q * d} ÷ ${d} = ?`, ans: q, h: () => hintDivision(q * d, d), opts: shuffle([q, q + 1, q - 1, q + 2]) }; } })),
   divide_main_5: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "÷9 = reverse finger trick!" : i === 1 ? "÷9 practice" : i === 2 ? "÷9 ninja shares" : i === 3 ? "÷9 speed" : i === 4 ? "Master ÷9!" : "", visual: i === 0 ? "63÷9=7" : "9,18,27,36...", example: "81÷9=9", gen: () => { let q = rnd(2, 9); return { q: `${q * 9} ÷ 9 = ?`, ans: q, h: () => hintNineDivision(q * 9), opts: shuffle([q, q + 1, q - 1, q + 2]) }; } })),
-    // SOAR sections
+
+  // SOAR sections
   soar1: [
     { learn: "SOAR Challenge 1", visual: "Think like a fighter!", example: "Use reasoning", isSoar: true, gen: () => { let a = rnd(2, 5), b = rnd(2, 5); return { q: `Safia has ${a} bags. Each has ${b} apples. Total?`, ans: a * b, h: () => hintMultiply(a, b), opts: shuffle([a * b, a * b + b, a * b - b, a]) }; } },
     { learn: "SOAR Challenge 2", visual: "Pattern detection", example: "Find the rule", isSoar: true, gen: () => { let s = rnd(2, 5), d = rnd(2, 4); let seq = [s, s + d, s + 2 * d, s + 3 * d]; return { q: `Pattern: ${seq.join(', ')}, __ ?`, ans: seq[3] + d, h: () => hWrap('#9bc4cb', '🦅', 'Patterns', hBubble(`Rule: +${d}`)), opts: shuffle([seq[3] + d, seq[3] + d + 1, seq[3], seq[2]]) }; } },
@@ -338,12 +466,43 @@ for (let cat in LESSONS) {
 
 // Categories metadata
 const CATEGORIES = {
-  add1: { label: 'Hello Kitty · Addition', grade: 1 }, sub1: { label: 'Peach · Subtraction', grade: 1 }, place1: { label: 'Labubu · Tens & Ones', grade: 1 },
-  add2: { label: 'Peach · Add to 100', grade: 2 }, sub2: { label: 'Peach · Subtract to 100', grade: 2 }, money: { label: 'Peach · Money', grade: 2 }, measure: { label: 'Kitty · Measure', grade: 2 },
-  multiply: { label: 'Labubu · Multiplication', grade: 3 }, multiply_facts: { label: 'Labubu · Times Tables', grade: 3 }, divide: { label: 'Labubu · Division', grade: 3 }, division_facts: { label: 'Labubu · Division Facts', grade: 3 }, remainder: { label: 'Labubu · Remainder', grade: 3 },
-  multiply_main_1: { label: '×2 & ×4', grade: 'multiply' }, multiply_main_2: { label: '×5 & ×10', grade: 'multiply' }, multiply_main_3: { label: '×3 & ×6', grade: 'multiply' }, multiply_main_4: { label: '×7 & ×8', grade: 'multiply' }, multiply_main_5: { label: '×9', grade: 'multiply' },
-  divide_main_1: { label: '÷2 & ÷4', grade: 'divide' }, divide_main_2: { label: '÷5 & ÷10', grade: 'divide' }, divide_main_3: { label: '÷3 & ÷6', grade: 'divide' }, divide_main_4: { label: '÷7 & ÷8', grade: 'divide' }, divide_main_5: { label: '÷9', grade: 'divide' },
-  soar1: { label: 'SOAR white belt', grade: 'soar' }, soar2: { label: 'SOAR yellow belt', grade: 'soar' }, soar3: { label: 'SOAR black belt', grade: 'soar' }
+  add1: { label: 'Hello Kitty · Addition', grade: 1 },
+  sub1: { label: 'Peach · Subtraction', grade: 1 },
+  place1: { label: 'Labubu · Tens & Ones', grade: 1 },
+  add2: { label: 'Peach · Add to 100', grade: 2 },
+  sub2: { label: 'Peach · Subtract to 100', grade: 2 },
+  money: { label: 'Peach · Money', grade: 2 },
+  measure: { label: 'Kitty · Measure', grade: 2 },
+  multiply: { label: 'Labubu · Multiplication', grade: 3 },
+  multiply_facts: { label: 'Labubu · Times Tables', grade: 3 },
+  divide: { label: 'Labubu · Division', grade: 3 },
+  division_facts: { label: 'Labubu · Division Facts', grade: 3 },
+  remainder: { label: 'Labubu · Remainder', grade: 3 },
+  
+  // NEW: Multiplication Intro
+  multiply_intro: { label: '🌟 What is Multiplication?', grade: 'multiply' },
+  
+  // Multiplication Main
+  multiply_main_1: { label: '×2 & ×4', grade: 'multiply' },
+  multiply_main_2: { label: '×5 & ×10', grade: 'multiply' },
+  multiply_main_3: { label: '×3 & ×6', grade: 'multiply' },
+  multiply_main_4: { label: '×7 & ×8', grade: 'multiply' },
+  multiply_main_5: { label: '×9', grade: 'multiply' },
+  
+  // NEW: Division Intro
+  divide_intro: { label: '🌟 What is Division?', grade: 'divide' },
+  
+  // Division Main
+  divide_main_1: { label: '÷2 & ÷4', grade: 'divide' },
+  divide_main_2: { label: '÷5 & ÷10', grade: 'divide' },
+  divide_main_3: { label: '÷3 & ÷6', grade: 'divide' },
+  divide_main_4: { label: '÷7 & ÷8', grade: 'divide' },
+  divide_main_5: { label: '÷9', grade: 'divide' },
+  
+  // SOAR
+  soar1: { label: 'SOAR white belt', grade: 'soar' },
+  soar2: { label: 'SOAR yellow belt', grade: 'soar' },
+  soar3: { label: 'SOAR black belt', grade: 'soar' }
 };
 
 let progress = {};

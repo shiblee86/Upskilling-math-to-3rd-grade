@@ -1,6 +1,7 @@
 // ============================================================
-//  CUTE COMBAT DOJO - COMPLETE SCRIPT (FULLY CORRECTED)
-//  Fixed: Removed extra semicolons inside shuffle() calls
+//  CUTE COMBAT DOJO - COMPLETE SCRIPT
+//  DYNAMIC QUESTION GENERATION: Every question is generated
+//  fresh on the spot, never reused!
 // ============================================================
 
 // Helper functions
@@ -51,10 +52,6 @@ function addThreeHint(a, b, c) { const s1 = a + b; return hWrap('#9bc4cb', '🔺
 function subThreeHint(total, b, c) { const s1 = total - b; return hWrap('#ffb6d1', '🔻', 'Subtracting Step by Step', hBubble(`<strong style="color:#fbe158;">Step 1  -  Subtract ${b} from ${total}:</strong>`) + subtractHint(total, b) + hBubble(`<strong style="color:#fbe158;">Step 2  -  Subtract ${c} from the result (${s1} − ${c}):</strong>`) + subtractHint(s1, c) + hBubble(`<strong style="color:#9bc4cb;">✅ ${total}−${b}−${c} = ${total - b - c} ⭐</strong>`)); }
 
 function factFamilyHint(a, b, total) { return hWrap('#9bc4cb', '👪', 'Math Family (dojo trio)', hBubble(`<strong style="color:#fbe158;">👑 Big Boss = ${total}   🤝 Friends = ${a} & ${b}</strong>`) + hBubble(`<strong style="color:#fbe158;">➕ Plus (Friends → Boss):</strong><br>${hChip(a, '#ffb6d1')} + ${hChip(b, '#ffb6d1')} = ${hChip(total, '#fbe158')} ✅<br>${hChip(b, '#ffb6d1')} + ${hChip(a, '#ffb6d1')} = ${hChip(total, '#fbe158')} ✅`) + hBubble(`<strong style="color:#fbe158;">➖ Minus (Boss − Friend = Friend):</strong><br>${hChip(total, '#fbe158')} − ${hChip(a, '#ffb6d1')} = ${hChip(b, '#9bc4cb')} ✅<br>${hChip(total, '#fbe158')} − ${hChip(b, '#ffb6d1')} = ${hChip(a, '#9bc4cb')} ✅`) + hBubble(`🍑 <em>Big Boss must always be FIRST in minus, and LAST (after =) in plus!</em>`)); }
-
-function composeAddHint(target) { const e = target > 10 ? 7 : 3, ans = target - e, e2 = e + 3, ans2 = target - e2; return hWrap('#9bc4cb', '🧩', 'Make a Sum', hBubble(`We need two different pairs that add to <strong>${target}</strong>. Let's find them!`) + hBubble(`<strong style="color:#fbe158;">Pair 1:</strong> Pick ${e}. Then ${e} + ? = ${target} → subtract:`) + subtractHint(target, e) + hBubble(`<strong style="color:#9bc4cb;">Pair 1: ${e} + ${ans} = ${target} ✅</strong>`) + hBubble(`<strong style="color:#fbe158;">Pair 2:</strong> Pick ${e2}. Then ${e2} + ? = ${target} → subtract:`) + subtractHint(target, e2) + hBubble(`<strong style="color:#9bc4cb;">Pair 2: ${e2} + ${ans2} = ${target} ✅ Now pick your own!</strong>`)); }
-
-function composeSubHint(diff) { const big = diff + 2, sml = 2, big2 = diff + 3, sml2 = 3; return hWrap('#ffb6d1', '🔍', 'Find the Gap', hBubble(`🍪 <strong>Cookie Story:</strong> The first number is always the Boss (the whole tray). The gap must always equal ${diff}.`) + hBubble(`<strong style="color:#fbe158;">Case 1  -  Boss is known: ${big} − ? = ${diff}</strong><br>"You have ${big} cookies, ${diff} are left. How many did you eat?" → subtract:`) + subtractHint(big, diff) + hBubble(`<strong style="color:#9bc4cb;">${big} − ${sml} = ${diff} ✅</strong>`) + hBubble(`<strong style="color:#fbe158;">Case 2  -  Boss is hiding: ? − ${sml2} = ${diff}</strong><br>"Mystery bag: took out ${sml2}, ${diff} remain. How many at start?" → add:`) + addHint(diff, sml2) + hBubble(`<strong style="color:#9bc4cb;">${big2} − ${sml2} = ${diff} ✅</strong><br><em>Rule: Boss known → subtract · Boss hiding → add</em>`)); }
 
 // ============================================================
 //  MULTIPLICATION HINT FUNCTIONS
@@ -260,8 +257,7 @@ const divide_intro = [
 ];
 
 // ============================================================
-//  COMPLETE LESSON DATA - FULLY CORRECTED
-//  (Removed extra semicolons inside all shuffle() calls)
+//  COMPLETE LESSON DATA
 // ============================================================
 
 const LESSONS = {
@@ -418,7 +414,7 @@ const LESSONS = {
   // NEW: Multiplication Intro (3 lessons)
   multiply_intro: multiply_intro,
   
-  // Multiplication Main Sections - FIXED (removed extra semicolons)
+  // Multiplication Main Sections
   multiply_main_1: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "×2 = double! Just add the number to itself." : i === 1 ? "×4 = double twice!" : i === 2 ? "×2 facts speed round" : i === 3 ? "×4 facts speed round" : i === 4 ? "Mixed ×2 & ×4 challenge!" : "", visual: i === 0 ? "2×3 = 3+3 = 6" : i === 1 ? "4×3 = 3+3=6, double to 12" : "⚡", example: i === 0 ? "2×5=10" : i === 1 ? "4×5=20" : "Practice!", gen: () => { let a = rnd(2, 9); let b = i === 0 || i === 2 ? 2 : i === 1 || i === 3 ? 4 : (Math.random() > 0.5 ? 2 : 4); return { q: `${a} × ${b} = ?`, ans: a * b, h: () => hintMultiply(a, b), opts: shuffle([a * b, a * b + b, a * b - b, a]) }; } })),
   multiply_main_2: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "×5 = count by 5s!" : i === 1 ? "×10 = add a zero!" : i === 2 ? "×5 facts speed" : i === 3 ? "×10 facts speed" : i === 4 ? "Mixed ×5 & ×10!" : "", visual: i === 0 ? "5,10,15,20,25..." : "10,20,30,40...", example: "Quick strikes!", gen: () => { let a = rnd(2, 9); let b = i === 0 || i === 2 ? 5 : 10; return { q: `${a} × ${b} = ?`, ans: a * b, h: () => hintMultiplyFacts(a, b), opts: shuffle([a * b, a * b + b, a * b - b, a]) }; } })),
   multiply_main_3: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "×3 = triple strike!" : i === 1 ? "×6 = double ×3" : i === 2 ? "×3 facts" : i === 3 ? "×6 facts" : i === 4 ? "Mixed ×3 & ×6!" : "", visual: i === 0 ? "3,6,9,12..." : "6,12,18,24...", example: "Power up!", gen: () => { let a = rnd(2, 9); let b = i === 0 || i === 2 ? 3 : 6; return { q: `${a} × ${b} = ?`, ans: a * b, h: () => hintMultiplyFacts(a, b), opts: shuffle([a * b, a * b + b, a * b - b, a]) }; } })),
@@ -428,7 +424,7 @@ const LESSONS = {
   // NEW: Division Intro (3 lessons)
   divide_intro: divide_intro,
   
-  // Division Main Sections - FIXED (removed extra semicolons)
+  // Division Main Sections
   divide_main_1: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "÷2 = split in half!" : i === 1 ? "÷4 = quarter the group!" : i === 2 ? "÷2 facts" : i === 3 ? "÷4 facts" : i === 4 ? "Mixed ÷2 & ÷4!" : "", visual: i === 0 ? "8÷2=4" : i === 1 ? "12÷4=3" : "⚡", example: "Share equally!", gen: () => { let q = rnd(2, 8); let d = i === 0 || i === 2 ? 2 : 4; return { q: `${q * d} ÷ ${d} = ?`, ans: q, h: () => hintDivision(q * d, d), opts: shuffle([q, q + 1, q - 1, q + 2]) }; } })),
   divide_main_2: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "÷5 = groups of 5!" : i === 1 ? "÷10 = remove a zero!" : i === 2 ? "÷5 facts" : i === 3 ? "÷10 facts" : i === 4 ? "Mixed ÷5 & ÷10!" : "", visual: i === 0 ? "20÷5=4" : i === 1 ? "50÷10=5" : "⚡", example: "Quick groups!", gen: () => { let q = rnd(2, 9); let d = i === 0 || i === 2 ? 5 : 10; return { q: `${q * d} ÷ ${d} = ?`, ans: q, h: () => hintDivision(q * d, d), opts: shuffle([q, q + 1, q - 1, q + 2]) }; } })),
   divide_main_3: Array(5).fill().map((_, i) => ({ learn: i === 0 ? "÷3 = triple split!" : i === 1 ? "÷6 = six-pack share!" : i === 2 ? "÷3 facts" : i === 3 ? "÷6 facts" : i === 4 ? "Mixed ÷3 & ÷6!" : "", visual: i === 0 ? "15÷3=5" : i === 1 ? "36÷6=6" : "⚡", example: "Share evenly!", gen: () => { let q = rnd(2, 8); let d = i === 0 || i === 2 ? 3 : 6; return { q: `${q * d} ÷ ${d} = ?`, ans: q, h: () => hintDivision(q * d, d), opts: shuffle([q, q + 1, q - 1, q + 2]) }; } })),
@@ -506,7 +502,7 @@ const CATEGORIES = {
 };
 
 let progress = {};
-try { progress = JSON.parse(localStorage.getItem('safia_math_adv_v4')) || {}; } catch (e) { }
+try { progress = JSON.parse(localStorage.getItem('safia_math_adv_v5')) || {}; } catch (e) { }
 for (let c in CATEGORIES) {
   if (!progress[c]) progress[c] = {};
   for (let l = 1; l <= 5; l++) { if (!progress[c][l]) progress[c][l] = { done: false, stars: 0 }; }
@@ -572,9 +568,8 @@ function openCategory(c) {
 function startLesson(cat, lvl) {
   currentLvl = lvl; qIdx = 0; correct = 0; wrong = 0; mistakes = []; answered = false; hintShown = false;
   lessonData = LESSONS[cat][lvl - 1];
-  questions = [];
-  const n = 3;
-  for (let i = 0; i < n; i++) questions.push(lessonData.gen());
+  // Just set the number of questions (3 per belt), but questions will be generated on demand
+  questions = [1, 2, 3]; // This just tracks count, actual questions are generated dynamically
   document.getElementById('quizLabel').innerHTML = `${CATEGORIES[cat].label} · ${lessonData.isSoar ? 'SOAR' : 'Belt'} ${lvl}`;
   showScreen('quizScreen');
   renderLesson();
@@ -597,7 +592,11 @@ function renderLesson() {
 function loadQuestion() {
   if (qIdx >= questions.length) { showResult(); return; }
   answered = false; hintShown = false;
-  currentQ = questions[qIdx];
+  
+  // DYNAMIC GENERATION: Generate a brand new question object every time!
+  // This ensures every question is fresh and different!
+  currentQ = lessonData.gen();
+  
   const total = questions.length;
   document.getElementById('quizQNum').textContent = `Q${qIdx + 1}/${total}`;
   document.getElementById('qsCorrect').textContent = correct;
@@ -617,7 +616,7 @@ function loadQuestion() {
 
   let inner = '';
   if (q.opts) {
-    const opts = q.opts.map((opt, i) => `<button class="opt-btn" onclick="window.selectOpt(${i},'${opt}')">${opt}</button>`).join('');
+    const opts = q.opts.map((opt, i) => `<button class="opt-btn" onclick="window.selectOpt(${i},'${String(opt).replace(/'/g, "\\'")}')">${opt}</button>`).join('');
     inner = `<div class="${cardClass}">
       <div class="question-text">${q.q.replace(/\n/g, '<br>')}</div>
       <div class="options-grid">${opts}</div>
@@ -689,7 +688,7 @@ function showResult() {
   const stars = correct >= 3 ? 3 : correct >= 2 ? 2 : 1;
   const passed = correct >= 2;
   if (passed) { progress[currentCat][currentLvl].done = true; progress[currentCat][currentLvl].stars = Math.max(progress[currentCat][currentLvl].stars || 0, stars); }
-  try { localStorage.setItem('safia_math_adv_v4', JSON.stringify(progress)); } catch (e) { }
+  try { localStorage.setItem('safia_math_adv_v5', JSON.stringify(progress)); } catch (e) { }
   updateLbl();
   document.getElementById('resEmoji').textContent = stars >= 3 ? '🏆' : stars >= 2 ? '🌟' : '⭐';
   document.getElementById('resTitle').textContent = stars >= 3 ? 'Amazing fight!' : stars >= 2 ? 'Great job!' : 'Keep training!';

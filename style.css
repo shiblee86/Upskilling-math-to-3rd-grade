@@ -409,6 +409,64 @@ body {
   margin-bottom: 6px;
 }
 
+/* UNITS ACCORDION (grade/track -> curriculum units -> skill cards) */
+.unit-card {
+  background: #511e3a;
+  border: 3px solid #fbe158;
+  border-radius: 40px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 0 #2f0f2f;
+}
+
+.unit-header {
+  width: 100%;
+  background: #dc80b0;
+  color: #3e1b2b;
+  font-weight: 900;
+  font-size: 1.3rem;
+  font-family: inherit;
+  padding: 16px 22px;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.unit-header::after {
+  content: '▸';
+  font-size: 1.4rem;
+  transition: transform 0.15s;
+}
+
+.unit-card.open .unit-header::after {
+  transform: rotate(90deg);
+}
+
+.unit-body {
+  display: none;
+  padding: 16px;
+}
+
+.unit-card.open .unit-body {
+  display: block;
+}
+
+.unit-skill-card {
+  min-height: 130px;
+  padding: 18px 12px;
+}
+
+.unit-skill-card .mc-badge {
+  margin-top: auto;
+}
+
+@media (max-width: 380px) {
+  .unit-header { font-size: 1.05rem; padding: 12px 16px; }
+}
+
 /* QUIZ */
 .quiz-head {
   background: #511e3a;

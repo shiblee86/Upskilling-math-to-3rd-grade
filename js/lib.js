@@ -301,11 +301,56 @@ const SHAPE_POINTS = {
   rectangle: () => [[8, 32], [112, 32], [112, 88], [8, 88]],
   pentagon: () => regularPolygonPoints(5, 60, 62, 50),
   hexagon: () => regularPolygonPoints(6, 60, 60, 48),
+  heptagon: () => regularPolygonPoints(7, 60, 62, 50),
+  octagon: () => regularPolygonPoints(8, 60, 60, 50),
   trapezoid: () => [[30, 20], [90, 20], [112, 100], [8, 100]],
   rhombus: () => [[60, 10], [104, 60], [60, 110], [16, 60]],
   parallelogram: () => [[30, 20], [110, 20], [90, 100], [10, 100]]
 };
-const SHAPE_SIDES = { triangle: 3, square: 4, rectangle: 4, pentagon: 5, hexagon: 6, trapezoid: 4, rhombus: 4, parallelogram: 4 };
+const SHAPE_SIDES = { triangle: 3, square: 4, rectangle: 4, pentagon: 5, hexagon: 6, heptagon: 7, octagon: 8, trapezoid: 4, rhombus: 4, parallelogram: 4 };
+
+function vUnitGrid(rows, cols, opts) {
+  opts = opts || {};
+  const theme = opts.theme || '#9bc4cb';
+  const cell = 28;
+  const w = cols * cell, h = rows * cell;
+  let cells = '';
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      cells += `<rect x="${c * cell}" y="${r * cell}" width="${cell}" height="${cell}" fill="${theme}22" stroke="${theme}" stroke-width="2"/>`;
+    }
+  }
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" style="max-width:${w}px;vertical-align:middle;" role="img" aria-label="${rows} by ${cols} grid of unit squares">${cells}</svg>`;
+}
+
+function vLinePlot(data, opts) {
+  opts = opts || {};
+  const theme = opts.theme || '#9bc4cb';
+  const min = Math.min(...data.map(d => d.value));
+  const max = Math.max(...data.map(d => d.value));
+  const w = 300, pad = 20;
+  const span = Math.max(1, max - min);
+  const xFor = v => pad + (v - min) / span * (w - pad * 2);
+  const maxCount = Math.max(...data.map(d => d.count), 1);
+  const dotR = 7, gap = 16;
+  const h = 40 + maxCount * gap;
+  let dots = '', ticks = '', labels = '';
+  for (let v = min; v <= max; v++) {
+    const x = xFor(v);
+    ticks += `<line x1="${x.toFixed(1)}" y1="${h - 30}" x2="${x.toFixed(1)}" y2="${h - 24}" stroke="${theme}" stroke-width="2"/>`;
+    labels += `<text x="${x.toFixed(1)}" y="${h - 8}" text-anchor="middle" fill="#fef9d7" font-size="12">${v}</text>`;
+  }
+  data.forEach(d => {
+    const x = xFor(d.value);
+    for (let i = 0; i < d.count; i++) {
+      dots += `<circle cx="${x.toFixed(1)}" cy="${h - 34 - i * gap}" r="${dotR}" fill="${theme}"/>`;
+    }
+  });
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" style="max-width:${w}px;vertical-align:middle;" role="img" aria-label="line plot">
+    <line x1="${pad}" y1="${h - 27}" x2="${w - pad}" y2="${h - 27}" stroke="${theme}" stroke-width="3" stroke-linecap="round"/>
+    ${ticks}${labels}${dots}
+  </svg>`;
+}
 
 function vShape(kind, opts) {
   opts = opts || {};

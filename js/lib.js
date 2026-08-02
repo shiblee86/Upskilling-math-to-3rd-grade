@@ -406,6 +406,41 @@ function vAngle(degrees, theme) {
   </svg>`;
 }
 
+function vVennDiagram(items, theme) {
+  theme = theme || '#9bc4cb';
+  const leftCx = 70, rightCx = 130, cy = 90, r = 65;
+  const anchors = {
+    left: [[35, 65], [35, 105], [20, 90]],
+    right: [[165, 65], [165, 105], [180, 90]],
+    both: [[100, 65], [100, 115], [100, 90]]
+  };
+  const used = { left: 0, right: 0, both: 0 };
+  let dots = '';
+  items.forEach(it => {
+    const idx = Math.min(used[it.region]++, 2);
+    const [x, y] = anchors[it.region][idx];
+    dots += `<text x="${x}" y="${y}" text-anchor="middle" font-size="24">${it.emoji}</text>`;
+  });
+  return `<svg viewBox="0 0 200 180" width="220" height="200" role="img" aria-label="venn diagram" style="vertical-align:middle;">
+    <circle cx="${leftCx}" cy="${cy}" r="${r}" fill="none" stroke="${theme}" stroke-width="3"/>
+    <circle cx="${rightCx}" cy="${cy}" r="${r}" fill="none" stroke="${theme}" stroke-width="3"/>
+    ${dots}
+  </svg>`;
+}
+
+function vLinePair(kind, theme) {
+  theme = theme || '#9bc4cb';
+  let lines;
+  if (kind === 'parallel') {
+    lines = `<line x1="20" y1="40" x2="140" y2="40" stroke="${theme}" stroke-width="4" stroke-linecap="round"/><line x1="20" y1="90" x2="140" y2="90" stroke="${theme}" stroke-width="4" stroke-linecap="round"/>`;
+  } else if (kind === 'perpendicular') {
+    lines = `<line x1="30" y1="20" x2="30" y2="120" stroke="${theme}" stroke-width="4" stroke-linecap="round"/><line x1="10" y1="70" x2="130" y2="70" stroke="${theme}" stroke-width="4" stroke-linecap="round"/>`;
+  } else {
+    lines = `<line x1="20" y1="25" x2="140" y2="115" stroke="${theme}" stroke-width="4" stroke-linecap="round"/><line x1="20" y1="115" x2="140" y2="25" stroke="${theme}" stroke-width="4" stroke-linecap="round"/>`;
+  }
+  return `<svg viewBox="0 0 160 140" width="160" height="140" role="img" aria-label="${kind} lines" style="vertical-align:middle;">${lines}</svg>`;
+}
+
 function vFractionBar(numerator, denominator, opts) {
   opts = opts || {};
   const theme = opts.theme || '#9bc4cb';

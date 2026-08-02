@@ -34,6 +34,15 @@
 - Click **"Save (Belt)"** to download your progress as a `.json` file
 - Click **"Load (Match)"** to restore saved progress
 
+## 🧪 Running Tests
+
+This project has no build step, so there's no `npm test`. There's a `gjs`-based automated suite instead - it loads the real app files outside a browser and checks the logic (every skill generates valid, answerable questions; progress/mastery/quizzes/Fluency Zone all behave correctly; every button's target element actually exists).
+
+1. Install `gjs` (GNOME JavaScript) if you don't have it - e.g. `sudo apt install gjs` or `brew install gjs`
+2. Run `bash tests/run.sh` from the project folder
+
+This verifies the app's logic is sound, but **can't confirm the page actually renders correctly in a browser** - always give it a manual look after making changes.
+
 ## 📱 Device Support
 
 - Works on **desktop**, **tablet**, and **mobile**

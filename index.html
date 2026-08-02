@@ -79,6 +79,10 @@
   <div class="screen" id="unitsScreen">
     <div class="levels-wrap">
       <div class="levels-title" id="unitsTitle">pick a unit</div>
+      <div class="assessment-row">
+        <button type="button" class="btn btn-check" id="courseChallengeBtn">🏆 Course Challenge</button>
+        <button type="button" class="btn btn-hint" id="fluencyZoneBtn" style="display:none;">⚡ Fluency Zone</button>
+      </div>
       <div id="unitsAccordion"></div>
       <div style="margin-top:20px;text-align:center;">
         <button class="btn btn-back" id="backToHomeFromUnitsBtn">← back to dojo</button>
@@ -136,6 +140,26 @@
       <button class="qn-btn qn-home" id="homeFromQuizQuick">🏠 Dojo</button>
       <button class="qn-btn qn-soar" id="soarFromQuiz">🐻 Labubu</button>
       <button class="qn-btn qn-math" id="levelsFromQuizQuick">← Levels</button>
+    </div>
+  </div>
+
+  <!-- FLUENCY ZONE (timed multiplication/division fact practice) -->
+  <div class="screen" id="fluencyScreen">
+    <div class="fluency-wrap">
+      <div class="fluency-title" id="fluencyTitle">⚡ Fluency Zone</div>
+      <div class="fluency-head">
+        <div class="fluency-stat"><div class="fluency-stat-lbl">⏱ Time</div><div class="fluency-stat-val" id="fluencyTime">60</div></div>
+        <div class="fluency-stat"><div class="fluency-stat-lbl">✅ Score</div><div class="fluency-stat-val" id="fluencyScoreVal">0</div></div>
+      </div>
+      <div class="fluency-question" id="fluencyQuestion">? × ? = ?</div>
+      <input class="soar-answer-input" id="fluencyInput" type="number" placeholder="Type the answer…" autocomplete="off">
+      <div class="btn-row">
+        <button class="btn btn-check" id="fluencySubmitBtn">✅ Submit</button>
+        <button class="btn btn-back" id="fluencyStopBtn">⏹ Stop</button>
+      </div>
+    </div>
+    <div class="quick-nav">
+      <button class="qn-btn qn-home" id="homeFromFluency">🏠 Dojo</button>
     </div>
   </div>
 

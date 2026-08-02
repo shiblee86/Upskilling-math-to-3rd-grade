@@ -369,6 +369,76 @@ function leaveQuizToLevels() { if (confirm('Go back?')) backToLevelsOrUnits(); }
 function leaveAndGo(cat) { if (confirm('Leave this lesson?')) { openCategory(cat); } }
 function backToLevelsOrUnits() { quizMode === 'belt' ? openCategory(currentCat) : openTrack(currentTrack); }
 
+// ============================================================
+//  FLUENCY ZONE (timed multiplication/division fact practice)
+//  Deliberately its own small function set, not wired into the
+//  belt-quiz engine above - a timer doesn't mix well with that
+//  engine's currentQ/lessonData/mistake-tracking coupling.
+// ============================================================
+function startFluency(kind) {
+  fluencyKind = kind; fluencyScore = 0; fluencyTimeLeft = 60;
+  fluencyBest = progress.__fluency[kind]?.best || 0;
+  document.getElementById('fluencyTitle').textContent = kind === 'multiply' ? '⚡ Multiplication Fluency Zone' : '⚡ Division Fluency Zone';
+  updateFluencyHeader();
+  showScreen('fluencyScreen');
+  nextFluencyQuestion();
+  if (fluencyTimerId) clearInterval(fluencyTimerId);
+  fluencyTimerId = setInterval(fluencyTick, 1000);
+}
+
+function updateFluencyHeader() {
+  document.getElementById('fluencyTime').textContent = fluencyTimeLeft;
+  document.getElementById('fluencyScoreVal').textContent = fluencyScore;
+}
+
+function fluencyTick() {
+  fluencyTimeLeft--;
+  updateFluencyHeader();
+  if (fluencyTimeLeft <= 0) endFluency();
+}
+
+function nextFluencyQuestion() {
+  fluencyQ = randomFact(fluencyKind);
+  document.getElementById('fluencyQuestion').textContent = fluencyQ.q;
+  const inp = document.getElementById('fluencyInput');
+  inp.value = '';
+  inp.classList.remove('flash-correct', 'flash-wrong');
+  inp.focus();
+}
+
+function submitFluencyAnswer() {
+  if (!fluencyTimerId) return;
+  const inp = document.getElementById('fluencyInput');
+  const raw = inp.value.trim();
+  if (!raw) return;
+  const isCorrect = parseInt(raw) === fluencyQ.ans;
+  if (isCorrect) { fluencyScore++; inp.classList.add('flash-correct'); } else { inp.classList.add('flash-wrong'); }
+  updateFluencyHeader();
+  nextFluencyQuestion();
+}
+
+function endFluency() {
+  clearInterval(fluencyTimerId); fluencyTimerId = null;
+  const isNewBest = fluencyScore > fluencyBest;
+  progress.__fluency[fluencyKind] = { best: Math.max(fluencyScore, fluencyBest) };
+  try { localStorage.setItem('dojo_math_v6', JSON.stringify(progress)); } catch (e) { }
+  updateLbl();
+  showFluencyResult(isNewBest);
+}
+
+function stopFluency() { if (confirm('Stop the Fluency Zone early?')) endFluency(); }
+
+function showFluencyResult(isNewBest) {
+  document.getElementById('resEmoji').textContent = isNewBest ? '🏆' : '⚡';
+  document.getElementById('resTitle').textContent = isNewBest ? 'New best!' : 'Fluency Zone complete!';
+  document.getElementById('resStars').innerHTML = fluencyScore >= 20 ? '⭐⭐⭐' : fluencyScore >= 10 ? '⭐⭐' : '⭐';
+  document.getElementById('resMsg').innerHTML = `⚡ ${fluencyScore} correct in 60 seconds! Best: ${Math.max(fluencyScore, fluencyBest)}`;
+  document.getElementById('mistakeSection').innerHTML = '';
+  document.getElementById('retryBtn').onclick = function () { startFluency(fluencyKind); };
+  document.getElementById('nextLvBtn').style.display = 'none';
+  showScreen('resultScreen');
+}
+
 // Event listeners
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.menu-card[data-track]').forEach(card => {
@@ -403,5 +473,14 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('hintBtn').addEventListener('click', showHint);
   document.getElementById('checkBtn').addEventListener('click', checkAnswer);
   document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+
+  document.getElementById('fluencySubmitBtn').addEventListener('click', submitFluencyAnswer);
+  document.getElementById('fluencyInput').addEventListener('keydown', e => { if (e.key === 'Enter') submitFluencyAnswer(); });
+  document.getElementById('fluencyStopBtn').addEventListener('click', stopFluency);
+  document.getElementById('homeFromFluency').addEventListener('click', () => {
+    if (fluencyTimerId) { if (confirm('Leave the Fluency Zone?')) { clearInterval(fluencyTimerId); fluencyTimerId = null; showHome(); } }
+    else showHome();
+  });
+
   updateLbl();
 });

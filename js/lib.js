@@ -195,14 +195,20 @@ function vNumberLine(min, max, opts) {
   opts = opts || {};
   const theme = opts.theme || '#9bc4cb';
   const step = opts.step || 1;
+  const labelFn = opts.labelFn || (v => v);
   const w = 320, h = 90, pad = 20;
   const span = max - min;
   const xFor = v => pad + (v - min) / span * (w - pad * 2);
   let ticks = '', labels = '';
-  for (let v = min; v <= max; v += step) {
+  // Compute each tick from the loop index (min + i*step) rather than
+  // accumulating v += step, which drifts with fractional steps like 1/3
+  // and can skip or duplicate the final tick.
+  const stepCount = Math.round((max - min) / step);
+  for (let i = 0; i <= stepCount; i++) {
+    const v = min + i * step;
     const x = xFor(v);
     ticks += `<line x1="${x.toFixed(1)}" y1="34" x2="${x.toFixed(1)}" y2="46" stroke="${theme}" stroke-width="2"/>`;
-    labels += `<text x="${x.toFixed(1)}" y="66" text-anchor="middle" fill="#fef9d7" font-size="12" font-family="'Courier New',monospace">${v}</text>`;
+    labels += `<text x="${x.toFixed(1)}" y="66" text-anchor="middle" fill="#fef9d7" font-size="12" font-family="'Courier New',monospace">${labelFn(v)}</text>`;
   }
   let hop = '';
   const markerId = 'dojoArrow' + Math.floor(Math.random() * 1e6);
@@ -369,6 +375,22 @@ function vShape(kind, opts) {
   return `<svg viewBox="0 0 120 120" width="140" height="140" role="img" aria-label="${kind}" style="vertical-align:middle;">
     <polygon points="${pointsAttr}" fill="${theme}33" stroke="${theme}" stroke-width="4" stroke-linejoin="round"/>
     ${sideLabels}
+  </svg>`;
+}
+
+function vAngle(degrees, theme) {
+  theme = theme || '#9bc4cb';
+  const cx = 20, cy = 100, len = 85;
+  const rad = degrees * Math.PI / 180;
+  const x2 = cx + len, y2 = cy;
+  const x3 = cx + len * Math.cos(rad), y3 = cy - len * Math.sin(rad);
+  const arcR = 24;
+  const arcX = cx + arcR * Math.cos(rad / 2), arcY = cy - arcR * Math.sin(rad / 2);
+  return `<svg viewBox="0 0 120 120" width="140" height="140" role="img" aria-label="${degrees} degree angle" style="vertical-align:middle;">
+    <line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="${theme}" stroke-width="4" stroke-linecap="round"/>
+    <line x1="${cx}" y1="${cy}" x2="${x3.toFixed(1)}" y2="${y3.toFixed(1)}" stroke="${theme}" stroke-width="4" stroke-linecap="round"/>
+    <path d="M ${cx + arcR} ${cy} A ${arcR} ${arcR} 0 0 0 ${arcX.toFixed(1)} ${arcY.toFixed(1)}" fill="none" stroke="#fef9d7" stroke-width="2"/>
+    <circle cx="${cx}" cy="${cy}" r="4" fill="#fef9d7"/>
   </svg>`;
 }
 

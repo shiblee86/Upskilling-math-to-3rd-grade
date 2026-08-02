@@ -170,6 +170,12 @@ const SHAPES_3D_VEF = [
   { name: 'square pyramid', emoji: '🔺', faces: 5, edges: 8, vertices: 5 }
 ];
 
+// Index = number of sides (3-10). Any distractor lookup into this table
+// MUST clamp to [3,10] first - an out-of-range index returns undefined
+// and would leak the literal string "undefined" into the UI.
+const POLYGON_NAMES = { 3: 'triangle', 4: 'quadrilateral', 5: 'pentagon', 6: 'hexagon', 7: 'heptagon', 8: 'octagon', 9: 'nonagon', 10: 'decagon' };
+function clampSides(n) { return Math.max(3, Math.min(10, n)); }
+
 // ============================================================
 //  SKILLS - every atomic skill's belts. gen() always returns
 //  { q, ans, h, opts } - unchanged contract from before Phase 1.
@@ -1120,6 +1126,379 @@ const SKILLS = {
       } }
   ],
 
+  // 3rd Grade - Phase 4 additions
+  mult_properties: [
+    { learn: "Commutative property: you can multiply in any order and get the same answer! a×b = b×a", visual: "3×4 = 4×3 = 12", example: "6×2 = 2×6",
+      gen: () => {
+        let a = rnd(2, 9), b = rnd(2, 9);
+        return {
+          q: `If ${a} × ${b} = ${a * b}, what does ${b} × ${a} equal?`,
+          ans: a * b,
+          h: () => hWrap('#fbe158', '🔄', 'Commutative Property', hBubble(`Multiplication order doesn't matter! ${a}×${b} = ${b}×${a} = <strong style="color:#fbe158;">${a * b}</strong>`)),
+          opts: dedupOpts(a * b, [a * b + a, a * b - a, a + b])
+        };
+      } },
+    { learn: "Distributive property: break apart a factor to multiply in easier pieces!", visual: "8×6 = 8×5 + 8×1 = 40+8 = 48", example: "9×4 = 9×2 + 9×2 = 36",
+      gen: () => {
+        let a = rnd(6, 9), b = rnd(6, 9);
+        let split1 = rnd(2, b - 1), split2 = b - split1;
+        let ans = a * b;
+        return {
+          q: `${a} × ${b} = (${a} × ${split1}) + (${a} × ${split2}). What is the total?`,
+          ans,
+          h: () => hWrap('#fbe158', '✂️', 'Distributive Property', hBubble(`${a}×${split1}=${a * split1}, ${a}×${split2}=${a * split2}.<br>${a * split1}+${a * split2}=<strong style="color:#fbe158;">${ans}</strong>`)),
+          opts: dedupOpts(ans, [ans + a, ans - a, a + b])
+        };
+      } }
+  ],
+  mult_2digit: [
+    { learn: "Multiply by tens! 4×30 = 4×3 with a zero on the end.", visual: "4×30 = 120", example: "6×20=120",
+      gen: () => {
+        let a = rnd(2, 9), tens = rnd(2, 9) * 10;
+        let ans = a * tens;
+        return {
+          q: `${a} × ${tens} = ?`,
+          ans,
+          h: () => hWrap('#fbe158', '🔟', 'Multiply by Tens', hBubble(`${a}×${tens / 10}=${a * tens / 10}, then add a zero: <strong style="color:#fbe158;">${ans}</strong>`)),
+          opts: dedupOpts(ans, [ans + tens, ans - tens, ans + 10])
+        };
+      } },
+    { learn: "Multiply a 2-digit number by a 1-digit number! Break it into tens and ones.", visual: "23×4 = 20×4 + 3×4 = 80+12 = 92", example: "23×4=92",
+      gen: () => {
+        let a = rnd(11, 49), b = rnd(2, 9);
+        let tens = Math.floor(a / 10) * 10, ones = a % 10;
+        let ans = a * b;
+        return {
+          q: `${a} × ${b} = ?`,
+          ans,
+          h: () => hWrap('#fbe158', '✖️', '2-Digit Multiplication', hBubble(`${a} = ${tens}+${ones}.<br>${tens}×${b}=${tens * b}, ${ones}×${b}=${ones * b}.<br>${tens * b}+${ones * b}=<strong style="color:#fbe158;">${ans}</strong>`)),
+          opts: dedupOpts(ans, [ans + b, ans - b, ans + 10])
+        };
+      } }
+  ],
+  division_fluency12: [
+    { learn: "Division facts up to 12! 144÷12=12, 121÷11=11...", visual: "132 ÷ 12 = 11", example: "121÷11=11",
+      gen: () => {
+        let d = rnd(11, 12), q = rnd(2, 12);
+        return { q: `${d * q} ÷ ${d} = ?`, ans: q, h: () => hintDivisionFacts(d * q, d), opts: dedupOpts(q, [q + 1, q - 1, d]) };
+      } },
+    { learn: "Find the missing dividend or divisor!", visual: "? ÷ 6 = 9 → ? = 54", example: "72 ÷ ? = 8 → ? = 9",
+      gen: () => {
+        let divisor = rnd(2, 12), quotient = rnd(2, 12);
+        let dividend = divisor * quotient;
+        if (rnd(0, 1) === 0) return { q: `? ÷ ${divisor} = ${quotient}`, ans: dividend, h: () => hintMultiplyFacts(divisor, quotient), opts: dedupOpts(dividend, [dividend + divisor, dividend - divisor, quotient]) };
+        else return { q: `${dividend} ÷ ? = ${quotient}`, ans: divisor, h: () => hintDivisionFacts(dividend, quotient), opts: dedupOpts(divisor, [divisor + 1, divisor - 1, quotient]) };
+      } }
+  ],
+  rounding_estimate: [
+    { learn: "Round bigger numbers! Look at the digit to the right of the place you're rounding to.", visual: "3,482 rounded to the nearest 1000 = 3,000", example: "6,720 → nearest 1000 = 7,000",
+      gen: () => {
+        let n = rnd(1000, 9899);
+        const place = [10, 100, 1000][rnd(0, 2)];
+        let ans = Math.round(n / place) * place;
+        return {
+          q: `Round ${n} to the nearest ${place}.`,
+          ans,
+          h: () => hWrap('#c4a5ff', '🎯', 'Round', hBubble(`${n} rounds to <strong style="color:#9bc4cb;">${ans}</strong> (nearest ${place}).`)),
+          opts: dedupOpts(ans, [ans + place, ans - place, n])
+        };
+      } },
+    { learn: "Estimate a sum by rounding each number first, then adding the round numbers!", visual: "297+412 ≈ 300+400 = 700", example: "Estimate, don't calculate exactly",
+      gen: () => {
+        let a = rnd(100, 899), b = rnd(100, 899);
+        let ra = Math.round(a / 100) * 100, rb = Math.round(b / 100) * 100;
+        let ans = ra + rb;
+        return {
+          q: `Estimate ${a} + ${b} by rounding each to the nearest hundred.`,
+          ans,
+          h: () => hWrap('#c4a5ff', '🎯', 'Estimate the Sum', hBubble(`${a}→${ra}, ${b}→${rb}. ${ra}+${rb}=<strong style="color:#9bc4cb;">${ans}</strong>`)),
+          opts: dedupOpts(ans, [ans + 100, ans - 100, a + b])
+        };
+      } }
+  ],
+  add_sub_4digit: [
+    { learn: "Add 4-digit numbers! Same rules, just more columns.", visual: "2456+1389=3845", example: "2456+1389=3845",
+      gen: () => {
+        let a = rnd(1100, 6000), b = rnd(1100, 3500);
+        while (a + b > 9999) b = rnd(1100, 2500);
+        return { q: `${a} + ${b} = ?`, ans: a + b, h: () => addHint(a, b), opts: dedupOpts(a + b, [a + b + 1, a + b - 1, a + b + 10, a + b - 10]) };
+      } },
+    { learn: "Subtract 4-digit numbers! Borrow across columns as needed.", visual: "5230−1876=3354", example: "5230−1876=3354",
+      gen: () => {
+        let a = rnd(2000, 9500), b = rnd(1000, a - 500);
+        return { q: `${a} − ${b} = ?`, ans: a - b, h: () => subtractHint(a, b), opts: dedupOpts(a - b, [a - b + 1, a - b - 1, a - b + 10, a - b - 10]) };
+      } }
+  ],
+  word_problems3: [
+    { learn: "Two-step word problems: solve one step, then use that answer for the next step!", visual: "Buy 3 packs of 4 pencils, give away 5. 3×4=12, 12−5=7", example: "12−5=7",
+      gen: () => {
+        let packs = rnd(2, 6), perPack = rnd(3, 8);
+        let total = packs * perPack;
+        let giveAway = rnd(1, total - 3);
+        let ans = total - giveAway;
+        return {
+          q: `Buy ${packs} packs of ${perPack} pencils each, then give away ${giveAway}. How many pencils are left?`,
+          ans,
+          h: () => hWrap('#9bc4cb', '🧩', 'Two Steps', hBubble(`Step 1: ${packs}×${perPack}=${total}.<br>Step 2: ${total}−${giveAway}=<strong style="color:#9bc4cb;">${ans}</strong>`)),
+          opts: dedupOpts(ans, [ans + 1, ans - 1, total, giveAway])
+        };
+      } },
+    { learn: "Solve for the unknown! Use the inverse operation to find the missing number.", visual: "? × 6 = 42 → ? = 42÷6 = 7", example: "? ÷ 5 = 8 → ? = 40",
+      gen: () => {
+        let b = rnd(2, 9), ans = rnd(2, 9), product = ans * b;
+        if (rnd(0, 1) === 0) return { q: `? × ${b} = ${product}`, ans, h: () => hintDivisionFacts(product, b), opts: dedupOpts(ans, [ans + 1, ans - 1, b, product]) };
+        else return { q: `? ÷ ${b} = ${ans}`, ans: product, h: () => hintMultiplyFacts(ans, b), opts: dedupOpts(product, [product + b, product - b, ans, b]) };
+      } }
+  ],
+  fractions_numberline: [
+    { learn: "Fractions live on the number line too! Between 0 and 1, split into equal parts.", visual: vNumberLine(0, 1, { theme: TRACK_THEME.grade3, step: 0.25, point: 0.75, labelFn: v => `${Math.round(v * 4)}/4` }), example: "3/4 is 3 steps from 0, split into fourths",
+      gen: () => {
+        let den = [2, 3, 4, 5, 6][rnd(0, 4)];
+        let num = rnd(1, den - 1);
+        return {
+          q: `What fraction is marked on the number line?<br>${vNumberLine(0, 1, { theme: TRACK_THEME.grade3, step: 1 / den, point: num / den, labelFn: v => `${Math.round(v * den)}/${den}` })}`,
+          ans: `${num}/${den}`,
+          h: () => hWrap('#9bc4cb', '➡️', 'Fractions on a Number Line', hBubble(`Between 0 and 1, split into ${den} equal parts. The mark is at <strong style="color:#9bc4cb;">${num}/${den}</strong>.`)),
+          opts: dedupOpts(`${num}/${den}`, [`${den - num}/${den}`, `${num}/${den + 1}`, `${num + 1}/${den}`])
+        };
+      } },
+    { learn: "Fractions greater than 1! The number line keeps going past 1, 2, 3...", visual: vNumberLine(0, 2, { theme: TRACK_THEME.grade3, step: 0.5, point: 1.5, labelFn: v => `${Math.round(v * 2)}/2` }), example: "3/2 is one and a half",
+      gen: () => {
+        let den = [2, 3, 4][rnd(0, 2)];
+        let num = rnd(den + 1, den * 2 - 1);
+        return {
+          q: `What fraction is marked on the number line?<br>${vNumberLine(0, 2, { theme: TRACK_THEME.grade3, step: 1 / den, point: num / den, labelFn: v => `${Math.round(v * den)}/${den}` })}`,
+          ans: `${num}/${den}`,
+          h: () => hWrap('#9bc4cb', '➡️', 'Fractions Greater Than 1', hBubble(`Count marks past 0: the mark at <strong style="color:#9bc4cb;">${num}/${den}</strong> is past 1 whole.`)),
+          opts: dedupOpts(`${num}/${den}`, [`${num - 1}/${den}`, `${num + 1}/${den}`, `${den}/${den}`])
+        };
+      } }
+  ],
+  fractions_equivalent: [
+    { learn: "Equivalent fractions look different but represent the same amount!", visual: vFractionBar(1, 2, { theme: TRACK_THEME.grade3, compareTo: [2, 4] }), example: "1/2 = 2/4",
+      gen: () => {
+        let den1 = rnd(2, 4), num1 = rnd(1, den1 - 1);
+        let mult = rnd(2, 3);
+        let makeEquivalent = Math.random() < 0.5;
+        let den2 = den1 * mult;
+        let num2 = makeEquivalent ? num1 * mult : num1 * mult + (Math.random() < 0.5 ? 1 : -1);
+        num2 = Math.max(1, Math.min(den2 - 1, num2));
+        let actuallyEquivalent = (num1 / den1 === num2 / den2);
+        return {
+          q: `Are these fractions equivalent?<br>${vFractionBar(num1, den1, { theme: TRACK_THEME.grade3, compareTo: [num2, den2] })}`,
+          ans: actuallyEquivalent ? 'yes' : 'no',
+          h: () => hWrap('#9bc4cb', '🟰', 'Equivalent Fractions', hBubble(`${num1}/${den1} = ${(num1 / den1).toFixed(2)}. ${num2}/${den2} = ${(num2 / den2).toFixed(2)}. ${actuallyEquivalent ? 'They ARE equal ✅' : "They're NOT equal ❌"}`)),
+          opts: shuffle(['yes', 'no'])
+        };
+      } },
+    { learn: "Find the missing number to make equivalent fractions! Multiply top and bottom by the same number.", visual: "1/3 = ?/9 → multiply by 3 → 3/9", example: "2/5 = 4/10",
+      gen: () => {
+        let den1 = rnd(2, 6), num1 = rnd(1, den1 - 1);
+        let mult = rnd(2, 4);
+        let den2 = den1 * mult;
+        let ans = num1 * mult;
+        return {
+          q: `${num1}/${den1} = ?/${den2}`,
+          ans,
+          h: () => hWrap('#9bc4cb', '🟰', 'Equivalent Fractions', hBubble(`${den2}÷${den1}=${mult}, so multiply the top by ${mult} too: ${num1}×${mult}=<strong style="color:#9bc4cb;">${ans}</strong>`)),
+          opts: dedupOpts(ans, [ans + 1, ans - 1, den1, mult])
+        };
+      } }
+  ],
+  fractions_compare: [
+    { learn: "Compare fractions with different denominators! Bigger pieces or more pieces can both matter - compare carefully.", visual: "1/3 vs 1/4 → 1/3 is bigger (thirds are bigger pieces)", example: "3/4 > 2/3",
+      gen: () => {
+        let den1 = rnd(2, 8), den2 = rnd(2, 8);
+        while (den2 === den1) den2 = rnd(2, 8);
+        let num1 = rnd(1, den1 - 1), num2 = rnd(1, den2 - 1);
+        let v1 = num1 / den1, v2 = num2 / den2, guard = 0;
+        while (Math.abs(v1 - v2) < 0.02 && guard < 50) { num2 = rnd(1, den2 - 1); v2 = num2 / den2; guard++; }
+        let ans = v1 > v2 ? `${num1}/${den1}` : `${num2}/${den2}`;
+        return {
+          q: `Which is bigger: ${num1}/${den1} or ${num2}/${den2}?`,
+          ans,
+          h: () => hWrap('#9bc4cb', '⚖️', 'Compare Fractions', hBubble(`${num1}/${den1} = ${v1.toFixed(2)}. ${num2}/${den2} = ${v2.toFixed(2)}. <strong style="color:#9bc4cb;">${ans}</strong> is bigger.`)),
+          opts: [`${num1}/${den1}`, `${num2}/${den2}`]
+        };
+      } },
+    { learn: "Order fractions from smallest to biggest!", visual: "1/4, 1/2, 3/4 (smallest to biggest)", example: "Order: 1/8, 1/2, 3/4",
+      gen: () => {
+        let den = rnd(4, 8);
+        let nums = [rnd(1, den - 1), rnd(1, den - 1), rnd(1, den - 1)], guard = 0;
+        while (new Set(nums).size < 3 && guard < 50) { nums = [rnd(1, den - 1), rnd(1, den - 1), rnd(1, den - 1)]; guard++; }
+        let sorted = [...nums].sort((a, b) => a - b);
+        let ans = sorted.map(n => `${n}/${den}`).join(', ');
+        let pool = [sorted.slice().reverse().map(n => `${n}/${den}`).join(', '), nums.map(n => `${n}/${den}`).join(', ')];
+        let opts = [ans];
+        for (const p of pool) if (!opts.includes(p)) opts.push(p);
+        while (opts.length < 3) { const alt = shuffle(nums.slice()).map(n => `${n}/${den}`).join(', '); if (!opts.includes(alt)) opts.push(alt); }
+        return {
+          q: `Order these from smallest to biggest: ${nums.map(n => `${n}/${den}`).join(', ')}`,
+          ans,
+          h: () => hWrap('#9bc4cb', '📶', 'Order Fractions', hBubble(`Same denominator - just order the numerators: ${sorted.join(', ')} → <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          opts: shuffle(opts)
+        };
+      } }
+  ],
+  area_perimeter3: [
+    { learn: "Break a big rectangle into two smaller ones to find area - distributive property!", visual: "4×7 = 4×3 + 4×4 = 12+16 = 28", example: "Add the two rectangle areas together",
+      gen: () => {
+        let rows = rnd(3, 7), cols1 = rnd(2, 5), cols2 = rnd(2, 5);
+        let ans = rows * (cols1 + cols2);
+        return {
+          q: `A rectangle is split into two parts: ${rows}×${cols1} and ${rows}×${cols2}. What is the total area?<br><div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">${vUnitGrid(rows, cols1, { theme: TRACK_THEME.grade3 })}<span style="font-size:1.8rem;color:#fef9d7;font-weight:900;">+</span>${vUnitGrid(rows, cols2, { theme: TRACK_THEME.grade3 })}</div>`,
+          ans,
+          h: () => hWrap('#9bc4cb', '⬜', 'Composite Area', hBubble(`${rows}×${cols1}=${rows * cols1}. ${rows}×${cols2}=${rows * cols2}. ${rows * cols1}+${rows * cols2}=<strong style="color:#9bc4cb;">${ans}</strong>`)),
+          opts: dedupOpts(ans, [ans + rows, ans - rows, rows * cols1, rows * cols2])
+        };
+      } },
+    { learn: "Find a missing side! If you know the perimeter and one side, subtract to find the other.", visual: "Perimeter=20, one side=5. Other side = 10-5=5", example: "Rectangle: perimeter 18, one side 5 → other side = 4",
+      gen: () => {
+        let l = rnd(3, 10), w = rnd(3, 10);
+        let perimeter = 2 * (l + w);
+        let known = rnd(0, 1) === 0 ? l : w;
+        let ans = known === l ? w : l;
+        return {
+          q: `A rectangle has perimeter ${perimeter}cm. One side is ${known}cm. What is the other side?`,
+          ans,
+          h: () => hWrap('#c4a5ff', '📐', 'Missing Side', hBubble(`Perimeter ÷ 2 = ${perimeter / 2}. ${perimeter / 2}−${known}=<strong style="color:#9bc4cb;">${ans}</strong>`)),
+          opts: dedupOpts(ans, [ans + 1, ans - 1, perimeter / 2, known])
+        };
+      } },
+    { learn: "Area and perimeter measure different things! Area = space inside. Perimeter = distance around.", visual: "5×3 rectangle: Area=15, Perimeter=16", example: "Same rectangle, two different measurements",
+      gen: () => {
+        let l = rnd(3, 9), w = rnd(2, 8);
+        let area = l * w, perimeter = 2 * (l + w);
+        let askArea = Math.random() < 0.5;
+        let ans = askArea ? area : perimeter;
+        return {
+          q: `Rectangle ${l}cm × ${w}cm. What is the ${askArea ? 'area' : 'perimeter'}?`,
+          ans,
+          h: () => askArea ? hintMultiply(l, w) : hWrap('#c4a5ff', '📐', 'Perimeter', hBubble(`2×(${l}+${w})=<strong style="color:#9bc4cb;">${perimeter}</strong>`)),
+          opts: dedupOpts(ans, [area, perimeter, l + w, ans + 1, ans - 1])
+        };
+      } }
+  ],
+  geometry3: [
+    { learn: "Angles are classified by size! Right = exactly 90°. Acute = less than 90°. Obtuse = more than 90°.", visual: vAngle(90, TRACK_THEME.grade3), example: "A right angle looks like the corner of a square",
+      gen: () => {
+        const types = [{ deg: rnd(20, 70), name: 'acute' }, { deg: 90, name: 'right' }, { deg: rnd(110, 160), name: 'obtuse' }];
+        const t = types[rnd(0, 2)];
+        return {
+          q: `What type of angle is this?<br>${vAngle(t.deg, TRACK_THEME.grade3)}`,
+          ans: t.name,
+          h: () => hWrap('#9bc4cb', '📐', 'Angle Types', hBubble(`Acute = less than 90°. Right = exactly 90°. Obtuse = more than 90°. This angle is <strong style="color:#9bc4cb;">${t.name}</strong>.`)),
+          opts: ['acute', 'right', 'obtuse']
+        };
+      } },
+    { learn: "Quadrilaterals can be classified by their sides and angles!", visual: "Square: 4 equal sides + 4 right angles. Rhombus: 4 equal sides, no right angles.", example: "A trapezoid has only 1 pair of parallel sides",
+      gen: () => {
+        const facts = [
+          { kind: 'square', fact: '4 equal sides and 4 right angles' },
+          { kind: 'rectangle', fact: 'opposite sides equal and 4 right angles' },
+          { kind: 'rhombus', fact: '4 equal sides but no right angles' },
+          { kind: 'trapezoid', fact: 'only 1 pair of parallel sides' }
+        ];
+        const f = facts[rnd(0, facts.length - 1)];
+        return {
+          q: `Which quadrilateral has ${f.fact}?`,
+          ans: f.kind,
+          h: () => hWrap('#9bc4cb', '🔷', 'Quadrilateral Properties', hBubble(`A <strong>${f.kind}</strong> has ${f.fact}.<br>${vShape(f.kind, { theme: TRACK_THEME.grade3, labelSides: true })}`)),
+          opts: shuffle(facts.map(x => x.kind))
+        };
+      } },
+    { learn: "Polygons are named by their number of sides, all the way up to 10!", visual: "3=triangle, 4=quadrilateral ... 9=nonagon, 10=decagon", example: "A 9-sided shape is a nonagon",
+      gen: () => {
+        let sides = rnd(3, 10);
+        return {
+          q: `What is a polygon with ${sides} sides called?`,
+          ans: POLYGON_NAMES[sides],
+          h: () => hWrap('#9bc4cb', '🔷', 'Polygon Names', hBubble(`${sides} sides = <strong style="color:#9bc4cb;">${POLYGON_NAMES[sides]}</strong>`)),
+          opts: dedupOpts(POLYGON_NAMES[sides], [POLYGON_NAMES[clampSides(sides - 1)], POLYGON_NAMES[clampSides(sides + 1)], POLYGON_NAMES[clampSides(sides - 2)], POLYGON_NAMES[clampSides(sides + 2)]])
+        };
+      } }
+  ],
+  time3: [
+    { learn: "Read time to the exact minute! Count each small tick mark.", visual: vClock(7, 38, TRACK_THEME.grade3), example: "Minute hand between 7 and 8 = :38",
+      gen: () => {
+        let hour = rnd(1, 12), minute = rnd(0, 59);
+        let ans = `${hour}:${String(minute).padStart(2, '0')}`;
+        return {
+          q: `What time does the clock show?<br>${vClock(hour, minute, TRACK_THEME.grade3)}`,
+          ans,
+          h: () => hintClock(hour, minute),
+          opts: dedupOpts(ans, [`${hour}:${String((minute + 1) % 60).padStart(2, '0')}`, `${hour}:${String((minute + 59) % 60).padStart(2, '0')}`, `${hour % 12 + 1}:${String(minute).padStart(2, '0')}`])
+        };
+      } },
+    { learn: "Elapsed time can cross the hour! Count minutes to the hour, then add the rest.", visual: "10:45 to 11:15 = 15 min to 11:00, then 15 more = 30 min", example: "9:50 to 10:20 = 30 minutes",
+      gen: () => {
+        let startHour = rnd(1, 10), startMin = rnd(35, 55);
+        let toHour = 60 - startMin;
+        let afterHour = rnd(5, 30);
+        let totalElapsed = toHour + afterHour;
+        let endHour = startHour + 1, endMin = afterHour;
+        return {
+          q: `Start: ${startHour}:${String(startMin).padStart(2, '0')}. End: ${endHour}:${String(endMin).padStart(2, '0')}. How many minutes passed?`,
+          ans: totalElapsed,
+          h: () => hWrap('#fbe158', '⏱️', 'Elapsed Time Across the Hour', hBubble(`From ${startHour}:${String(startMin).padStart(2, '0')} to ${endHour}:00 is ${toHour} minutes.<br>From ${endHour}:00 to ${endHour}:${String(endMin).padStart(2, '0')} is ${afterHour} more minutes.<br>${toHour}+${afterHour}=<strong style="color:#fbe158;">${totalElapsed}</strong> minutes`)),
+          opts: dedupOpts(totalElapsed, [totalElapsed + 5, totalElapsed - 5, toHour, afterHour])
+        };
+      } }
+  ],
+  mass_volume: [
+    { learn: "Mass tells how heavy something is. Grams (g) for light things, kilograms (kg) for heavy things.", visual: "🪶 paperclip ≈ 1 gram   🐘 elephant ≈ many kilograms", example: "An apple is about 100 grams",
+      gen: () => {
+        const items = [
+          { name: 'a paperclip', ans: 'grams' }, { name: 'a bicycle', ans: 'kilograms' },
+          { name: 'an apple', ans: 'grams' }, { name: 'a dog', ans: 'kilograms' },
+          { name: 'a pencil', ans: 'grams' }, { name: 'a full backpack', ans: 'kilograms' }
+        ];
+        const it = items[rnd(0, items.length - 1)];
+        return { q: `Would you measure the mass of ${it.name} in grams or kilograms?`, ans: it.ans, h: () => hWrap('#c4a5ff', '⚖️', 'Mass', hBubble(`Light things use <strong>grams</strong>. Heavy things use <strong>kilograms</strong>. ${it.name} is measured in <strong style="color:#9bc4cb;">${it.ans}</strong>.`)), opts: shuffle(['grams', 'kilograms']) };
+      } },
+    { learn: "Volume tells how much liquid something holds. Milliliters (mL) for small amounts, liters (L) for large amounts.", visual: "💧 a spoonful ≈ mL   🪣 a bucket ≈ L", example: "A juice box is about 200 mL",
+      gen: () => {
+        const items = [
+          { name: 'a teaspoon of medicine', ans: 'milliliters' }, { name: 'a bathtub', ans: 'liters' },
+          { name: 'a juice box', ans: 'milliliters' }, { name: 'a fish tank', ans: 'liters' },
+          { name: 'a raindrop', ans: 'milliliters' }, { name: 'a swimming pool', ans: 'liters' }
+        ];
+        const it = items[rnd(0, items.length - 1)];
+        return { q: `Would you measure the volume of ${it.name} in milliliters or liters?`, ans: it.ans, h: () => hWrap('#c4a5ff', '🧪', 'Volume', hBubble(`Small amounts use <strong>milliliters</strong>. Large amounts use <strong>liters</strong>. ${it.name} is measured in <strong style="color:#9bc4cb;">${it.ans}</strong>.`)), opts: shuffle(['milliliters', 'liters']) };
+      } }
+  ],
+  data3: [
+    { learn: "Multi-step graph problems: find two values, then add or subtract them!", visual: vBarGraph([{ label: 'Mon', value: 5 }, { label: 'Tue', value: 3 }, { label: 'Wed', value: 6 }], { theme: TRACK_THEME.grade3 }), example: "Mon + Wed = 5+6 = 11",
+      gen: () => {
+        const days = shuffle(['Mon', 'Tue', 'Wed', 'Thu']).slice(0, 3);
+        const data = days.map(d => ({ label: d, value: rnd(3, 12) }));
+        let i = rnd(0, 2), j = rnd(0, 2);
+        while (j === i) j = rnd(0, 2);
+        let op = Math.random() < 0.5 ? '+' : '-';
+        let a = data[i].value, b = data[j].value;
+        let ans = op === '+' ? a + b : Math.abs(a - b);
+        return {
+          q: `${data[i].label} ${op} ${data[j].label} = ?<br>${vBarGraph(data, { theme: TRACK_THEME.grade3 })}`,
+          ans,
+          h: () => hWrap('#fbe158', '📊', 'Multi-Step Graph', hBubble(`${data[i].label}=${a}, ${data[j].label}=${b}. ${a} ${op} ${b} = <strong style="color:#fbe158;">${ans}</strong>`)),
+          opts: dedupOpts(ans, [ans + 1, ans - 1, ans + 2])
+        };
+      } },
+    { learn: "Picture graphs can use a KEY where each picture = more than 1!", visual: "🍎🍎🍎 (each 🍎 = 2 apples) = 6 apples", example: "3 pictures × 2 each = 6",
+      gen: () => {
+        const scale = [2, 5, 10][rnd(0, 2)];
+        const items = shuffle(['🍎', '🍌', '🍇']).slice(0, 2);
+        const data = items.map(f => ({ label: f, value: rnd(2, 6) * scale }));
+        const target = data[rnd(0, 1)];
+        return {
+          q: `Each ${target.label} in the picture graph = ${scale}. ${target.label.repeat(target.value / scale)} How many total?`,
+          ans: target.value,
+          h: () => hWrap('#fbe158', '📊', 'Picture Graph Key', hBubble(`${target.value / scale} pictures × ${scale} each = <strong style="color:#fbe158;">${target.value}</strong>`)),
+          opts: dedupOpts(target.value, [target.value + scale, target.value - scale, target.value + 1])
+        };
+      } }
+  ],
+
   // Multiplication Intro (3 lessons)
   multiply_intro: multiply_intro,
 
@@ -1212,6 +1591,20 @@ const SKILL_META = {
   division_facts: { label: 'Labubu · Division Facts', track: 'grade3' },
   remainder: { label: 'Labubu · Remainder', track: 'grade3' },
   fractions1: { label: 'Labubu · Fractions', track: 'grade3' },
+  mult_properties: { label: 'Labubu · Multiplication Properties', track: 'grade3' },
+  mult_2digit: { label: 'Labubu · 2-Digit Multiplication', track: 'grade3' },
+  division_fluency12: { label: 'Labubu · Division to 12', track: 'grade3' },
+  rounding_estimate: { label: 'Labubu · Rounding & Estimation', track: 'grade3' },
+  add_sub_4digit: { label: 'Labubu · Add/Sub to 10,000', track: 'grade3' },
+  word_problems3: { label: 'Labubu · Two-Step Word Problems', track: 'grade3' },
+  fractions_numberline: { label: 'Labubu · Fractions on a Number Line', track: 'grade3' },
+  fractions_equivalent: { label: 'Labubu · Equivalent Fractions', track: 'grade3' },
+  fractions_compare: { label: 'Labubu · Compare & Order Fractions', track: 'grade3' },
+  area_perimeter3: { label: 'Labubu · Area & Perimeter', track: 'grade3' },
+  geometry3: { label: 'Labubu · Lines, Angles & Quadrilaterals', track: 'grade3' },
+  time3: { label: 'Labubu · Time', track: 'grade3' },
+  mass_volume: { label: 'Labubu · Mass & Volume', track: 'grade3' },
+  data3: { label: 'Labubu · Data & Graphs', track: 'grade3' },
 
   multiply_intro: { label: '🌟 What is Multiplication?', track: 'multiply' },
   multiply_main_1: { label: '×2 & ×4', track: 'multiply' },
@@ -1270,9 +1663,16 @@ const CURRICULUM = {
   grade3: {
     label: "🐾 3rd Grade · Labubu's MMA Math",
     units: [
-      { id: 'g3_multiply', label: 'Unit 1 · Multiplication', skills: ['multiply', 'multiply_facts'] },
-      { id: 'g3_divide', label: 'Unit 2 · Division', skills: ['divide', 'division_facts', 'remainder'] },
-      { id: 'g3_fractions', label: 'Unit 3 · Fractions', skills: ['fractions1'] }
+      { id: 'g3_multiply', label: 'Unit 1 · Multiplication', skills: ['multiply', 'multiply_facts', 'mult_properties', 'mult_2digit'] },
+      { id: 'g3_divide', label: 'Unit 2 · Division', skills: ['divide', 'division_facts', 'remainder', 'division_fluency12'] },
+      { id: 'g3_estimation', label: 'Unit 3 · Rounding, Estimation & Big Numbers', skills: ['rounding_estimate', 'add_sub_4digit'] },
+      { id: 'g3_word_problems', label: 'Unit 4 · Two-Step Word Problems', skills: ['word_problems3'] },
+      { id: 'g3_fractions', label: 'Unit 5 · Fractions', skills: ['fractions1', 'fractions_numberline', 'fractions_equivalent', 'fractions_compare'] },
+      { id: 'g3_area_perimeter', label: 'Unit 6 · Area & Perimeter', skills: ['area_perimeter3'] },
+      { id: 'g3_geometry', label: 'Unit 7 · Lines, Angles & Quadrilaterals', skills: ['geometry3'] },
+      { id: 'g3_time', label: 'Unit 8 · Time', skills: ['time3'] },
+      { id: 'g3_measurement', label: 'Unit 9 · Mass & Volume', skills: ['mass_volume'] },
+      { id: 'g3_data', label: 'Unit 10 · Data & Graphs', skills: ['data3'] }
     ]
   },
   multiply: {

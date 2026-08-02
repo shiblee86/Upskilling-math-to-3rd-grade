@@ -16,8 +16,13 @@ for (let skillId in SKILLS) {
     if (!progress[skillId][l]) progress[skillId][l] = { done: false, stars: 0 };
   });
 }
+if (!progress.__units) progress.__units = {};
+if (!progress.__challenges) progress.__challenges = {};
+if (!progress.__fluency) progress.__fluency = {};
 
 let currentTrack = '', currentCat = '', currentLvl = 1, questions = [], qIdx = 0, correct = 0, wrong = 0, mistakes = [], answered = false, hintShown = false, lessonData = null, currentQ = null;
+let quizMode = 'belt', mixedQueue = [], currentUnitId = null;
+let fluencyKind = '', fluencyScore = 0, fluencyBest = 0, fluencyTimeLeft = 60, fluencyTimerId = null, fluencyQ = null;
 
 function saveProgress() {
   const blob = new Blob([JSON.stringify(progress)], { type: 'application/json' });
@@ -56,6 +61,24 @@ function updateLbl() {
   }
 }
 
+// Computed mastery tier for a skill - purely derived from existing belt
+// progress (done/attempted), no separate storage needed.
+const MASTERY_BADGE = { new: '🌱 New', attempted: '✏️ Attempted', familiar: '📘 Familiar', proficient: '🌟 Proficient', mastered: '🏆 Mastered' };
+function skillMastery(skillId) {
+  const belts = SKILLS[skillId].length;
+  let done = 0, attempted = 0;
+  for (let l = 1; l <= belts; l++) {
+    const p = progress[skillId][l];
+    if (p.done) done++;
+    if (p.done || p.attempted) attempted++;
+  }
+  if (done === belts) return 'mastered';
+  if (done >= belts / 2) return 'proficient';
+  if (done > 0) return 'familiar';
+  if (attempted > 0) return 'attempted';
+  return 'new';
+}
+
 function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0, 0); }
 
 function showHome() { updateLbl(); showScreen('homeScreen'); }
@@ -67,6 +90,21 @@ function openTrack(trackId) {
   currentTrack = trackId;
   const track = CURRICULUM[trackId];
   document.getElementById('unitsTitle').innerHTML = track.label + '  -  pick a unit';
+
+  const challenge = progress.__challenges[trackId];
+  const ccBtn = document.getElementById('courseChallengeBtn');
+  ccBtn.innerHTML = `🏆 Course Challenge${challenge?.passed ? ` <span style="color:#9bc4cb;">✅ ${challenge.bestPct}%</span>` : ''}`;
+  ccBtn.onclick = () => startCourseChallenge(trackId);
+
+  const fzBtn = document.getElementById('fluencyZoneBtn');
+  const isFactTrack = trackId === 'multiply' || trackId === 'divide';
+  fzBtn.style.display = isFactTrack ? 'inline-flex' : 'none';
+  if (isFactTrack) {
+    const best = progress.__fluency[trackId]?.best || 0;
+    fzBtn.innerHTML = `⚡ Fluency Zone${best ? ` <span style="color:#9bc4cb;">best ${best}</span>` : ''}`;
+    fzBtn.onclick = () => startFluency(trackId);
+  }
+
   const wrap = document.getElementById('unitsAccordion');
   wrap.innerHTML = '';
   track.units.forEach((unit, ui) => {
@@ -75,24 +113,50 @@ function openTrack(trackId) {
     card.style.borderColor = TRACK_THEME[trackId];
     const skillCardsHTML = unit.skills.map(skillId => {
       const meta = SKILL_META[skillId];
-      const belts = SKILLS[skillId].length;
-      const doneCount = Object.values(progress[skillId] || {}).filter(p => p.done).length;
+      const tier = skillMastery(skillId);
       return `<div class="menu-card unit-skill-card ${TRACK_CARD_CLASS[trackId]}" data-skill="${skillId}">
         <div class="mc-icon">📘</div>
         <div class="mc-name">${meta.label}</div>
-        <div class="mc-badge">${doneCount}/${belts} belts</div>
+        <div class="mc-badge mastery-badge mastery-${tier}">${MASTERY_BADGE[tier]}</div>
       </div>`;
     }).join('');
+    const uq = progress.__units[unit.id];
     card.innerHTML = `
       <button type="button" class="unit-header">${unit.label}</button>
-      <div class="unit-body"><div class="menu-grid">${skillCardsHTML}</div></div>`;
+      <div class="unit-body">
+        <div class="menu-grid">${skillCardsHTML}</div>
+        <button type="button" class="btn btn-unit-quiz">📝 Unit Quiz${uq?.passed ? ` ✅ ${uq.bestPct}%` : ''}</button>
+      </div>`;
     card.querySelector('.unit-header').addEventListener('click', () => card.classList.toggle('open'));
     card.querySelectorAll('.unit-skill-card').forEach(el => {
       el.addEventListener('click', () => openCategory(el.dataset.skill));
     });
+    card.querySelector('.btn-unit-quiz').addEventListener('click', () => startUnitQuiz(trackId, unit.id));
     wrap.appendChild(card);
   });
   showScreen('unitsScreen');
+}
+
+function startUnitQuiz(trackId, unitId) {
+  const unit = CURRICULUM[trackId].units.find(u => u.id === unitId);
+  currentTrack = trackId; currentUnitId = unitId; quizMode = 'unit';
+  mixedQueue = buildQuestionPool(unit.skills, 2, 10);
+  qIdx = 0; correct = 0; wrong = 0; mistakes = []; answered = false; hintShown = false;
+  questions = mixedQueue;
+  document.getElementById('quizLabel').innerHTML = `${unit.label} · Unit Quiz`;
+  showScreen('quizScreen');
+  renderLesson();
+}
+
+function startCourseChallenge(trackId) {
+  const allSkills = CURRICULUM[trackId].units.flatMap(u => u.skills);
+  currentTrack = trackId; quizMode = 'challenge';
+  mixedQueue = buildQuestionPool(allSkills, 1, 16);
+  qIdx = 0; correct = 0; wrong = 0; mistakes = []; answered = false; hintShown = false;
+  questions = mixedQueue;
+  document.getElementById('quizLabel').innerHTML = `${CURRICULUM[trackId].label} · Course Challenge`;
+  showScreen('quizScreen');
+  renderLesson();
 }
 
 function openCategory(c) {
@@ -118,8 +182,9 @@ function openCategory(c) {
 }
 
 function startLesson(cat, lvl) {
-  currentLvl = lvl; qIdx = 0; correct = 0; wrong = 0; mistakes = []; answered = false; hintShown = false;
+  currentCat = cat; currentLvl = lvl; quizMode = 'belt'; qIdx = 0; correct = 0; wrong = 0; mistakes = []; answered = false; hintShown = false;
   lessonData = SKILLS[cat][lvl - 1];
+  progress[cat][lvl].attempted = true;
   // Just set the number of questions (3 per belt), but questions will be generated on demand
   questions = [1, 2, 3]; // This just tracks count, actual questions are generated dynamically
   document.getElementById('quizLabel').innerHTML = `${SKILL_META[cat].label} · ${lessonData.isSoar ? 'SOAR' : 'Belt'} ${lvl}`;
@@ -130,6 +195,15 @@ function startLesson(cat, lvl) {
 function renderLesson() {
   const isMultiply = SKILL_META[currentCat]?.track === 'multiply';
   const isDivide = SKILL_META[currentCat]?.track === 'divide';
+  if (quizMode !== 'belt') {
+    document.getElementById('lessonContainer').innerHTML = `
+      <div class="lesson-card">
+        <div class="lesson-badge">${quizMode === 'unit' ? '📝 Unit Quiz' : '🏆 Course Challenge'}</div>
+        <div class="lesson-explanation">✨ Answer ${questions.length} questions mixing everything from ${quizMode === 'unit' ? 'this unit' : 'this course'}!</div>
+      </div>`;
+    loadQuestion();
+    return;
+  }
   document.getElementById('lessonContainer').innerHTML = `
     <div class="lesson-card" style="${isMultiply ? 'background:#9b6a4a' : isDivide ? 'background:#4a6a5a' : ''}">
       <div class="lesson-badge">📚 ${lessonData.isSoar ? 'Labubu SOAR' : 'Dojo lesson'}</div>
@@ -147,7 +221,12 @@ function loadQuestion() {
 
   // DYNAMIC GENERATION: Generate a brand new question object every time!
   // This ensures every question is fresh and different!
-  currentQ = lessonData.gen();
+  if (quizMode === 'belt') {
+    currentQ = lessonData.gen();
+  } else {
+    const ref = mixedQueue[qIdx];
+    currentQ = SKILLS[ref.skillId][ref.belt - 1].gen();
+  }
 
   const total = questions.length;
   document.getElementById('quizQNum').textContent = `Q${qIdx + 1}/${total}`;
@@ -164,7 +243,7 @@ function loadQuestion() {
   const q = currentQ;
   const isMultiply = SKILL_META[currentCat]?.track === 'multiply';
   const isDivide = SKILL_META[currentCat]?.track === 'divide';
-  const cardClass = isMultiply ? 'multiply-q-card' : (isDivide ? 'divide-q-card' : (lessonData.isSoar ? 'soar-q-card' : 'q-card'));
+  const cardClass = isMultiply ? 'multiply-q-card' : (isDivide ? 'divide-q-card' : ((quizMode === 'belt' && lessonData.isSoar) ? 'soar-q-card' : 'q-card'));
 
   let inner = '';
   if (q.opts) {
@@ -229,7 +308,7 @@ function showHint() {
   document.getElementById('hintBtn').disabled = true;
   const q = currentQ;
   const hBox = document.getElementById('hintBox');
-  hBox.innerHTML = (q.h ? q.h() : `<div class="hint-bubble">💡 ${lessonData.example}</div>`);
+  hBox.innerHTML = (q.h ? q.h() : (quizMode === 'belt' ? `<div class="hint-bubble">💡 ${lessonData.example}</div>` : ''));
   hBox.className = 'hint-box show';
 }
 
@@ -237,6 +316,35 @@ function nextQuestion() { qIdx++; loadQuestion(); }
 
 function showResult() {
   const total = questions.length;
+  const nb = document.getElementById('nextLvBtn');
+  const ms = document.getElementById('mistakeSection');
+
+  if (quizMode !== 'belt') {
+    const pctScore = Math.round(correct / total * 100);
+    const passed = correct >= Math.ceil(total * 0.7);
+    const stars = passed ? (pctScore >= 90 ? 3 : 2) : 1;
+    if (quizMode === 'unit') {
+      const prevBest = progress.__units[currentUnitId]?.bestPct || 0;
+      progress.__units[currentUnitId] = { passed: passed || !!progress.__units[currentUnitId]?.passed, bestPct: Math.max(prevBest, pctScore) };
+    } else {
+      const prevBest = progress.__challenges[currentTrack]?.bestPct || 0;
+      progress.__challenges[currentTrack] = { passed: passed || !!progress.__challenges[currentTrack]?.passed, bestPct: Math.max(prevBest, pctScore) };
+    }
+    try { localStorage.setItem('dojo_math_v6', JSON.stringify(progress)); } catch (e) { }
+    updateLbl();
+    document.getElementById('resEmoji').textContent = passed ? (stars >= 3 ? '🏆' : '🌟') : '💪';
+    document.getElementById('resTitle').textContent = passed ? (quizMode === 'unit' ? 'Unit Quiz passed!' : 'Course Challenge passed!') : 'Keep training!';
+    document.getElementById('resStars').innerHTML = '⭐'.repeat(stars);
+    document.getElementById('resMsg').innerHTML = `${passed ? '✨' : '💪'} ${correct}/${total} correct (${pctScore}%)${passed ? '' : ' - need 70% to pass, try again?'}`;
+    ms.innerHTML = '';
+    document.getElementById('retryBtn').onclick = quizMode === 'unit'
+      ? function () { startUnitQuiz(currentTrack, currentUnitId); }
+      : function () { startCourseChallenge(currentTrack); };
+    nb.style.display = 'none';
+    showScreen('resultScreen');
+    return;
+  }
+
   const stars = correct >= 3 ? 3 : correct >= 2 ? 2 : 1;
   const passed = correct >= 2;
   if (passed) { progress[currentCat][currentLvl].done = true; progress[currentCat][currentLvl].stars = Math.max(progress[currentCat][currentLvl].stars || 0, stars); }
@@ -246,21 +354,20 @@ function showResult() {
   document.getElementById('resTitle').textContent = stars >= 3 ? 'Amazing fight!' : stars >= 2 ? 'Great job!' : 'Keep training!';
   document.getElementById('resStars').innerHTML = '⭐'.repeat(stars);
   document.getElementById('resMsg').innerHTML = passed ? `✨ ${correct}/${total} correct - belt earned!` : `💪 ${correct}/${total} correct. Try again?`;
-  const ms = document.getElementById('mistakeSection');
   if (mistakes.length) {
     ms.innerHTML = '<div style="font-size:1.2rem;font-weight:900;margin:12px 0;">📝 Learn from these:</div>'
       + mistakes.map(m => `<div class="mistake-item">❓ ${m.q.replace(/\n/g, ' | ')}<br>✅ Answer: ${m.ans}${m.hint ? `<br>💡 ${m.hint.split('\n')[0]}` : ''}${m.hint ? m.hint.split('\n').slice(1).map(l => `<br>${l}`).join('') : ''}</div>`).join('');
   } else ms.innerHTML = '';
   document.getElementById('retryBtn').onclick = function () { startLesson(currentCat, currentLvl); };
-  const nb = document.getElementById('nextLvBtn');
   if (passed && currentLvl < SKILLS[currentCat].length) { nb.style.display = 'inline-flex'; nb.onclick = function () { startLesson(currentCat, currentLvl + 1); }; }
   else nb.style.display = 'none';
   showScreen('resultScreen');
 }
 
 function leaveQuiz() { if (confirm('Leave this lesson?')) showHome(); }
-function leaveQuizToLevels() { if (confirm('Go back to belts?')) openCategory(currentCat); }
+function leaveQuizToLevels() { if (confirm('Go back?')) backToLevelsOrUnits(); }
 function leaveAndGo(cat) { if (confirm('Leave this lesson?')) { openCategory(cat); } }
+function backToLevelsOrUnits() { quizMode === 'belt' ? openCategory(currentCat) : openTrack(currentTrack); }
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', function () {
@@ -287,11 +394,11 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('levelsFromQuizQuick').addEventListener('click', leaveQuizToLevels);
 
   document.getElementById('homeFromResult').addEventListener('click', showHome);
-  document.getElementById('levelsFromResult').addEventListener('click', () => openCategory(currentCat));
+  document.getElementById('levelsFromResult').addEventListener('click', backToLevelsOrUnits);
   document.getElementById('homeFromResultBtn').addEventListener('click', showHome);
   document.getElementById('homeFromResultQuick').addEventListener('click', showHome);
   document.getElementById('soarFromResult').addEventListener('click', () => leaveAndGo('soar1'));
-  document.getElementById('levelsFromResultQuick').addEventListener('click', () => openCategory(currentCat));
+  document.getElementById('levelsFromResultQuick').addEventListener('click', backToLevelsOrUnits);
 
   document.getElementById('hintBtn').addEventListener('click', showHint);
   document.getElementById('checkBtn').addEventListener('click', checkAnswer);

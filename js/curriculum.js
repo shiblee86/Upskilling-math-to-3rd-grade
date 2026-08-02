@@ -144,6 +144,18 @@ function dedupOpts(correct, pool, count) {
   return shuffle([correct, ...chosen]);
 }
 
+// Builds a shuffled pool of { skillId, belt } refs for unit quizzes / course
+// challenges: `perSkill` questions from each skill (a random belt each time,
+// since belt difficulty isn't the point here), capped at `cap` total.
+function buildQuestionPool(skillIds, perSkill, cap) {
+  let pool = [];
+  skillIds.forEach(skillId => {
+    const belts = SKILLS[skillId].length;
+    for (let i = 0; i < perSkill; i++) pool.push({ skillId, belt: rnd(1, belts) });
+  });
+  return shuffle(pool).slice(0, cap);
+}
+
 const SHAPES_3D = [
   { name: 'cube', emoji: '🎲', hint: 'like a dice - 6 flat square faces' },
   { name: 'sphere', emoji: '⚽', hint: 'perfectly round, rolls every way' },

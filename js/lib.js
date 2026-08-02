@@ -10,6 +10,18 @@
 function rnd(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
 function shuffle(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
 
+// Raw fact generator for the Fluency Zone timed-practice mode. Deliberately
+// independent of the SKILLS curriculum data (no learn/visual/hint flavor
+// needed for a speed drill).
+function randomFact(kind) {
+  if (kind === 'multiply') {
+    let a = rnd(0, 12), b = rnd(0, 12);
+    return { q: `${a} × ${b} = ?`, ans: a * b };
+  }
+  let divisor = rnd(1, 12), quotient = rnd(0, 12), dividend = divisor * quotient;
+  return { q: `${dividend} ÷ ${divisor} = ?`, ans: quotient };
+}
+
 // Per-track accent colors, tuned to read clearly on the app's dark recessed panels
 const TRACK_THEME = {
   grade1: '#ffb6d1',

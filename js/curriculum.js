@@ -20,10 +20,10 @@ const multiply_intro = [
       return {
         q: `You have ${groups} bags. Each bag has ${items} candies. The FAST way to find total candies is:`,
         ans: `${groups} × ${items}`,
-        h: () => hWrap('#fbe158', '✖️', 'Multiplication = Repeated Addition',
+        h: () => hWrap('#FFB020', '✖️', 'Multiplication = Repeated Addition',
           hBubble(`Adding: ${items} + ${items} + ${items} (${groups} times) is slow!<br>` +
                   `Multiplying: ${groups} × ${items} = ${groups * items} is FASTER!<br><br>` +
-                  `<strong style="color:#9bc4cb;">✅ Multiplication = adding the SAME number over and over!</strong>`)),
+                  `<strong style="color:#17C7C7;">✅ Multiplication = adding the SAME number over and over!</strong>`)),
         opts: shuffle([`${groups} × ${items}`, `${items} × ${groups}`, `${groups} + ${items}`, `${items} + ${groups}`])
       };
     }
@@ -38,7 +38,7 @@ const multiply_intro = [
       return {
         q: `${a} × ${b} means adding ${b} how many times?`,
         ans: a,
-        h: () => hWrap('#fbe158', '✖️', "Multiplication = Repeated Addition",
+        h: () => hWrap('#FFB020', '✖️', "Multiplication = Repeated Addition",
           hBubble(`"${a} × ${b}" means "${b} added ${a} times"<br>` +
                   `${b} + ${b} + ${b} (${a} times) = ${a * b}<br><br>` +
                   `<strong>✅ The first number tells you HOW MANY TIMES to add!</strong>`)),
@@ -78,10 +78,10 @@ const divide_intro = [
       return {
         q: `${total} candies shared among ${groups} friends. Each gets the SAME number. This is:`,
         ans: "division",
-        h: () => hWrap('#9bc4cb', '➗', "Division = Sharing Equally",
+        h: () => hWrap('#17C7C7', '➗', "Division = Sharing Equally",
           hBubble(`When you share things FAIRLY, you DIVIDE!<br>` +
                   `${total} ÷ ${groups} = ${perGroup} each.<br><br>` +
-                  `<strong style="color:#fbe158;">✅ Division = Multiplication's opposite! If ${perGroup}×${groups}=${total}, then ${total}÷${groups}=${perGroup}!</strong>`)),
+                  `<strong style="color:#FFB020;">✅ Division = Multiplication's opposite! If ${perGroup}×${groups}=${total}, then ${total}÷${groups}=${perGroup}!</strong>`)),
         opts: ["addition", "subtraction", "multiplication", "division"]
       };
     }
@@ -97,7 +97,7 @@ const divide_intro = [
       return {
         q: `${total} ÷ ${divisor} means: subtract ${divisor} how many times to reach 0?`,
         ans: quotient,
-        h: () => hWrap('#9bc4cb', '➗', "Division = Repeated Subtraction",
+        h: () => hWrap('#17C7C7', '➗', "Division = Repeated Subtraction",
           hBubble(`${total} - ${divisor} - ${divisor} - ... = 0<br>` +
                   `You subtract ${divisor} <strong>${quotient}</strong> times!<br><br>` +
                   `<strong>✅ ${total} ÷ ${divisor} = ${quotient}</strong>`)),
@@ -222,15 +222,15 @@ const SKILLS = {
   ],
   place1: [
     { learn: "Tens and ones: 14 = 1 ten + 4 ones.", visual: "📦(10) + 🧱🧱🧱🧱 = 14", example: "14 → 1 ten",
-      gen: () => { let t = rnd(1, 4), o = rnd(0, 8), n = t * 10 + o; return { q: `${n} has how many tens?`, ans: t, h: () => hWrap('#c4a5ff', '📦', 'Tens & Ones', hBubble(`${n}: the LEFT digit is tens → <strong>${t}</strong> ten${t > 1 ? 's' : ''}`)), opts: shuffle([t, t + 1, t - 1, o || 1]) }; } },
+      gen: () => { let t = rnd(1, 4), o = rnd(0, 8), n = t * 10 + o; return { q: `${n} has how many tens?`, ans: t, h: () => hWrap('#2FE6A7', '📦', 'Tens & Ones', hBubble(`${n}: the LEFT digit is tens → <strong>${t}</strong> ten${t > 1 ? 's' : ''}`)), opts: shuffle([t, t + 1, t - 1, o || 1]) }; } },
     { learn: "Make the number! tens × 10 + ones.", visual: "3 tens + 5 ones = 35", example: "35",
-      gen: () => { let t = rnd(1, 5), o = rnd(0, 9); return { q: `${t} tens and ${o} ones = ?`, ans: t * 10 + o, h: () => hWrap('#c4a5ff', '📦', 'Build the Number', hBubble(`${t} tens = ${t * 10}. Plus ${o} ones = <strong>${t * 10 + o}</strong>`)), opts: shuffle([t * 10 + o, t * 10 + o + 1, t * 10 + o + 10, o]) }; } },
+      gen: () => { let t = rnd(1, 5), o = rnd(0, 9); return { q: `${t} tens and ${o} ones = ?`, ans: t * 10 + o, h: () => hWrap('#2FE6A7', '📦', 'Build the Number', hBubble(`${t} tens = ${t * 10}. Plus ${o} ones = <strong>${t * 10 + o}</strong>`)), opts: shuffle([t * 10 + o, t * 10 + o + 1, t * 10 + o + 10, o]) }; } },
     { learn: "Compare numbers. Which is bigger?", visual: "23 vs 32  -  look at the tens first!", example: "32 > 23",
-      gen: () => { let a = rnd(11, 49), b = rnd(11, 49); while (a === b) b = rnd(11, 49); return { q: `Which is bigger: ${a} or ${b}?`, ans: Math.max(a, b), h: () => hWrap('#c4a5ff', '🔍', 'Compare', hBubble(`Look at the tens digit first! ${Math.floor(a / 10)} vs ${Math.floor(b / 10)}`)), opts: shuffle([Math.max(a, b), Math.min(a, b), Math.max(a, b) + 1, Math.min(a, b) - 1]) }; } },
+      gen: () => { let a = rnd(11, 49), b = rnd(11, 49); while (a === b) b = rnd(11, 49); return { q: `Which is bigger: ${a} or ${b}?`, ans: Math.max(a, b), h: () => hWrap('#2FE6A7', '🔍', 'Compare', hBubble(`Look at the tens digit first! ${Math.floor(a / 10)} vs ${Math.floor(b / 10)}`)), opts: shuffle([Math.max(a, b), Math.min(a, b), Math.max(a, b) + 1, Math.min(a, b) - 1]) }; } },
     { learn: "Skip count by 10s: 10, 20, 30, 40...", visual: "📦 📦 📦 📦 = 40", example: "10, 20, 30, 40",
-      gen: () => { let n = rnd(3, 7) * 10; return { q: `What comes after ${n} when counting by 10s?`, ans: n + 10, h: () => hWrap('#c4a5ff', '🔢', 'Skip Count', hBubble(`Count by 10s: ${n}, then add 10 → <strong>${n + 10}</strong>`)), opts: shuffle([n + 10, n + 20, n - 10, n + 5]) }; } },
+      gen: () => { let n = rnd(3, 7) * 10; return { q: `What comes after ${n} when counting by 10s?`, ans: n + 10, h: () => hWrap('#2FE6A7', '🔢', 'Skip Count', hBubble(`Count by 10s: ${n}, then add 10 → <strong>${n + 10}</strong>`)), opts: shuffle([n + 10, n + 20, n - 10, n + 5]) }; } },
     { learn: "Even & odd: even numbers end in 0,2,4,6,8.", visual: "2🐧 4🐧 6🐧  -  pairs! All even.", example: "14 is even",
-      gen: () => { let n = rnd(10, 30); return { q: `Is ${n} even or odd?`, ans: n % 2 === 0 ? 'even' : 'odd', h: () => hWrap('#c4a5ff', '🔢', 'Even or Odd', hBubble(`Last digit is ${n % 10}. ${n % 2 === 0 ? 'Ends in 0,2,4,6,8 → even' : 'Ends in 1,3,5,7,9 → odd'}`)), opts: ['even', 'odd', n % 2 === 0 ? 'odd' : 'even', 'both'] }; } }
+      gen: () => { let n = rnd(10, 30); return { q: `Is ${n} even or odd?`, ans: n % 2 === 0 ? 'even' : 'odd', h: () => hWrap('#2FE6A7', '🔢', 'Even or Odd', hBubble(`Last digit is ${n % 10}. ${n % 2 === 0 ? 'Ends in 0,2,4,6,8 → even' : 'Ends in 1,3,5,7,9 → odd'}`)), opts: ['even', 'odd', n % 2 === 0 ? 'odd' : 'even', 'both'] }; } }
   ],
   clock_read1: [
     { learn: "Clocks have an hour hand (short) and a minute hand (long). On the hour, the minute hand points straight up to 12!",
@@ -297,7 +297,7 @@ const SKILLS = {
         return {
           q: `${a} + ${b} = ${shown}. True or false?`,
           ans: isTrue ? 'true' : 'false',
-          h: () => hWrap('#ffb6d1', '❓', 'True or False?', hBubble(`${a} + ${b} = <strong style="color:#9bc4cb;">${realAns}</strong>. The sentence shows ${shown}, so it is <strong>${isTrue ? 'TRUE ✅' : 'FALSE ❌'}</strong>.`) + addHint(a, b)),
+          h: () => hWrap('#FF5C3D', '❓', 'True or False?', hBubble(`${a} + ${b} = <strong style="color:#17C7C7;">${realAns}</strong>. The sentence shows ${shown}, so it is <strong>${isTrue ? 'TRUE ✅' : 'FALSE ❌'}</strong>.`) + addHint(a, b)),
           opts: shuffle(['true', 'false'])
         };
       } },
@@ -324,7 +324,7 @@ const SKILLS = {
         return {
           q: `${d} + ${b} = ?`,
           ans,
-          h: () => hWrap('#9bc4cb', '👯', 'Near Doubles', hBubble(`${d} + ${d} = ${d * 2} (double). ${b > d ? `${b} is 1 more than ${d}, so add 1 more` : `${b} is 1 less than ${d}, so take away 1`}: <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#17C7C7', '👯', 'Near Doubles', hBubble(`${d} + ${d} = ${d * 2} (double). ${b > d ? `${b} is 1 more than ${d}, so add 1 more` : `${b} is 1 less than ${d}, so take away 1`}: <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 1, ans - 1, d * 2, d])
         };
       } },
@@ -336,7 +336,7 @@ const SKILLS = {
         return {
           q: `${a} + ${b} = ?`,
           ans,
-          h: () => hWrap('#9bc4cb', '🔟', 'Make a Ten', hBubble(`Take ${need} from ${b} to make ${a} into 10: ${a}+${need}=10.<br>${b}-${need}=${b - need} left.<br>10 + ${b - need} = <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#17C7C7', '🔟', 'Make a Ten', hBubble(`Take ${need} from ${b} to make ${a} into 10: ${a}+${need}=10.<br>${b}-${need}=${b - need} left.<br>10 + ${b - need} = <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 1, ans - 1, a + Math.max(0, b - 1), 10])
         };
       } }
@@ -349,7 +349,7 @@ const SKILLS = {
         return {
           q: `${a} __ ${b}`,
           ans,
-          h: () => hWrap('#c4a5ff', '🔍', 'Compare', hBubble(`${a} vs ${b}: ${a < b ? `${a} is smaller → <strong>&lt;</strong>` : a > b ? `${a} is bigger → <strong>&gt;</strong>` : `they're the same → <strong>=</strong>`}`)),
+          h: () => hWrap('#2FE6A7', '🔍', 'Compare', hBubble(`${a} vs ${b}: ${a < b ? `${a} is smaller → <strong>&lt;</strong>` : a > b ? `${a} is bigger → <strong>&gt;</strong>` : `they're the same → <strong>=</strong>`}`)),
           opts: ['<', '>', '=']
         };
       } },
@@ -360,7 +360,7 @@ const SKILLS = {
         return {
           q: `${a} __ ${b}`,
           ans,
-          h: () => hWrap('#c4a5ff', '🔍', 'Compare Tens First', hBubble(`Tens digit: ${Math.floor(a / 10)} vs ${Math.floor(b / 10)}. ${a < b ? `${a} &lt; ${b}` : a > b ? `${a} &gt; ${b}` : `${a} = ${b}`}`)),
+          h: () => hWrap('#2FE6A7', '🔍', 'Compare Tens First', hBubble(`Tens digit: ${Math.floor(a / 10)} vs ${Math.floor(b / 10)}. ${a < b ? `${a} &lt; ${b}` : a > b ? `${a} &gt; ${b}` : `${a} = ${b}`}`)),
           opts: ['<', '>', '=']
         };
       } }
@@ -372,7 +372,7 @@ const SKILLS = {
         return {
           q: `What 3D shape is this? ${target.emoji}`,
           ans: target.name,
-          h: () => hWrap('#9bc4cb', '📦', 'Real-World Shapes', hBubble(`${target.emoji} is a <strong>${target.name}</strong> - ${target.hint}.`)),
+          h: () => hWrap('#17C7C7', '📦', 'Real-World Shapes', hBubble(`${target.emoji} is a <strong>${target.name}</strong> - ${target.hint}.`)),
           opts: shuffle(SHAPES_3D.map(s => s.name))
         };
       } },
@@ -382,7 +382,7 @@ const SKILLS = {
         return {
           q: `Which shape is ${target.hint}?`,
           ans: target.name,
-          h: () => hWrap('#9bc4cb', '📦', 'Shape Clues', hBubble(`${target.hint} describes a <strong>${target.name}</strong> ${target.emoji}`)),
+          h: () => hWrap('#17C7C7', '📦', 'Shape Clues', hBubble(`${target.hint} describes a <strong>${target.name}</strong> ${target.emoji}`)),
           opts: shuffle(SHAPES_3D.map(s => s.name))
         };
       } }
@@ -398,7 +398,7 @@ const SKILLS = {
         return {
           q: `${shown.join(', ')}`,
           ans,
-          h: () => hWrap('#c4a5ff', '🔢', 'Count Forward', hBubble(`Counting up by 1: ${seq.join(', ')}. Missing number = <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#2FE6A7', '🔢', 'Count Forward', hBubble(`Counting up by 1: ${seq.join(', ')}. Missing number = <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 1, ans - 1, ans + 2, Math.max(0, ans - 2)])
         };
       } },
@@ -412,7 +412,7 @@ const SKILLS = {
         return {
           q: `${shown.join(', ')}`,
           ans,
-          h: () => hWrap('#c4a5ff', '🔢', 'Count Backward', hBubble(`Counting down by 1: ${seq.join(', ')}. Missing number = <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#2FE6A7', '🔢', 'Count Backward', hBubble(`Counting down by 1: ${seq.join(', ')}. Missing number = <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 1, ans - 1, ans + 2, ans - 2])
         };
       } }
@@ -426,7 +426,7 @@ const SKILLS = {
         return {
           q: `${seq.slice(0, 3).join(', ')}, __ ?`,
           ans,
-          h: () => hWrap('#c4a5ff', '🔢', 'Skip-Count by 2s', hBubble(`Add 2 each time: ${seq.join(', ')}`)),
+          h: () => hWrap('#2FE6A7', '🔢', 'Skip-Count by 2s', hBubble(`Add 2 each time: ${seq.join(', ')}`)),
           opts: dedupOpts(ans, [ans + 2, ans - 2, ans + 1, seq[2]])
         };
       } },
@@ -438,7 +438,7 @@ const SKILLS = {
         return {
           q: `${seq.slice(0, 3).join(', ')}, __ ?`,
           ans,
-          h: () => hWrap('#c4a5ff', '🔢', 'Skip-Count by 5s', hBubble(`Add 5 each time: ${seq.join(', ')}`)),
+          h: () => hWrap('#2FE6A7', '🔢', 'Skip-Count by 5s', hBubble(`Add 5 each time: ${seq.join(', ')}`)),
           opts: dedupOpts(ans, [ans + 5, ans - 5, ans + 1, seq[2]])
         };
       } }
@@ -456,7 +456,7 @@ const SKILLS = {
         return {
           q: `${seq.join('')} __ ?`,
           ans,
-          h: () => hWrap('#9bc4cb', '🔁', 'Repeating Pattern', hBubble(`The pattern repeats: ${a}${b} ${a}${b}... Next is <strong>${ans}</strong>`)),
+          h: () => hWrap('#17C7C7', '🔁', 'Repeating Pattern', hBubble(`The pattern repeats: ${a}${b} ${a}${b}... Next is <strong>${ans}</strong>`)),
           opts: shuffle([a, b, other[0], other[1]])
         };
       } },
@@ -468,7 +468,7 @@ const SKILLS = {
         return {
           q: `${seq.join(', ')}, __ ?`,
           ans,
-          h: () => hWrap('#9bc4cb', '🔁', 'Growing Pattern', hBubble(`Each number goes up by <strong>${d}</strong>: ${seq.join(', ')}, ${ans}`)),
+          h: () => hWrap('#17C7C7', '🔁', 'Growing Pattern', hBubble(`Each number goes up by <strong>${d}</strong>: ${seq.join(', ')}, ${ans}`)),
           opts: dedupOpts(ans, [ans - d, ans + 1, ans - 1, seq[3]])
         };
       } }
@@ -481,7 +481,7 @@ const SKILLS = {
         return {
           q: `What day comes after ${DAYS[i]}?`,
           ans,
-          h: () => hWrap('#ffb6d1', '📅', 'Days of the Week', hBubble(`${DAYS.join(' → ')} → back to ${DAYS[0]}!<br>After <strong>${DAYS[i]}</strong> comes <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#FF5C3D', '📅', 'Days of the Week', hBubble(`${DAYS.join(' → ')} → back to ${DAYS[0]}!<br>After <strong>${DAYS[i]}</strong> comes <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: shuffle([ans, DAYS[(i + 2) % 7], DAYS[(i + 6) % 7], DAYS[i]])
         };
       } },
@@ -492,7 +492,7 @@ const SKILLS = {
         return {
           q: `What season is ${MONTHS[m]} in?`,
           ans,
-          h: () => hWrap('#ffb6d1', '🍂', 'Seasons', hBubble(`${MONTHS[m]} is in <strong style="color:#9bc4cb;">${ans}</strong>. Winter❄️=Dec/Jan/Feb, Spring🌸=Mar/Apr/May, Summer☀️=Jun/Jul/Aug, Fall🍂=Sep/Oct/Nov`)),
+          h: () => hWrap('#FF5C3D', '🍂', 'Seasons', hBubble(`${MONTHS[m]} is in <strong style="color:#17C7C7;">${ans}</strong>. Winter❄️=Dec/Jan/Feb, Spring🌸=Mar/Apr/May, Summer☀️=Jun/Jul/Aug, Fall🍂=Sep/Oct/Nov`)),
           opts: ['Winter', 'Spring', 'Summer', 'Fall']
         };
       } }
@@ -504,7 +504,7 @@ const SKILLS = {
         return {
           q: `How much is a ${c.name} worth?`,
           ans: `${c.value}¢`,
-          h: () => hWrap('#c4a5ff', '💰', 'Coin Values', hBubble(`A <strong>${c.name}</strong> is worth <strong style="color:#9bc4cb;">${c.value}¢</strong>`)),
+          h: () => hWrap('#2FE6A7', '💰', 'Coin Values', hBubble(`A <strong>${c.name}</strong> is worth <strong style="color:#17C7C7;">${c.value}¢</strong>`)),
           opts: shuffle(COINS.map(x => `${x.value}¢`))
         };
       } },
@@ -514,7 +514,7 @@ const SKILLS = {
         return {
           q: `Which coin is worth ${c.value}¢?`,
           ans: c.name,
-          h: () => hWrap('#c4a5ff', '💰', 'Coin Names', hBubble(`${c.value}¢ is a <strong style="color:#9bc4cb;">${c.name}</strong>`)),
+          h: () => hWrap('#2FE6A7', '💰', 'Coin Names', hBubble(`${c.value}¢ is a <strong style="color:#17C7C7;">${c.name}</strong>`)),
           opts: shuffle(COINS.map(x => x.name))
         };
       } }
@@ -528,7 +528,7 @@ const SKILLS = {
         return {
           q: `How many ${target.label} are there?<br>${vTallyGraph(data, { theme: TRACK_THEME.grade1 })}`,
           ans: target.value,
-          h: () => hWrap('#ffb6d1', '📊', 'Count the Tally Marks', hBubble(`Each group of 5 marks (IIII with a line through) = 5. Count the groups, then add extra marks: <strong style="color:#9bc4cb;">${target.value}</strong>`)),
+          h: () => hWrap('#FF5C3D', '📊', 'Count the Tally Marks', hBubble(`Each group of 5 marks (IIII with a line through) = 5. Count the groups, then add extra marks: <strong style="color:#17C7C7;">${target.value}</strong>`)),
           opts: dedupOpts(target.value, [target.value + 1, target.value - 1, target.value + 2, target.value - 2])
         };
       } },
@@ -540,7 +540,7 @@ const SKILLS = {
         return {
           q: `How many ${target.label} are there?<br>${vPictograph(data, { theme: TRACK_THEME.grade1 })}`,
           ans: target.value,
-          h: () => hWrap('#ffb6d1', '📊', 'Count the Pictures', hBubble(`Count each ${target.label}: <strong style="color:#9bc4cb;">${target.value}</strong>`)),
+          h: () => hWrap('#FF5C3D', '📊', 'Count the Pictures', hBubble(`Count each ${target.label}: <strong style="color:#17C7C7;">${target.value}</strong>`)),
           opts: dedupOpts(target.value, [target.value + 1, target.value - 1, target.value + 2, target.value - 2])
         };
       } }
@@ -552,7 +552,7 @@ const SKILLS = {
         return {
           q: `Is this shape divided into halves, with one half shaded?<br>${vFractionBar(num, 2, { theme: TRACK_THEME.grade1 })}`,
           ans: num === 1 ? 'yes' : 'no',
-          h: () => hWrap('#9bc4cb', '🥧', 'Halves', hBubble(`A half is 1 out of 2 equal parts shaded. This shows ${num} out of 2 shaded, so the answer is <strong>${num === 1 ? 'YES ✅' : 'NO ❌'}</strong>.`)),
+          h: () => hWrap('#17C7C7', '🥧', 'Halves', hBubble(`A half is 1 out of 2 equal parts shaded. This shows ${num} out of 2 shaded, so the answer is <strong>${num === 1 ? 'YES ✅' : 'NO ❌'}</strong>.`)),
           opts: shuffle(['yes', 'no'])
         };
       } },
@@ -563,7 +563,7 @@ const SKILLS = {
         return {
           q: `Does this show a FOURTH shaded (1 out of 4 equal parts)?<br>${vFractionBar(num, 4, { theme: TRACK_THEME.grade1 })}`,
           ans: isFourth ? 'yes' : 'no',
-          h: () => hWrap('#9bc4cb', '🥧', 'Fourths', hBubble(`A fourth is 1 out of 4 equal parts shaded. This shows ${num} out of 4 shaded, so the answer is <strong>${isFourth ? 'YES ✅' : 'NO ❌'}</strong>.`)),
+          h: () => hWrap('#17C7C7', '🥧', 'Fourths', hBubble(`A fourth is 1 out of 4 equal parts shaded. This shows ${num} out of 4 shaded, so the answer is <strong>${isFourth ? 'YES ✅' : 'NO ❌'}</strong>.`)),
           opts: shuffle(['yes', 'no'])
         };
       } }
@@ -573,29 +573,29 @@ const SKILLS = {
       gen: () => {
         const scenarios = [
           { q: "Safia walks the neighbor's dog and gets paid $2. What is this called?", ans: "earning" },
-          { q: "Labubu puts his allowance in a piggy bank instead of spending it. What is this called?", ans: "saving" },
-          { q: "Peach uses her money to buy a toy. What is this called?", ans: "spending" }
+          { q: "Champ puts his allowance in a piggy bank instead of spending it. What is this called?", ans: "saving" },
+          { q: "Power uses her money to buy a toy. What is this called?", ans: "spending" }
         ];
         const s = scenarios[rnd(0, scenarios.length - 1)];
         return {
           q: s.q,
           ans: s.ans,
-          h: () => hWrap('#ffb6d1', '💵', 'Money Words', hBubble(`<strong>Earning</strong> = getting paid for work.<br><strong>Saving</strong> = keeping money for later.<br><strong>Spending</strong> = using money to buy something.<br>This is <strong style="color:#9bc4cb;">${s.ans}</strong>.`)),
+          h: () => hWrap('#FF5C3D', '💵', 'Money Words', hBubble(`<strong>Earning</strong> = getting paid for work.<br><strong>Saving</strong> = keeping money for later.<br><strong>Spending</strong> = using money to buy something.<br>This is <strong style="color:#17C7C7;">${s.ans}</strong>.`)),
           opts: shuffle(['earning', 'saving', 'spending'])
         };
       } },
     { learn: "Giving means sharing what you have with others, like donating to charity.", visual: "🎁 give toys to kids who need them = giving/sharing", example: "Donating old toys is giving",
       gen: () => {
         const scenarios = [
-          { q: "Hello Kitty gives some of her old books to a school that needs them. What is this called?", ans: "giving" },
+          { q: "Rookie gives some of her old books to a school that needs them. What is this called?", ans: "giving" },
           { q: "Safia shares half her cookies with her friend. What is this called?", ans: "giving" },
-          { q: "Labubu keeps all his stickers only for himself. What is this called?", ans: "keeping" }
+          { q: "Champ keeps all his stickers only for himself. What is this called?", ans: "keeping" }
         ];
         const s = scenarios[rnd(0, scenarios.length - 1)];
         return {
           q: s.q,
           ans: s.ans,
-          h: () => hWrap('#ffb6d1', '🎁', 'Giving', hBubble(`<strong>Giving</strong> means sharing what you have with others who need it. This is <strong style="color:#9bc4cb;">${s.ans}</strong>.`)),
+          h: () => hWrap('#FF5C3D', '🎁', 'Giving', hBubble(`<strong>Giving</strong> means sharing what you have with others who need it. This is <strong style="color:#17C7C7;">${s.ans}</strong>.`)),
           opts: shuffle(['giving', 'keeping', 'spending'])
         };
       } }
@@ -642,7 +642,7 @@ const SKILLS = {
         return {
           q: `${row.join(' ')}<br>Which animal is ${ordWords[targetIdx]}?`,
           ans: correct,
-          h: () => hWrap('#ffb6d1', '🔢', 'Ordinal Numbers', hBubble(`Count from the left: ${row.map((a, i) => `${ordWords[i]}=${a}`).join(', ')}`)),
+          h: () => hWrap('#FF5C3D', '🔢', 'Ordinal Numbers', hBubble(`Count from the left: ${row.map((a, i) => `${ordWords[i]}=${a}`).join(', ')}`)),
           opts: shuffle([correct, ...distractors])
         };
       } }
@@ -673,7 +673,7 @@ const SKILLS = {
         return {
           q: `${emoji.repeat(n)}<br>How much money is that? (${n} ${plural})`,
           ans: n * value,
-          h: () => hWrap('#c4a5ff', '💰', 'Count Like Coins', hBubble(`Each ${name} = ${value}¢. Count by ${value}s, ${n} times: <strong style="color:#9bc4cb;">${n * value}¢</strong>`)),
+          h: () => hWrap('#2FE6A7', '💰', 'Count Like Coins', hBubble(`Each ${name} = ${value}¢. Count by ${value}s, ${n} times: <strong style="color:#17C7C7;">${n * value}¢</strong>`)),
           opts: dedupOpts(n * value, [n * value + value, n * value - value, n])
         };
       } },
@@ -683,7 +683,7 @@ const SKILLS = {
         return {
           q: `${'🪙'.repeat(n)}<br>How much money is that? (${n} dimes)`,
           ans: n * 10,
-          h: () => hWrap('#c4a5ff', '💰', 'Count Dimes', hBubble(`Count by 10s: ${Array.from({ length: n }, (_, i) => (i + 1) * 10).join(', ')}`)),
+          h: () => hWrap('#2FE6A7', '💰', 'Count Dimes', hBubble(`Count by 10s: ${Array.from({ length: n }, (_, i) => (i + 1) * 10).join(', ')}`)),
           opts: dedupOpts(n * 10, [n * 10 + 10, n * 10 - 10, n])
         };
       } }
@@ -704,7 +704,7 @@ const SKILLS = {
         return {
           q: `How many shapes are in ${regionName}?<br>${vVennDiagram(items, TRACK_THEME.grade1)}`,
           ans,
-          h: () => hWrap('#9bc4cb', '⭕', 'Venn Diagram', hBubble(`Count the shapes in ${regionName}: <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#17C7C7', '⭕', 'Venn Diagram', hBubble(`Count the shapes in ${regionName}: <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 1, Math.max(0, ans - 1), leftCount + rightCount + bothCount])
         };
       } },
@@ -719,7 +719,7 @@ const SKILLS = {
         return {
           q: `Group A: ${rule.groupA}. Group B: ${rule.groupB}. Which group does a ${shape} belong to?`,
           ans: correctGroup,
-          h: () => hWrap('#9bc4cb', '⭕', 'Sort by Property', hBubble(`A ${shape} ${correctGroup === 'A' ? rule.groupA : rule.groupB} → Group <strong style="color:#9bc4cb;">${correctGroup}</strong>`)),
+          h: () => hWrap('#17C7C7', '⭕', 'Sort by Property', hBubble(`A ${shape} ${correctGroup === 'A' ? rule.groupA : rule.groupB} → Group <strong style="color:#17C7C7;">${correctGroup}</strong>`)),
           opts: ['A', 'B']
         };
       } }
@@ -776,27 +776,27 @@ const SKILLS = {
   ],
   money: [
     { learn: "Penny=1¢, nickel=5¢, dime=10¢, quarter=25¢", visual: "🟤1¢ 🔘5¢ 🪙10¢ 🥈25¢", example: "2 dimes=20¢",
-      gen: () => { let d = rnd(1, 5); return { q: `${d} dime${d > 1 ? 's' : ''} = __¢?`, ans: d * 10, h: () => hWrap('#c4a5ff', '💰', 'Dimes', hBubble(`Each dime = 10¢. Count by 10s: ${Array.from({ length: d }, (_, i) => (i + 1) * 10).join(', ')}`)), opts: shuffle([d * 10, d * 10 + 5, d * 10 - 5, d * 5]) }; } },
+      gen: () => { let d = rnd(1, 5); return { q: `${d} dime${d > 1 ? 's' : ''} = __¢?`, ans: d * 10, h: () => hWrap('#2FE6A7', '💰', 'Dimes', hBubble(`Each dime = 10¢. Count by 10s: ${Array.from({ length: d }, (_, i) => (i + 1) * 10).join(', ')}`)), opts: shuffle([d * 10, d * 10 + 5, d * 10 - 5, d * 5]) }; } },
     { learn: "Count nickels: 5, 10, 15, 20...", visual: "🔘🔘🔘🔘 = 4×5 = 20¢", example: "4 nickels=20¢",
-      gen: () => { let n = rnd(2, 6); return { q: `${n} nickels = __¢?`, ans: n * 5, h: () => hWrap('#c4a5ff', '💰', 'Nickels', hBubble(`Each nickel=5¢. Count by 5s: ${Array.from({ length: n }, (_, i) => (i + 1) * 5).join(', ')}`)), opts: shuffle([n * 5, n * 5 + 5, n * 5 - 5, n * 10]) }; } },
+      gen: () => { let n = rnd(2, 6); return { q: `${n} nickels = __¢?`, ans: n * 5, h: () => hWrap('#2FE6A7', '💰', 'Nickels', hBubble(`Each nickel=5¢. Count by 5s: ${Array.from({ length: n }, (_, i) => (i + 1) * 5).join(', ')}`)), opts: shuffle([n * 5, n * 5 + 5, n * 5 - 5, n * 10]) }; } },
     { learn: "Add coins together  -  count biggest first.", visual: "Quarter+dime+nickel = 25+10+5 = 40¢", example: "40¢",
-      gen: () => { let q = rnd(0, 1) * 25, d = rnd(1, 3) * 10, n = rnd(0, 1) * 5; return { q: `${q > 0 ? '1 quarter + ' : ''}${d / 10} dime${d > 10 ? 's' : ''} + ${n > 0 ? '1 nickel' : ''} = __¢?`, ans: q + d + n, h: () => hWrap('#c4a5ff', '💰', 'Add Coins', hBubble(`${q}+${d}+${n} = <strong>${q + d + n}¢</strong>`)), opts: shuffle([q + d + n, q + d + n + 5, q + d + n - 5, q + d]) }; } },
+      gen: () => { let q = rnd(0, 1) * 25, d = rnd(1, 3) * 10, n = rnd(0, 1) * 5; return { q: `${q > 0 ? '1 quarter + ' : ''}${d / 10} dime${d > 10 ? 's' : ''} + ${n > 0 ? '1 nickel' : ''} = __¢?`, ans: q + d + n, h: () => hWrap('#2FE6A7', '💰', 'Add Coins', hBubble(`${q}+${d}+${n} = <strong>${q + d + n}¢</strong>`)), opts: shuffle([q + d + n, q + d + n + 5, q + d + n - 5, q + d]) }; } },
     { learn: "How much change? Start with what you paid.", visual: "Pay 50¢ for 32¢ item → 50−32=18¢ change", example: "18¢",
       gen: () => { let cost = rnd(11, 45), paid = [50, 25, 75][rnd(0, 2)]; while (paid < cost) paid = 100; return { q: `Pay ${paid}¢ for a ${cost}¢ item. Change = ?`, ans: paid - cost, h: () => subtractHint(paid, cost), opts: shuffle([paid - cost, paid - cost + 5, paid - cost - 5, cost]) }; } },
     { learn: "Dollar = 100¢. How many quarters?", visual: "🥈🥈🥈🥈 = 4×25 = 100¢ = $1", example: "4 quarters = $1",
-      gen: () => { let q = rnd(2, 8); return { q: `${q * 25}¢ = how many quarters?`, ans: q, h: () => hWrap('#c4a5ff', '💰', 'Quarters', hBubble(`Each quarter=25¢. ${q * 25}÷25 = <strong>${q}</strong>`)), opts: shuffle([q, q + 1, q - 1, q + 2]) }; } }
+      gen: () => { let q = rnd(2, 8); return { q: `${q * 25}¢ = how many quarters?`, ans: q, h: () => hWrap('#2FE6A7', '💰', 'Quarters', hBubble(`Each quarter=25¢. ${q * 25}÷25 = <strong>${q}</strong>`)), opts: shuffle([q, q + 1, q - 1, q + 2]) }; } }
   ],
   measure: [
     { learn: "Measure with a ruler! Count the inches.", visual: "📏 ➖➖➖ = 3 inches", example: "3 inches",
-      gen: () => { let m = rnd(1, 8); return { q: `A pencil is ${m} inches long. How many inches?`, ans: m, h: () => hWrap('#c4a5ff', '📏', 'Measure', hBubble(`Count the marks: <strong>${m}</strong> inches`)), opts: shuffle([m, m + 1, m - 1, m + 2]) }; } },
+      gen: () => { let m = rnd(1, 8); return { q: `A pencil is ${m} inches long. How many inches?`, ans: m, h: () => hWrap('#2FE6A7', '📏', 'Measure', hBubble(`Count the marks: <strong>${m}</strong> inches`)), opts: shuffle([m, m + 1, m - 1, m + 2]) }; } },
     { learn: "cm vs inches: 1 inch ≈ 2.5 cm. CM are smaller.", visual: "📏 1 inch = about 2.5 cm", example: "1in≈2.5cm",
-      gen: () => { let m = rnd(2, 8); return { q: `${m} inches is about how many cm? (1in≈2.5cm)`, ans: Math.round(m * 2.5), h: () => hWrap('#c4a5ff', '📏', 'Inches to cm', hBubble(`${m} × 2.5 = <strong>${m * 2.5}</strong>`)), opts: shuffle([Math.round(m * 2.5), Math.round(m * 2.5) + 2, Math.round(m * 2.5) - 2, m]) }; } },
+      gen: () => { let m = rnd(2, 8); return { q: `${m} inches is about how many cm? (1in≈2.5cm)`, ans: Math.round(m * 2.5), h: () => hWrap('#2FE6A7', '📏', 'Inches to cm', hBubble(`${m} × 2.5 = <strong>${m * 2.5}</strong>`)), opts: shuffle([Math.round(m * 2.5), Math.round(m * 2.5) + 2, Math.round(m * 2.5) - 2, m]) }; } },
     { learn: "Compare lengths! Which is longer?", visual: "Snake 🐍 (8cm) vs worm 🪱 (5cm)  -  snake is longer", example: "8>5",
-      gen: () => { let a = rnd(3, 12), b = rnd(3, 12); while (a === b) b = rnd(3, 12); return { q: `Object A = ${a}cm, Object B = ${b}cm. Which is longer?`, ans: a > b ? `A (${a}cm)` : `B (${b}cm)`, h: () => hWrap('#c4a5ff', '📏', 'Compare', hBubble(`${a} vs ${b}  -  ${Math.max(a, b)} is bigger`)), opts: [`A (${a}cm)`, `B (${b}cm)`, `Same`, `Can't tell`] }; } },
+      gen: () => { let a = rnd(3, 12), b = rnd(3, 12); while (a === b) b = rnd(3, 12); return { q: `Object A = ${a}cm, Object B = ${b}cm. Which is longer?`, ans: a > b ? `A (${a}cm)` : `B (${b}cm)`, h: () => hWrap('#2FE6A7', '📏', 'Compare', hBubble(`${a} vs ${b}  -  ${Math.max(a, b)} is bigger`)), opts: [`A (${a}cm)`, `B (${b}cm)`, `Same`, `Can't tell`] }; } },
     { learn: "Add lengths: 5cm + 3cm = 8cm.", visual: "📏5cm + 📏3cm = 📏8cm", example: "8cm",
       gen: () => { let a = rnd(3, 10), b = rnd(2, 8); return { q: `${a}cm + ${b}cm = ?`, ans: a + b, h: () => addHint(a, b), opts: shuffle([a + b, a + b + 1, a + b - 1, a]) }; } },
     { learn: "Perimeter = all sides added together!", visual: "🟦 side 4cm × 4 sides = 16cm perimeter", example: "Perimeter=16",
-      gen: () => { let s = rnd(2, 6); return { q: `Square with sides ${s}cm. Perimeter = ?`, ans: s * 4, h: () => hWrap('#c4a5ff', '📐', 'Perimeter', hBubble(`4 sides × ${s}cm = <strong>${s * 4}cm</strong>`)), opts: shuffle([s * 4, s * 4 + 2, s * 4 - 2, s * 2]) }; } }
+      gen: () => { let s = rnd(2, 6); return { q: `Square with sides ${s}cm. Perimeter = ?`, ans: s * 4, h: () => hWrap('#2FE6A7', '📐', 'Perimeter', hBubble(`4 sides × ${s}cm = <strong>${s * 4}cm</strong>`)), opts: shuffle([s * 4, s * 4 + 2, s * 4 - 2, s * 2]) }; } }
   ],
   graph_read1: [
     { learn: "Bar graphs show amounts as tall bars. Taller bar = more!",
@@ -837,7 +837,7 @@ const SKILLS = {
         return {
           q: `In the number ${n}, what is the value of the digit in the ${p.name} place?`,
           ans: p.worth,
-          h: () => hWrap('#c4a5ff', '📦', 'Place Value', hBubble(`${n} = ${h} hundreds + ${t} tens + ${o} ones.<br>The ${p.name} digit (${p.val}) is worth <strong style="color:#9bc4cb;">${p.worth}</strong>`)),
+          h: () => hWrap('#2FE6A7', '📦', 'Place Value', hBubble(`${n} = ${h} hundreds + ${t} tens + ${o} ones.<br>The ${p.name} digit (${p.val}) is worth <strong style="color:#17C7C7;">${p.worth}</strong>`)),
           opts: dedupOpts(p.worth, [p.val, p.worth + 10, p.worth - 10, p.worth + 100])
         };
       } },
@@ -848,7 +848,7 @@ const SKILLS = {
         return {
           q: `${h} hundreds + ${t} tens + ${o} ones = ?`,
           ans,
-          h: () => hWrap('#c4a5ff', '📦', 'Build the Number', hBubble(`${h}×100=${h * 100}, ${t}×10=${t * 10}, +${o} = <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#2FE6A7', '📦', 'Build the Number', hBubble(`${h}×100=${h * 100}, ${t}×10=${t * 10}, +${o} = <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 10, ans - 10, ans + 100, ans + 1])
         };
       } }
@@ -863,7 +863,7 @@ const SKILLS = {
         return {
           q: `Write ${n} in expanded form.`,
           ans,
-          h: () => hWrap('#c4a5ff', '🔢', 'Expanded Form', hBubble(`${n} = <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#2FE6A7', '🔢', 'Expanded Form', hBubble(`${n} = <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, pool)
         };
       } },
@@ -891,7 +891,7 @@ const SKILLS = {
         return {
           q: `Which number is written as "${ans}"?`,
           ans: n,
-          h: () => hWrap('#c4a5ff', '🔤', 'Number Words', hBubble(`"${ans}" = <strong style="color:#9bc4cb;">${n}</strong>`)),
+          h: () => hWrap('#2FE6A7', '🔤', 'Number Words', hBubble(`"${ans}" = <strong style="color:#17C7C7;">${n}</strong>`)),
           opts: dedupOpts(n, [wrongN1, wrongN2, n + 1])
         };
       } }
@@ -918,7 +918,7 @@ const SKILLS = {
         return {
           q: `Round ${n} to the nearest 10.`,
           ans,
-          h: () => hWrap('#c4a5ff', '🎯', 'Round to Nearest 10', hBubble(`Ones digit is ${ones}. ${ones >= 5 ? "That's 5 or more, round UP" : "That's less than 5, round DOWN"} → <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#2FE6A7', '🎯', 'Round to Nearest 10', hBubble(`Ones digit is ${ones}. ${ones >= 5 ? "That's 5 or more, round UP" : "That's less than 5, round DOWN"} → <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 10, ans - 10, n])
         };
       } },
@@ -931,7 +931,7 @@ const SKILLS = {
         return {
           q: `Round ${n} to the nearest 100.`,
           ans,
-          h: () => hWrap('#c4a5ff', '🎯', 'Round to Nearest 100', hBubble(`Tens digit is ${tensDigit}. ${tensDigit >= 5 ? "That's 5 or more, round UP" : "That's less than 5, round DOWN"} → <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#2FE6A7', '🎯', 'Round to Nearest 100', hBubble(`Tens digit is ${tensDigit}. ${tensDigit >= 5 ? "That's 5 or more, round UP" : "That's less than 5, round DOWN"} → <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 100, ans - 100, n])
         };
       } }
@@ -948,7 +948,7 @@ const SKILLS = {
         return {
           q: `${parts.join(' + ')} = ?`,
           ans: `$${dollars}`,
-          h: () => hWrap('#c4a5ff', '💵', 'Count the Money', hBubble(`${tens} × $10 = $${tens * 10}.00<br>${quarters} × 25¢ = ${quarters * 25}¢<br>${dimes} × 10¢ = ${dimes * 10}¢<br>Total = <strong style="color:#9bc4cb;">$${dollars}</strong>`)),
+          h: () => hWrap('#2FE6A7', '💵', 'Count the Money', hBubble(`${tens} × $10 = $${tens * 10}.00<br>${quarters} × 25¢ = ${quarters * 25}¢<br>${dimes} × 10¢ = ${dimes * 10}¢<br>Total = <strong style="color:#17C7C7;">$${dollars}</strong>`)),
           opts: dedupOpts(`$${dollars}`, [`$${(cents / 100 + 0.25).toFixed(2)}`, `$${(cents / 100 - 0.25).toFixed(2)}`, `$${(cents / 100 + 1).toFixed(2)}`])
         };
       } },
@@ -960,7 +960,7 @@ const SKILLS = {
         return {
           q: `Pay a $20 bill for a ${costStr} item. How much change?`,
           ans: changeStr,
-          h: () => hWrap('#c4a5ff', '💵', 'Making Change', hBubble(`You pay $20.00 for a ${costStr} item.<br>$20.00 − ${costStr} = <strong style="color:#9bc4cb;">${changeStr}</strong>`)),
+          h: () => hWrap('#2FE6A7', '💵', 'Making Change', hBubble(`You pay $20.00 for a ${costStr} item.<br>$20.00 − ${costStr} = <strong style="color:#17C7C7;">${changeStr}</strong>`)),
           opts: dedupOpts(changeStr, [`$${((2000 - costCents + 100) / 100).toFixed(2)}`, `$${((2000 - costCents - 100) / 100).toFixed(2)}`, costStr])
         };
       } }
@@ -990,7 +990,7 @@ const SKILLS = {
         return {
           q: `You ${e.text}. Is this usually A.M. or P.M.?`,
           ans: e.ans,
-          h: () => hWrap('#fbe158', '🌗', 'AM or PM?', hBubble(`A.M. = midnight to noon (morning). P.M. = noon to midnight (afternoon/night). This is usually <strong style="color:#fbe158;">${e.ans}</strong>.`)),
+          h: () => hWrap('#FFB020', '🌗', 'AM or PM?', hBubble(`A.M. = midnight to noon (morning). P.M. = noon to midnight (afternoon/night). This is usually <strong style="color:#FFB020;">${e.ans}</strong>.`)),
           opts: shuffle(['AM', 'PM'])
         };
       } },
@@ -1003,7 +1003,7 @@ const SKILLS = {
         return {
           q: `Class starts at ${hour}:${String(startMin).padStart(2, '0')} and ends at ${hour}:${String(endMin).padStart(2, '0')}. How many minutes is that?`,
           ans: elapsed,
-          h: () => hWrap('#fbe158', '⏱️', 'Elapsed Time', hBubble(`${hour}:${String(endMin).padStart(2, '0')} − ${hour}:${String(startMin).padStart(2, '0')} = <strong style="color:#fbe158;">${elapsed} minutes</strong>`)),
+          h: () => hWrap('#FFB020', '⏱️', 'Elapsed Time', hBubble(`${hour}:${String(endMin).padStart(2, '0')} − ${hour}:${String(startMin).padStart(2, '0')} = <strong style="color:#FFB020;">${elapsed} minutes</strong>`)),
           opts: dedupOpts(elapsed, [elapsed + 5, elapsed - 5, elapsed + 10])
         };
       } }
@@ -1016,7 +1016,7 @@ const SKILLS = {
         return {
           q: `Rectangle ${l}cm × ${w}cm. Perimeter?`,
           ans,
-          h: () => hWrap('#c4a5ff', '📐', 'Perimeter', hBubble(`2 × (${l}+${w}) = 2 × ${l + w} = <strong style="color:#9bc4cb;">${ans}cm</strong>`)),
+          h: () => hWrap('#2FE6A7', '📐', 'Perimeter', hBubble(`2 × (${l}+${w}) = 2 × ${l + w} = <strong style="color:#17C7C7;">${ans}cm</strong>`)),
           opts: dedupOpts(ans, [ans + 2, ans - 2, l * w, l + w])
         };
       } }
@@ -1029,7 +1029,7 @@ const SKILLS = {
         return {
           q: `Count the unit squares. How many fit in this rectangle?<br>${vUnitGrid(rows, cols, { theme: TRACK_THEME.grade2 })}`,
           ans,
-          h: () => hWrap('#9bc4cb', '⬜', 'Count Unit Squares', hBubble(`${rows} rows × ${cols} columns. Count them all: <strong style="color:#9bc4cb;">${ans}</strong> squares.`)),
+          h: () => hWrap('#17C7C7', '⬜', 'Count Unit Squares', hBubble(`${rows} rows × ${cols} columns. Count them all: <strong style="color:#17C7C7;">${ans}</strong> squares.`)),
           opts: dedupOpts(ans, [ans + rows, ans - rows, rows + cols, ans + 1])
         };
       } },
@@ -1055,7 +1055,7 @@ const SKILLS = {
         return {
           q: `How many data points show the value ${target.value}?<br>${vLinePlot(data, { theme: TRACK_THEME.grade2 })}`,
           ans: target.count,
-          h: () => hWrap('#fbe158', '📈', 'Read the Line Plot', hBubble(`Count the dots above ${target.value}: <strong style="color:#fbe158;">${target.count}</strong>`)),
+          h: () => hWrap('#FFB020', '📈', 'Read the Line Plot', hBubble(`Count the dots above ${target.value}: <strong style="color:#FFB020;">${target.count}</strong>`)),
           opts: dedupOpts(target.count, [target.count + 1, Math.max(0, target.count - 1), target.count + 2])
         };
       } },
@@ -1073,7 +1073,7 @@ const SKILLS = {
         return {
           q: `Which value appears most often (tallest stack)?<br>${vLinePlot(data, { theme: TRACK_THEME.grade2 })}`,
           ans,
-          h: () => hWrap('#fbe158', '📈', 'Find the Mode', hBubble(`The tallest stack is at <strong style="color:#fbe158;">${ans}</strong> with ${maxCount} dots.`)),
+          h: () => hWrap('#FFB020', '📈', 'Find the Mode', hBubble(`The tallest stack is at <strong style="color:#FFB020;">${ans}</strong> with ${maxCount} dots.`)),
           opts: dedupOpts(ans, vals.filter(v => v !== ans))
         };
       } }
@@ -1086,7 +1086,7 @@ const SKILLS = {
         return {
           q: `What is this polygon called?<br>${vShape(kind, { theme: TRACK_THEME.grade2 })}`,
           ans: kind,
-          h: () => hWrap('#9bc4cb', '🔷', 'Name the Polygon', hBubble(`This shape has <strong>${SHAPE_SIDES[kind]}</strong> sides, so it's a <strong style="color:#9bc4cb;">${kind}</strong>.`)),
+          h: () => hWrap('#17C7C7', '🔷', 'Name the Polygon', hBubble(`This shape has <strong>${SHAPE_SIDES[kind]}</strong> sides, so it's a <strong style="color:#17C7C7;">${kind}</strong>.`)),
           opts: shuffle(shapes.map(s => s[0]))
         };
       } },
@@ -1097,7 +1097,7 @@ const SKILLS = {
         return {
           q: `What quadrilateral is this?<br>${vShape(kind, { theme: TRACK_THEME.grade2 })}`,
           ans: kind,
-          h: () => hWrap('#9bc4cb', '🔷', 'Quadrilaterals', hBubble(`All 4-sided shapes are quadrilaterals. This one is a <strong style="color:#9bc4cb;">${kind}</strong>.`)),
+          h: () => hWrap('#17C7C7', '🔷', 'Quadrilaterals', hBubble(`All 4-sided shapes are quadrilaterals. This one is a <strong style="color:#17C7C7;">${kind}</strong>.`)),
           opts: shuffle(shapes)
         };
       } }
@@ -1110,7 +1110,7 @@ const SKILLS = {
         return {
           q: `How many ${prop} does a ${shape.name} have? ${shape.emoji}`,
           ans: shape[prop],
-          h: () => hWrap('#9bc4cb', '📦', 'Count the Parts', hBubble(`A <strong>${shape.name}</strong> has ${shape.faces} faces, ${shape.edges} edges, and ${shape.vertices} vertices. It has <strong style="color:#9bc4cb;">${shape[prop]}</strong> ${prop}.`)),
+          h: () => hWrap('#17C7C7', '📦', 'Count the Parts', hBubble(`A <strong>${shape.name}</strong> has ${shape.faces} faces, ${shape.edges} edges, and ${shape.vertices} vertices. It has <strong style="color:#17C7C7;">${shape[prop]}</strong> ${prop}.`)),
           opts: dedupOpts(shape[prop], [shape[prop] + 1, Math.max(0, shape[prop] - 1), shape[prop] + 2])
         };
       } },
@@ -1126,7 +1126,7 @@ const SKILLS = {
         return {
           q: `Which has more ${prop}: a ${s1.name} ${s1.emoji} or a ${s2.name} ${s2.emoji}?`,
           ans,
-          h: () => hWrap('#9bc4cb', '📦', 'Compare Shapes', hBubble(`${s1.name}: ${s1[prop]} ${prop}. ${s2.name}: ${s2[prop]} ${prop}. <strong style="color:#9bc4cb;">${ans}</strong> has more.`)),
+          h: () => hWrap('#17C7C7', '📦', 'Compare Shapes', hBubble(`${s1.name}: ${s1[prop]} ${prop}. ${s2.name}: ${s2[prop]} ${prop}. <strong style="color:#17C7C7;">${ans}</strong> has more.`)),
           opts: [s1.name, s2.name]
         };
       } }
@@ -1153,7 +1153,7 @@ const SKILLS = {
         return {
           q: `Which is bigger: ${n1}/${den} or ${n2}/${den}?`,
           ans,
-          h: () => hWrap('#9bc4cb', '🥧', 'Compare Fractions', hBubble(`Same denominator (${den}) - compare numerators: ${n1} vs ${n2}. Bigger numerator = bigger fraction: <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#17C7C7', '🥧', 'Compare Fractions', hBubble(`Same denominator (${den}) - compare numerators: ${n1} vs ${n2}. Bigger numerator = bigger fraction: <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: [`${n1}/${den}`, `${n2}/${den}`]
         };
       } }
@@ -1162,12 +1162,12 @@ const SKILLS = {
     { learn: "A deposit adds money to an account. A withdrawal takes money out.", visual: "🏦 Put money IN = deposit. Take money OUT = withdrawal.", example: "Putting $10 in a piggy bank is a deposit",
       gen: () => {
         const scenarios = [
-          { q: "Peach puts $10 of her birthday money into her savings account. What is this called?", ans: "deposit" },
-          { q: "Labubu takes $5 out of his savings account to buy a toy. What is this called?", ans: "withdrawal" },
+          { q: "Power puts $10 of her birthday money into her savings account. What is this called?", ans: "deposit" },
+          { q: "Champ takes $5 out of his savings account to buy a toy. What is this called?", ans: "withdrawal" },
           { q: "Safia adds her allowance to her bank account. What is this called?", ans: "deposit" }
         ];
         const s = scenarios[rnd(0, scenarios.length - 1)];
-        return { q: s.q, ans: s.ans, h: () => hWrap('#ffb6d1', '🏦', 'Bank Words', hBubble(`<strong>Deposit</strong> = put money IN.<br><strong>Withdrawal</strong> = take money OUT.<br>This is <strong style="color:#9bc4cb;">${s.ans}</strong>.`)), opts: shuffle(['deposit', 'withdrawal']) };
+        return { q: s.q, ans: s.ans, h: () => hWrap('#FF5C3D', '🏦', 'Bank Words', hBubble(`<strong>Deposit</strong> = put money IN.<br><strong>Withdrawal</strong> = take money OUT.<br>This is <strong style="color:#17C7C7;">${s.ans}</strong>.`)), opts: shuffle(['deposit', 'withdrawal']) };
       } },
     { learn: "A producer MAKES things to sell. A consumer BUYS and uses things.", visual: "👩‍🌾 farmer grows food = producer. 🛒 you buy food = consumer.", example: "A baker who makes bread is a producer",
       gen: () => {
@@ -1177,7 +1177,7 @@ const SKILLS = {
           { q: "A toy maker builds toys to sell in stores. Is the toy maker a producer or consumer?", ans: "producer" }
         ];
         const s = scenarios[rnd(0, scenarios.length - 1)];
-        return { q: s.q, ans: s.ans, h: () => hWrap('#ffb6d1', '🏭', 'Producers & Consumers', hBubble(`<strong>Producer</strong> = makes or grows things to sell.<br><strong>Consumer</strong> = buys and uses things.<br>This is <strong style="color:#9bc4cb;">${s.ans}</strong>.`)), opts: shuffle(['producer', 'consumer']) };
+        return { q: s.q, ans: s.ans, h: () => hWrap('#FF5C3D', '🏭', 'Producers & Consumers', hBubble(`<strong>Producer</strong> = makes or grows things to sell.<br><strong>Consumer</strong> = buys and uses things.<br>This is <strong style="color:#17C7C7;">${s.ans}</strong>.`)), opts: shuffle(['producer', 'consumer']) };
       } }
   ],
 
@@ -1191,7 +1191,7 @@ const SKILLS = {
         return {
           q: `${a} __ ${b}`,
           ans,
-          h: () => hWrap('#c4a5ff', '🔍', 'Compare on a Number Line', hBubble(`${a} vs ${b}: ${a < b ? 'the first is further left, so smaller' : 'the first is further right, so bigger'} → <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#2FE6A7', '🔍', 'Compare on a Number Line', hBubble(`${a} vs ${b}: ${a < b ? 'the first is further left, so smaller' : 'the first is further right, so bigger'} → <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: ['<', '>', '=']
         };
       } },
@@ -1213,7 +1213,7 @@ const SKILLS = {
         return {
           q: `Write ${n} in words.`,
           ans,
-          h: () => hWrap('#c4a5ff', '🔤', 'Word Form', hBubble(`${n} = <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#2FE6A7', '🔤', 'Word Form', hBubble(`${n} = <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, pool)
         };
       } }
@@ -1227,7 +1227,7 @@ const SKILLS = {
         return {
           q: `${seq.slice(0, 3).join(', ')}, __ ?`,
           ans,
-          h: () => hWrap('#c4a5ff', '🔢', 'Skip-Count by 100s', hBubble(`Add 100 each time: ${seq.join(', ')}`)),
+          h: () => hWrap('#2FE6A7', '🔢', 'Skip-Count by 100s', hBubble(`Add 100 each time: ${seq.join(', ')}`)),
           opts: dedupOpts(ans, [ans + 100, ans - 100, ans + 10, seq[2]])
         };
       } },
@@ -1237,7 +1237,7 @@ const SKILLS = {
         return {
           q: `Is ${n} even or odd?`,
           ans: n % 2 === 0 ? 'even' : 'odd',
-          h: () => hWrap('#c4a5ff', '🔢', 'Even or Odd', hBubble(`Last digit is ${n % 10}. ${n % 2 === 0 ? 'Ends in 0,2,4,6,8 → even' : 'Ends in 1,3,5,7,9 → odd'}`)),
+          h: () => hWrap('#2FE6A7', '🔢', 'Even or Odd', hBubble(`Last digit is ${n % 10}. ${n % 2 === 0 ? 'Ends in 0,2,4,6,8 → even' : 'Ends in 1,3,5,7,9 → odd'}`)),
           opts: ['even', 'odd']
         };
       } }
@@ -1256,7 +1256,7 @@ const SKILLS = {
             ? `A store has ${a} ${noun}. They get ${b} more. About how many ${noun} in all? (round to the nearest hundred first)`
             : `A store has ${a} ${noun}. They sell ${b}. About how many ${noun} are left? (round to the nearest hundred first)`,
           ans,
-          h: () => hWrap('#c4a5ff', '🎯', 'Estimate the Word Problem', hBubble(`${a}→${ra}, ${b}→${rb}. ${ra} ${isAdd ? '+' : '−'} ${rb} = <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#2FE6A7', '🎯', 'Estimate the Word Problem', hBubble(`${a}→${ra}, ${b}→${rb}. ${ra} ${isAdd ? '+' : '−'} ${rb} = <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 100, Math.max(0, ans - 100), Math.abs(a - b), a + b])
         };
       } }
@@ -1268,7 +1268,7 @@ const SKILLS = {
         return {
           q: `How many days are in ${MONTHS[m]}?`,
           ans: DAYS_IN_MONTH[m],
-          h: () => hWrap('#ffb6d1', '📅', 'Days in a Month', hBubble(`${MONTHS[m]} has <strong style="color:#9bc4cb;">${DAYS_IN_MONTH[m]}</strong> days.`)),
+          h: () => hWrap('#FF5C3D', '📅', 'Days in a Month', hBubble(`${MONTHS[m]} has <strong style="color:#17C7C7;">${DAYS_IN_MONTH[m]}</strong> days.`)),
           opts: dedupOpts(DAYS_IN_MONTH[m], [28, 30, 31])
         };
       } },
@@ -1282,7 +1282,7 @@ const SKILLS = {
         return {
           q: `Today is ${MONTHS[m]} ${startDay}. What date is it ${addDays} days from now?`,
           ans: `${MONTHS[m]} ${ans}`,
-          h: () => hWrap('#ffb6d1', '📅', 'Date Arithmetic', hBubble(`${startDay} + ${addDays} = <strong style="color:#9bc4cb;">${ans}</strong> → ${MONTHS[m]} ${ans}`)),
+          h: () => hWrap('#FF5C3D', '📅', 'Date Arithmetic', hBubble(`${startDay} + ${addDays} = <strong style="color:#17C7C7;">${ans}</strong> → ${MONTHS[m]} ${ans}`)),
           opts: dedupOpts(`${MONTHS[m]} ${ans}`, [`${MONTHS[m]} ${ans + 1}`, `${MONTHS[m]} ${ans - 1}`, `${MONTHS[m]} ${startDay}`])
         };
       } }
@@ -1301,11 +1301,11 @@ const SKILLS = {
         return {
           q: `Data: ${trueData.map(d => `${d.label}=${d.value}`).join(', ')}. Which graph matches?<br>
             <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-              <div><div style="color:#fef9d7;font-weight:900;">Graph A</div>${vBarGraph(graphA, { theme: TRACK_THEME.grade2 })}</div>
-              <div><div style="color:#fef9d7;font-weight:900;">Graph B</div>${vBarGraph(graphB, { theme: TRACK_THEME.grade2 })}</div>
+              <div><div style="color:#F4FBFB;font-weight:900;">Graph A</div>${vBarGraph(graphA, { theme: TRACK_THEME.grade2 })}</div>
+              <div><div style="color:#F4FBFB;font-weight:900;">Graph B</div>${vBarGraph(graphB, { theme: TRACK_THEME.grade2 })}</div>
             </div>`,
           ans: answerIsA ? 'Graph A' : 'Graph B',
-          h: () => hWrap('#fbe158', '📊', 'Match the Data', hBubble(`Data says ${trueData.map(d => `${d.label}=${d.value}`).join(', ')}. Check each graph's bar heights against that.`)),
+          h: () => hWrap('#FFB020', '📊', 'Match the Data', hBubble(`Data says ${trueData.map(d => `${d.label}=${d.value}`).join(', ')}. Check each graph's bar heights against that.`)),
           opts: ['Graph A', 'Graph B']
         };
       } },
@@ -1322,11 +1322,11 @@ const SKILLS = {
         return {
           q: `Data: ${trueData.map(d => `${d.label}=${d.value}`).join(', ')}. Which picture graph matches?<br>
             <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-              <div><div style="color:#fef9d7;font-weight:900;">Graph A</div>${vPictograph(graphA, { theme: TRACK_THEME.grade2 })}</div>
-              <div><div style="color:#fef9d7;font-weight:900;">Graph B</div>${vPictograph(graphB, { theme: TRACK_THEME.grade2 })}</div>
+              <div><div style="color:#F4FBFB;font-weight:900;">Graph A</div>${vPictograph(graphA, { theme: TRACK_THEME.grade2 })}</div>
+              <div><div style="color:#F4FBFB;font-weight:900;">Graph B</div>${vPictograph(graphB, { theme: TRACK_THEME.grade2 })}</div>
             </div>`,
           ans: answerIsA ? 'Graph A' : 'Graph B',
-          h: () => hWrap('#fbe158', '📊', 'Match the Data', hBubble(`Data says ${trueData.map(d => `${d.label}=${d.value}`).join(', ')}. Count each graph's pictures.`)),
+          h: () => hWrap('#FFB020', '📊', 'Match the Data', hBubble(`Data says ${trueData.map(d => `${d.label}=${d.value}`).join(', ')}. Count each graph's pictures.`)),
           opts: ['Graph A', 'Graph B']
         };
       } }
@@ -1422,7 +1422,7 @@ const SKILLS = {
         return {
           q: `If ${a} × ${b} = ${a * b}, what does ${b} × ${a} equal?`,
           ans: a * b,
-          h: () => hWrap('#fbe158', '🔄', 'Commutative Property', hBubble(`Multiplication order doesn't matter! ${a}×${b} = ${b}×${a} = <strong style="color:#fbe158;">${a * b}</strong>`)),
+          h: () => hWrap('#FFB020', '🔄', 'Commutative Property', hBubble(`Multiplication order doesn't matter! ${a}×${b} = ${b}×${a} = <strong style="color:#FFB020;">${a * b}</strong>`)),
           opts: dedupOpts(a * b, [a * b + a, a * b - a, a + b])
         };
       } },
@@ -1434,7 +1434,7 @@ const SKILLS = {
         return {
           q: `${a} × ${b} = (${a} × ${split1}) + (${a} × ${split2}). What is the total?`,
           ans,
-          h: () => hWrap('#fbe158', '✂️', 'Distributive Property', hBubble(`${a}×${split1}=${a * split1}, ${a}×${split2}=${a * split2}.<br>${a * split1}+${a * split2}=<strong style="color:#fbe158;">${ans}</strong>`)),
+          h: () => hWrap('#FFB020', '✂️', 'Distributive Property', hBubble(`${a}×${split1}=${a * split1}, ${a}×${split2}=${a * split2}.<br>${a * split1}+${a * split2}=<strong style="color:#FFB020;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + a, ans - a, a + b])
         };
       } }
@@ -1447,7 +1447,7 @@ const SKILLS = {
         return {
           q: `${a} × ${tens} = ?`,
           ans,
-          h: () => hWrap('#fbe158', '🔟', 'Multiply by Tens', hBubble(`${a}×${tens / 10}=${a * tens / 10}, then add a zero: <strong style="color:#fbe158;">${ans}</strong>`)),
+          h: () => hWrap('#FFB020', '🔟', 'Multiply by Tens', hBubble(`${a}×${tens / 10}=${a * tens / 10}, then add a zero: <strong style="color:#FFB020;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + tens, ans - tens, ans + 10])
         };
       } },
@@ -1459,7 +1459,7 @@ const SKILLS = {
         return {
           q: `${a} × ${b} = ?`,
           ans,
-          h: () => hWrap('#fbe158', '✖️', '2-Digit Multiplication', hBubble(`${a} = ${tens}+${ones}.<br>${tens}×${b}=${tens * b}, ${ones}×${b}=${ones * b}.<br>${tens * b}+${ones * b}=<strong style="color:#fbe158;">${ans}</strong>`)),
+          h: () => hWrap('#FFB020', '✖️', '2-Digit Multiplication', hBubble(`${a} = ${tens}+${ones}.<br>${tens}×${b}=${tens * b}, ${ones}×${b}=${ones * b}.<br>${tens * b}+${ones * b}=<strong style="color:#FFB020;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + b, ans - b, ans + 10])
         };
       } }
@@ -1487,7 +1487,7 @@ const SKILLS = {
         return {
           q: `Round ${n} to the nearest ${place}.`,
           ans,
-          h: () => hWrap('#c4a5ff', '🎯', 'Round', hBubble(`${n} rounds to <strong style="color:#9bc4cb;">${ans}</strong> (nearest ${place}).`)),
+          h: () => hWrap('#2FE6A7', '🎯', 'Round', hBubble(`${n} rounds to <strong style="color:#17C7C7;">${ans}</strong> (nearest ${place}).`)),
           opts: dedupOpts(ans, [ans + place, ans - place, n])
         };
       } },
@@ -1499,7 +1499,7 @@ const SKILLS = {
         return {
           q: `Estimate ${a} + ${b} by rounding each to the nearest hundred.`,
           ans,
-          h: () => hWrap('#c4a5ff', '🎯', 'Estimate the Sum', hBubble(`${a}→${ra}, ${b}→${rb}. ${ra}+${rb}=<strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#2FE6A7', '🎯', 'Estimate the Sum', hBubble(`${a}→${ra}, ${b}→${rb}. ${ra}+${rb}=<strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 100, ans - 100, a + b])
         };
       } }
@@ -1527,7 +1527,7 @@ const SKILLS = {
         return {
           q: `Buy ${packs} packs of ${perPack} pencils each, then give away ${giveAway}. How many pencils are left?`,
           ans,
-          h: () => hWrap('#9bc4cb', '🧩', 'Two Steps', hBubble(`Step 1: ${packs}×${perPack}=${total}.<br>Step 2: ${total}−${giveAway}=<strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#17C7C7', '🧩', 'Two Steps', hBubble(`Step 1: ${packs}×${perPack}=${total}.<br>Step 2: ${total}−${giveAway}=<strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 1, ans - 1, total, giveAway])
         };
       } },
@@ -1546,7 +1546,7 @@ const SKILLS = {
         return {
           q: `What fraction is marked on the number line?<br>${vNumberLine(0, 1, { theme: TRACK_THEME.grade3, step: 1 / den, point: num / den, labelFn: v => `${Math.round(v * den)}/${den}` })}`,
           ans: `${num}/${den}`,
-          h: () => hWrap('#9bc4cb', '➡️', 'Fractions on a Number Line', hBubble(`Between 0 and 1, split into ${den} equal parts. The mark is at <strong style="color:#9bc4cb;">${num}/${den}</strong>.`)),
+          h: () => hWrap('#17C7C7', '➡️', 'Fractions on a Number Line', hBubble(`Between 0 and 1, split into ${den} equal parts. The mark is at <strong style="color:#17C7C7;">${num}/${den}</strong>.`)),
           opts: dedupOpts(`${num}/${den}`, [`${den - num}/${den}`, `${num}/${den + 1}`, `${num + 1}/${den}`])
         };
       } },
@@ -1557,7 +1557,7 @@ const SKILLS = {
         return {
           q: `What fraction is marked on the number line?<br>${vNumberLine(0, 2, { theme: TRACK_THEME.grade3, step: 1 / den, point: num / den, labelFn: v => `${Math.round(v * den)}/${den}` })}`,
           ans: `${num}/${den}`,
-          h: () => hWrap('#9bc4cb', '➡️', 'Fractions Greater Than 1', hBubble(`Count marks past 0: the mark at <strong style="color:#9bc4cb;">${num}/${den}</strong> is past 1 whole.`)),
+          h: () => hWrap('#17C7C7', '➡️', 'Fractions Greater Than 1', hBubble(`Count marks past 0: the mark at <strong style="color:#17C7C7;">${num}/${den}</strong> is past 1 whole.`)),
           opts: dedupOpts(`${num}/${den}`, [`${num - 1}/${den}`, `${num + 1}/${den}`, `${den}/${den}`])
         };
       } }
@@ -1575,7 +1575,7 @@ const SKILLS = {
         return {
           q: `Are these fractions equivalent?<br>${vFractionBar(num1, den1, { theme: TRACK_THEME.grade3, compareTo: [num2, den2] })}`,
           ans: actuallyEquivalent ? 'yes' : 'no',
-          h: () => hWrap('#9bc4cb', '🟰', 'Equivalent Fractions', hBubble(`${num1}/${den1} = ${(num1 / den1).toFixed(2)}. ${num2}/${den2} = ${(num2 / den2).toFixed(2)}. ${actuallyEquivalent ? 'They ARE equal ✅' : "They're NOT equal ❌"}`)),
+          h: () => hWrap('#17C7C7', '🟰', 'Equivalent Fractions', hBubble(`${num1}/${den1} = ${(num1 / den1).toFixed(2)}. ${num2}/${den2} = ${(num2 / den2).toFixed(2)}. ${actuallyEquivalent ? 'They ARE equal ✅' : "They're NOT equal ❌"}`)),
           opts: shuffle(['yes', 'no'])
         };
       } },
@@ -1588,7 +1588,7 @@ const SKILLS = {
         return {
           q: `${num1}/${den1} = ?/${den2}`,
           ans,
-          h: () => hWrap('#9bc4cb', '🟰', 'Equivalent Fractions', hBubble(`${den2}÷${den1}=${mult}, so multiply the top by ${mult} too: ${num1}×${mult}=<strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#17C7C7', '🟰', 'Equivalent Fractions', hBubble(`${den2}÷${den1}=${mult}, so multiply the top by ${mult} too: ${num1}×${mult}=<strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 1, ans - 1, den1, mult])
         };
       } }
@@ -1605,7 +1605,7 @@ const SKILLS = {
         return {
           q: `Which is bigger: ${num1}/${den1} or ${num2}/${den2}?`,
           ans,
-          h: () => hWrap('#9bc4cb', '⚖️', 'Compare Fractions', hBubble(`${num1}/${den1} = ${v1.toFixed(2)}. ${num2}/${den2} = ${v2.toFixed(2)}. <strong style="color:#9bc4cb;">${ans}</strong> is bigger.`)),
+          h: () => hWrap('#17C7C7', '⚖️', 'Compare Fractions', hBubble(`${num1}/${den1} = ${v1.toFixed(2)}. ${num2}/${den2} = ${v2.toFixed(2)}. <strong style="color:#17C7C7;">${ans}</strong> is bigger.`)),
           opts: [`${num1}/${den1}`, `${num2}/${den2}`]
         };
       } },
@@ -1623,7 +1623,7 @@ const SKILLS = {
         return {
           q: `Order these from smallest to biggest: ${nums.map(n => `${n}/${den}`).join(', ')}`,
           ans,
-          h: () => hWrap('#9bc4cb', '📶', 'Order Fractions', hBubble(`Same denominator - just order the numerators: ${sorted.join(', ')} → <strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#17C7C7', '📶', 'Order Fractions', hBubble(`Same denominator - just order the numerators: ${sorted.join(', ')} → <strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: shuffle(opts)
         };
       } }
@@ -1634,9 +1634,9 @@ const SKILLS = {
         let rows = rnd(3, 7), cols1 = rnd(2, 5), cols2 = rnd(2, 5);
         let ans = rows * (cols1 + cols2);
         return {
-          q: `A rectangle is split into two parts: ${rows}×${cols1} and ${rows}×${cols2}. What is the total area?<br><div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">${vUnitGrid(rows, cols1, { theme: TRACK_THEME.grade3 })}<span style="font-size:1.8rem;color:#fef9d7;font-weight:900;">+</span>${vUnitGrid(rows, cols2, { theme: TRACK_THEME.grade3 })}</div>`,
+          q: `A rectangle is split into two parts: ${rows}×${cols1} and ${rows}×${cols2}. What is the total area?<br><div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">${vUnitGrid(rows, cols1, { theme: TRACK_THEME.grade3 })}<span style="font-size:1.8rem;color:#F4FBFB;font-weight:900;">+</span>${vUnitGrid(rows, cols2, { theme: TRACK_THEME.grade3 })}</div>`,
           ans,
-          h: () => hWrap('#9bc4cb', '⬜', 'Composite Area', hBubble(`${rows}×${cols1}=${rows * cols1}. ${rows}×${cols2}=${rows * cols2}. ${rows * cols1}+${rows * cols2}=<strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#17C7C7', '⬜', 'Composite Area', hBubble(`${rows}×${cols1}=${rows * cols1}. ${rows}×${cols2}=${rows * cols2}. ${rows * cols1}+${rows * cols2}=<strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + rows, ans - rows, rows * cols1, rows * cols2])
         };
       } },
@@ -1649,7 +1649,7 @@ const SKILLS = {
         return {
           q: `A rectangle has perimeter ${perimeter}cm. One side is ${known}cm. What is the other side?`,
           ans,
-          h: () => hWrap('#c4a5ff', '📐', 'Missing Side', hBubble(`Perimeter ÷ 2 = ${perimeter / 2}. ${perimeter / 2}−${known}=<strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#2FE6A7', '📐', 'Missing Side', hBubble(`Perimeter ÷ 2 = ${perimeter / 2}. ${perimeter / 2}−${known}=<strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 1, ans - 1, perimeter / 2, known])
         };
       } },
@@ -1662,7 +1662,7 @@ const SKILLS = {
         return {
           q: `Rectangle ${l}cm × ${w}cm. What is the ${askArea ? 'area' : 'perimeter'}?`,
           ans,
-          h: () => askArea ? hintMultiply(l, w) : hWrap('#c4a5ff', '📐', 'Perimeter', hBubble(`2×(${l}+${w})=<strong style="color:#9bc4cb;">${perimeter}</strong>`)),
+          h: () => askArea ? hintMultiply(l, w) : hWrap('#2FE6A7', '📐', 'Perimeter', hBubble(`2×(${l}+${w})=<strong style="color:#17C7C7;">${perimeter}</strong>`)),
           opts: dedupOpts(ans, [area, perimeter, l + w, ans + 1, ans - 1])
         };
       } }
@@ -1675,7 +1675,7 @@ const SKILLS = {
         return {
           q: `What type of angle is this?<br>${vAngle(t.deg, TRACK_THEME.grade3)}`,
           ans: t.name,
-          h: () => hWrap('#9bc4cb', '📐', 'Angle Types', hBubble(`Acute = less than 90°. Right = exactly 90°. Obtuse = more than 90°. This angle is <strong style="color:#9bc4cb;">${t.name}</strong>.`)),
+          h: () => hWrap('#17C7C7', '📐', 'Angle Types', hBubble(`Acute = less than 90°. Right = exactly 90°. Obtuse = more than 90°. This angle is <strong style="color:#17C7C7;">${t.name}</strong>.`)),
           opts: ['acute', 'right', 'obtuse']
         };
       } },
@@ -1691,7 +1691,7 @@ const SKILLS = {
         return {
           q: `Which quadrilateral has ${f.fact}?`,
           ans: f.kind,
-          h: () => hWrap('#9bc4cb', '🔷', 'Quadrilateral Properties', hBubble(`A <strong>${f.kind}</strong> has ${f.fact}.<br>${vShape(f.kind, { theme: TRACK_THEME.grade3, labelSides: true })}`)),
+          h: () => hWrap('#17C7C7', '🔷', 'Quadrilateral Properties', hBubble(`A <strong>${f.kind}</strong> has ${f.fact}.<br>${vShape(f.kind, { theme: TRACK_THEME.grade3, labelSides: true })}`)),
           opts: shuffle(facts.map(x => x.kind))
         };
       } },
@@ -1701,7 +1701,7 @@ const SKILLS = {
         return {
           q: `What is a polygon with ${sides} sides called?`,
           ans: POLYGON_NAMES[sides],
-          h: () => hWrap('#9bc4cb', '🔷', 'Polygon Names', hBubble(`${sides} sides = <strong style="color:#9bc4cb;">${POLYGON_NAMES[sides]}</strong>`)),
+          h: () => hWrap('#17C7C7', '🔷', 'Polygon Names', hBubble(`${sides} sides = <strong style="color:#17C7C7;">${POLYGON_NAMES[sides]}</strong>`)),
           opts: dedupOpts(POLYGON_NAMES[sides], [POLYGON_NAMES[clampSides(sides - 1)], POLYGON_NAMES[clampSides(sides + 1)], POLYGON_NAMES[clampSides(sides - 2)], POLYGON_NAMES[clampSides(sides + 2)]])
         };
       } }
@@ -1728,7 +1728,7 @@ const SKILLS = {
         return {
           q: `Start: ${startHour}:${String(startMin).padStart(2, '0')}. End: ${endHour}:${String(endMin).padStart(2, '0')}. How many minutes passed?`,
           ans: totalElapsed,
-          h: () => hWrap('#fbe158', '⏱️', 'Elapsed Time Across the Hour', hBubble(`From ${startHour}:${String(startMin).padStart(2, '0')} to ${endHour}:00 is ${toHour} minutes.<br>From ${endHour}:00 to ${endHour}:${String(endMin).padStart(2, '0')} is ${afterHour} more minutes.<br>${toHour}+${afterHour}=<strong style="color:#fbe158;">${totalElapsed}</strong> minutes`)),
+          h: () => hWrap('#FFB020', '⏱️', 'Elapsed Time Across the Hour', hBubble(`From ${startHour}:${String(startMin).padStart(2, '0')} to ${endHour}:00 is ${toHour} minutes.<br>From ${endHour}:00 to ${endHour}:${String(endMin).padStart(2, '0')} is ${afterHour} more minutes.<br>${toHour}+${afterHour}=<strong style="color:#FFB020;">${totalElapsed}</strong> minutes`)),
           opts: dedupOpts(totalElapsed, [totalElapsed + 5, totalElapsed - 5, toHour, afterHour])
         };
       } }
@@ -1742,7 +1742,7 @@ const SKILLS = {
           { name: 'a pencil', ans: 'grams' }, { name: 'a full backpack', ans: 'kilograms' }
         ];
         const it = items[rnd(0, items.length - 1)];
-        return { q: `Would you measure the mass of ${it.name} in grams or kilograms?`, ans: it.ans, h: () => hWrap('#c4a5ff', '⚖️', 'Mass', hBubble(`Light things use <strong>grams</strong>. Heavy things use <strong>kilograms</strong>. ${it.name} is measured in <strong style="color:#9bc4cb;">${it.ans}</strong>.`)), opts: shuffle(['grams', 'kilograms']) };
+        return { q: `Would you measure the mass of ${it.name} in grams or kilograms?`, ans: it.ans, h: () => hWrap('#2FE6A7', '⚖️', 'Mass', hBubble(`Light things use <strong>grams</strong>. Heavy things use <strong>kilograms</strong>. ${it.name} is measured in <strong style="color:#17C7C7;">${it.ans}</strong>.`)), opts: shuffle(['grams', 'kilograms']) };
       } },
     { learn: "Volume tells how much liquid something holds. Milliliters (mL) for small amounts, liters (L) for large amounts.", visual: "💧 a spoonful ≈ mL   🪣 a bucket ≈ L", example: "A juice box is about 200 mL",
       gen: () => {
@@ -1752,7 +1752,7 @@ const SKILLS = {
           { name: 'a raindrop', ans: 'milliliters' }, { name: 'a swimming pool', ans: 'liters' }
         ];
         const it = items[rnd(0, items.length - 1)];
-        return { q: `Would you measure the volume of ${it.name} in milliliters or liters?`, ans: it.ans, h: () => hWrap('#c4a5ff', '🧪', 'Volume', hBubble(`Small amounts use <strong>milliliters</strong>. Large amounts use <strong>liters</strong>. ${it.name} is measured in <strong style="color:#9bc4cb;">${it.ans}</strong>.`)), opts: shuffle(['milliliters', 'liters']) };
+        return { q: `Would you measure the volume of ${it.name} in milliliters or liters?`, ans: it.ans, h: () => hWrap('#2FE6A7', '🧪', 'Volume', hBubble(`Small amounts use <strong>milliliters</strong>. Large amounts use <strong>liters</strong>. ${it.name} is measured in <strong style="color:#17C7C7;">${it.ans}</strong>.`)), opts: shuffle(['milliliters', 'liters']) };
       } }
   ],
   data3: [
@@ -1768,7 +1768,7 @@ const SKILLS = {
         return {
           q: `${data[i].label} ${op} ${data[j].label} = ?<br>${vBarGraph(data, { theme: TRACK_THEME.grade3 })}`,
           ans,
-          h: () => hWrap('#fbe158', '📊', 'Multi-Step Graph', hBubble(`${data[i].label}=${a}, ${data[j].label}=${b}. ${a} ${op} ${b} = <strong style="color:#fbe158;">${ans}</strong>`)),
+          h: () => hWrap('#FFB020', '📊', 'Multi-Step Graph', hBubble(`${data[i].label}=${a}, ${data[j].label}=${b}. ${a} ${op} ${b} = <strong style="color:#FFB020;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + 1, ans - 1, ans + 2])
         };
       } },
@@ -1781,7 +1781,7 @@ const SKILLS = {
         return {
           q: `Each ${target.label} in the picture graph = ${scale}. ${target.label.repeat(target.value / scale)} How many total?`,
           ans: target.value,
-          h: () => hWrap('#fbe158', '📊', 'Picture Graph Key', hBubble(`${target.value / scale} pictures × ${scale} each = <strong style="color:#fbe158;">${target.value}</strong>`)),
+          h: () => hWrap('#FFB020', '📊', 'Picture Graph Key', hBubble(`${target.value / scale} pictures × ${scale} each = <strong style="color:#FFB020;">${target.value}</strong>`)),
           opts: dedupOpts(target.value, [target.value + scale, target.value - scale, target.value + 1])
         };
       } }
@@ -1796,7 +1796,7 @@ const SKILLS = {
         return {
           q: `A store has ${boxes} boxes with ${perBox} crayons in each box. How many crayons in all?`,
           ans,
-          h: () => hWrap('#fbe158', '📦', 'Multiply by Tens', hBubble(`${boxes} × ${perBox} = ${boxes} × ${perBox / 10} tens = <strong style="color:#fbe158;">${ans}</strong>`)),
+          h: () => hWrap('#FFB020', '📦', 'Multiply by Tens', hBubble(`${boxes} × ${perBox} = ${boxes} × ${perBox / 10} tens = <strong style="color:#FFB020;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + perBox, ans - perBox, ans + 10])
         };
       } },
@@ -1833,7 +1833,7 @@ const SKILLS = {
         return {
           q: `Rectangle A: ${l1}×${w1}. Rectangle B: ${l2}×${w2}. Which has more area?`,
           ans,
-          h: () => hWrap('#9bc4cb', '⬜', 'Compare Areas', hBubble(`A: ${l1}×${w1}=${a1}. B: ${l2}×${w2}=${a2}. <strong style="color:#9bc4cb;">${ans}</strong> is bigger.`)),
+          h: () => hWrap('#17C7C7', '⬜', 'Compare Areas', hBubble(`A: ${l1}×${w1}=${a1}. B: ${l2}×${w2}=${a2}. <strong style="color:#17C7C7;">${ans}</strong> is bigger.`)),
           opts: [`Rectangle A (${a1})`, `Rectangle B (${a2})`]
         };
       } }
@@ -1846,7 +1846,7 @@ const SKILLS = {
         return {
           q: `What type of lines are these?<br>${vLinePair(kind, TRACK_THEME.grade3)}`,
           ans: kind,
-          h: () => hWrap('#9bc4cb', '📏', 'Types of Lines', hBubble(kind === 'parallel' ? 'These lines never meet - parallel.' : kind === 'perpendicular' ? 'These lines cross at a right angle - perpendicular.' : 'These lines cross, but not at a right angle - intersecting.')),
+          h: () => hWrap('#17C7C7', '📏', 'Types of Lines', hBubble(kind === 'parallel' ? 'These lines never meet - parallel.' : kind === 'perpendicular' ? 'These lines cross at a right angle - perpendicular.' : 'These lines cross, but not at a right angle - intersecting.')),
           opts: kinds
         };
       } }
@@ -1860,7 +1860,7 @@ const SKILLS = {
         return {
           q: `Hundred chart column: ${seq.slice(0, 3).join(', ')}, __ ?`,
           ans,
-          h: () => hWrap('#9bc4cb', '💯', 'Hundred Chart Pattern', hBubble(`Moving down a column adds 10 each time: ${seq.join(', ')}`)),
+          h: () => hWrap('#17C7C7', '💯', 'Hundred Chart Pattern', hBubble(`Moving down a column adds 10 each time: ${seq.join(', ')}`)),
           opts: dedupOpts(ans, [ans + 10, ans - 10, ans + 1, seq[2]])
         };
       } },
@@ -1872,7 +1872,7 @@ const SKILLS = {
         return {
           q: `Multiples of ${n}: ${seq.join(', ')}, __ ?`,
           ans,
-          h: () => hWrap('#9bc4cb', '✖️', 'Multiplication Table Pattern', hBubble(`Each step adds ${n}: ${seq.join(', ')}, ${ans}`)),
+          h: () => hWrap('#17C7C7', '✖️', 'Multiplication Table Pattern', hBubble(`Each step adds ${n}: ${seq.join(', ')}, ${ans}`)),
           opts: dedupOpts(ans, [ans + n, ans - n, ans + 1, seq[3]])
         };
       } }
@@ -1886,7 +1886,7 @@ const SKILLS = {
         return {
           q: `${items.join('')}<br>What fraction of the group is 🔴?`,
           ans: `${part}/${total}`,
-          h: () => hWrap('#9bc4cb', '🥧', 'Fraction of a Group', hBubble(`${part} out of ${total} are red: <strong style="color:#9bc4cb;">${part}/${total}</strong>`)),
+          h: () => hWrap('#17C7C7', '🥧', 'Fraction of a Group', hBubble(`${part} out of ${total} are red: <strong style="color:#17C7C7;">${part}/${total}</strong>`)),
           opts: dedupOpts(`${part}/${total}`, [`${total - part}/${total}`, `${part}/${total + 1}`, `${part + 1}/${total}`])
         };
       } },
@@ -1904,7 +1904,7 @@ const SKILLS = {
         return {
           q: `There are ${total} ${noun}. ${num}/${den} of them are ${color}. How many are ${color}?`,
           ans,
-          h: () => hWrap('#9bc4cb', '🥧', 'Fraction Word Problem', hBubble(`${total}÷${den}=${multiplier}. ${multiplier}×${num}=<strong style="color:#9bc4cb;">${ans}</strong>`)),
+          h: () => hWrap('#17C7C7', '🥧', 'Fraction Word Problem', hBubble(`${total}÷${den}=${multiplier}. ${multiplier}×${num}=<strong style="color:#17C7C7;">${ans}</strong>`)),
           opts: dedupOpts(ans, [ans + multiplier, ans - multiplier, total])
         };
       } }
@@ -1933,22 +1933,22 @@ const SKILLS = {
   // SOAR sections
   soar1: [
     { learn: "SOAR Challenge 1", visual: "Think like a fighter!", example: "Use reasoning", isSoar: true, gen: () => { let a = rnd(2, 5), b = rnd(2, 5); return { q: `Safia has ${a} bags. Each has ${b} apples. Total?`, ans: a * b, h: () => hintMultiply(a, b), opts: shuffle([a * b, a * b + b, a * b - b, a]) }; } },
-    { learn: "SOAR Challenge 2", visual: "Pattern detection", example: "Find the rule", isSoar: true, gen: () => { let s = rnd(2, 5), d = rnd(2, 4); let seq = [s, s + d, s + 2 * d, s + 3 * d]; return { q: `Pattern: ${seq.join(', ')}, __ ?`, ans: seq[3] + d, h: () => hWrap('#9bc4cb', '🦅', 'Patterns', hBubble(`Rule: +${d}`)), opts: shuffle([seq[3] + d, seq[3] + d + 1, seq[3], seq[2]]) }; } },
-    { learn: "SOAR Challenge 3", visual: "Shapes", example: "Count corners", isSoar: true, gen: () => { let shapes = [{ n: 'triangle', s: 3 }, { n: 'square', s: 4 }, { n: 'pentagon', s: 5 }]; let sh = shapes[rnd(0, 2)]; return { q: `A ${sh.n} has ${sh.s} sides. Corners?`, ans: sh.s, h: () => hWrap('#9bc4cb', '🦅', 'Shapes', hBubble(`Corners = sides = ${sh.s}`)), opts: shuffle([sh.s, sh.s + 1, sh.s - 1, sh.s + 2]) }; } },
+    { learn: "SOAR Challenge 2", visual: "Pattern detection", example: "Find the rule", isSoar: true, gen: () => { let s = rnd(2, 5), d = rnd(2, 4); let seq = [s, s + d, s + 2 * d, s + 3 * d]; return { q: `Pattern: ${seq.join(', ')}, __ ?`, ans: seq[3] + d, h: () => hWrap('#17C7C7', '🦅', 'Patterns', hBubble(`Rule: +${d}`)), opts: shuffle([seq[3] + d, seq[3] + d + 1, seq[3], seq[2]]) }; } },
+    { learn: "SOAR Challenge 3", visual: "Shapes", example: "Count corners", isSoar: true, gen: () => { let shapes = [{ n: 'triangle', s: 3 }, { n: 'square', s: 4 }, { n: 'pentagon', s: 5 }]; let sh = shapes[rnd(0, 2)]; return { q: `A ${sh.n} has ${sh.s} sides. Corners?`, ans: sh.s, h: () => hWrap('#17C7C7', '🦅', 'Shapes', hBubble(`Corners = sides = ${sh.s}`)), opts: shuffle([sh.s, sh.s + 1, sh.s - 1, sh.s + 2]) }; } },
     { learn: "SOAR Challenge 4", visual: "Number bonds", example: "Find the missing", isSoar: true, gen: () => { let t = rnd(6, 10), a = rnd(1, t - 1); return { q: `${a} + ? = ${t}`, ans: t - a, h: () => missingAddHint(t, a), opts: shuffle([t - a, t - a + 1, t - a - 1, a]) }; } },
     { learn: "SOAR Challenge 5", visual: "Money", example: "Calculate change", isSoar: true, gen: () => { let p = rnd(2, 4), c = rnd(3, 6), pay = 25; return { q: `${p} pencils at ${c}¢ each, pay ${pay}¢. Change?`, ans: pay - p * c, h: () => subtractHint(pay, p * c), opts: shuffle([pay - p * c, pay - p * c + 1, pay - p * c - 1, p * c]) }; } }
   ],
   soar2: [
     { learn: "SOAR Grade 2 Challenge 1", visual: "Measurement", example: "Compare lengths", isSoar: true, gen: () => { let l1 = rnd(15, 40), l2 = rnd(10, 25); return { q: `Ribbon A=${l1}cm, B=${l2}cm. How much longer is A?`, ans: l1 - l2, h: () => subtractHint(l1, l2), opts: shuffle([l1 - l2, l1 - l2 + 1, l1 - l2 - 1, l1]) }; } },
-    { learn: "SOAR Grade 2 Challenge 2", visual: "Money", example: "Count coins", isSoar: true, gen: () => { let q = rnd(1, 3), d = rnd(1, 4); return { q: `${q} quarter(s) + ${d} dime(s) = ?¢`, ans: q * 25 + d * 10, h: () => hWrap('#9bc4cb', '💰', 'Coins', hBubble(`${q}×25=${q * 25}, ${d}×10=${d * 10}, total=${q * 25 + d * 10}`)), opts: shuffle([q * 25 + d * 10, q * 25 + d * 10 + 5, q * 25 + d * 10 - 5, q * 25]) }; } },
+    { learn: "SOAR Grade 2 Challenge 2", visual: "Money", example: "Count coins", isSoar: true, gen: () => { let q = rnd(1, 3), d = rnd(1, 4); return { q: `${q} quarter(s) + ${d} dime(s) = ?¢`, ans: q * 25 + d * 10, h: () => hWrap('#17C7C7', '💰', 'Coins', hBubble(`${q}×25=${q * 25}, ${d}×10=${d * 10}, total=${q * 25 + d * 10}`)), opts: shuffle([q * 25 + d * 10, q * 25 + d * 10 + 5, q * 25 + d * 10 - 5, q * 25]) }; } },
     { learn: "SOAR Grade 2 Challenge 3", visual: "Missing number", example: "Find both!", isSoar: true, gen: () => { let a = rnd(10, 30), b = rnd(10, 25); return { q: `${a} + __ = ${a + b}\n__ - ${b} = ${a}`, ans: b, h: () => missingAddHint(a + b, a), opts: shuffle([b, b + 1, b - 1, a]) }; } },
     { learn: "SOAR Grade 2 Challenge 4", visual: "Data", example: "Read graph", isSoar: true, gen: () => { let r = rnd(4, 12), b = rnd(3, 10); return { q: `Red cars=${r}, Blue cars=${b}. How many more red?`, ans: r - b, h: () => subtractHint(r, b), opts: shuffle([r - b, r - b + 1, r - b - 1, r]) }; } },
     { learn: "SOAR Grade 2 Challenge 5", visual: "Fact family", example: "Find Boss", isSoar: true, gen: () => { let a = rnd(5, 15), b = rnd(5, 15); return { q: `Fact family: ${a}, ${b}, ${a + b}. Big Boss?`, ans: a + b, h: () => factFamilyHint(a, b, a + b), opts: shuffle([a + b, a, b, a + b + 1]) }; } }
   ],
   soar3: [
     { learn: "SOAR Grade 3 Challenge 1", visual: "Area", example: "Find area", isSoar: true, gen: () => { let a = rnd(3, 7), b = rnd(3, 6); return { q: `Rectangle ${a}×${b}. Area?`, ans: a * b, h: () => hintMultiply(a, b), opts: shuffle([a * b, a * b + a, a * b + b, a + b]) }; } },
-    { learn: "SOAR Grade 3 Challenge 2", visual: "Fractions", example: "Find part", isSoar: true, gen: () => { let total = rnd(24, 60), num = rnd(1, 3), den = 4; return { q: `${total} stickers, give ${num}/${den}. How many given?`, ans: total / den * num, h: () => hWrap('#9bc4cb', '🥧', 'Fractions', hBubble(`${total}÷${den}=${total / den}, ×${num}=${total / den * num}`)), opts: shuffle([total / den * num, total / den * num + 1, total / den * num - 1, total]) }; } },
-    { learn: "SOAR Grade 3 Challenge 3", visual: "Perimeter", example: "Find perimeter", isSoar: true, gen: () => { let w = rnd(3, 7), h = rnd(3, 7); return { q: `Rectangle ${w}×${h}. Perimeter?`, ans: 2 * (w + h), h: () => hWrap('#9bc4cb', '📐', 'Perimeter', hBubble(`2×(${w}+${h})=${2 * (w + h)}`)), opts: shuffle([2 * (w + h), w + h, w * h, w + h + 2]) }; } },
+    { learn: "SOAR Grade 3 Challenge 2", visual: "Fractions", example: "Find part", isSoar: true, gen: () => { let total = rnd(24, 60), num = rnd(1, 3), den = 4; return { q: `${total} stickers, give ${num}/${den}. How many given?`, ans: total / den * num, h: () => hWrap('#17C7C7', '🥧', 'Fractions', hBubble(`${total}÷${den}=${total / den}, ×${num}=${total / den * num}`)), opts: shuffle([total / den * num, total / den * num + 1, total / den * num - 1, total]) }; } },
+    { learn: "SOAR Grade 3 Challenge 3", visual: "Perimeter", example: "Find perimeter", isSoar: true, gen: () => { let w = rnd(3, 7), h = rnd(3, 7); return { q: `Rectangle ${w}×${h}. Perimeter?`, ans: 2 * (w + h), h: () => hWrap('#17C7C7', '📐', 'Perimeter', hBubble(`2×(${w}+${h})=${2 * (w + h)}`)), opts: shuffle([2 * (w + h), w + h, w * h, w + h + 2]) }; } },
     { learn: "SOAR Grade 3 Challenge 4", visual: "Division", example: "Share evenly", isSoar: true, gen: () => { let total = rnd(24, 60), d = rnd(3, 8); return { q: `${total} ÷ ${d} = ?`, ans: Math.floor(total / d), h: () => hintDivision(total, d), opts: shuffle([Math.floor(total / d), Math.floor(total / d) + 1, Math.floor(total / d) - 1, d]) }; } },
     { learn: "SOAR Grade 3 Challenge 5", visual: "Multi-step", example: "Solve step by step", isSoar: true, gen: () => { let price = rnd(3, 9), qty = rnd(3, 6), paid = price * qty + 5; return { q: `${qty} books at ${price}¢ each, pay ${paid}¢. Change?`, ans: paid - price * qty, h: () => subtractHint(paid, price * qty), opts: shuffle([paid - price * qty, paid - price * qty + 1, paid - price * qty - 1, price]) }; } }
   ]
@@ -1958,79 +1958,79 @@ const SKILLS = {
 //  SKILL_META - label + track for every skill (replaces CATEGORIES)
 // ============================================================
 const SKILL_META = {
-  add1: { label: 'Hello Kitty · Addition', track: 'grade1' },
-  sub1: { label: 'Peach · Subtraction', track: 'grade1' },
-  place1: { label: 'Labubu · Tens & Ones', track: 'grade1' },
-  clock_read1: { label: 'Kitty · Telling Time', track: 'grade1' },
-  shapes1: { label: 'Kitty · 2D Shapes', track: 'grade1' },
-  equations_truefalse: { label: 'Kitty · True or False', track: 'grade1' },
-  strategies20: { label: 'Kitty · Add/Sub Strategies to 20', track: 'grade1' },
-  compare_symbols: { label: 'Labubu · Compare with Symbols', track: 'grade1' },
-  shapes_3d: { label: 'Kitty · 3D Shapes', track: 'grade1' },
-  counting_120: { label: 'Peach · Counting to 120', track: 'grade1' },
-  skip_counting: { label: 'Peach · Skip-Counting', track: 'grade1' },
-  patterns1: { label: 'Labubu · Patterns', track: 'grade1' },
-  calendar_seasons: { label: 'Kitty · Calendar & Seasons', track: 'grade1' },
-  coin_id: { label: 'Peach · Coin Values', track: 'grade1' },
-  data_graphs1: { label: 'Peach · Data & Graphs', track: 'grade1' },
-  halves_fourths: { label: 'Labubu · Halves & Fourths', track: 'grade1' },
-  financial_literacy1: { label: 'Kitty · Money Basics', track: 'grade1' },
-  word_problems1: { label: 'Kitty · Word Problems', track: 'grade1' },
-  ordinals1: { label: 'Peach · Ordinal Numbers', track: 'grade1' },
-  bar_graphs1: { label: 'Peach · Bar Graphs', track: 'grade1' },
-  coin_counting1: { label: 'Peach · Counting Coins', track: 'grade1' },
-  venn1: { label: 'Labubu · Venn Diagrams', track: 'grade1' },
+  add1: { label: 'Rookie · Addition', track: 'grade1' },
+  sub1: { label: 'Power · Subtraction', track: 'grade1' },
+  place1: { label: 'Champ · Tens & Ones', track: 'grade1' },
+  clock_read1: { label: 'Rookie · Telling Time', track: 'grade1' },
+  shapes1: { label: 'Rookie · 2D Shapes', track: 'grade1' },
+  equations_truefalse: { label: 'Rookie · True or False', track: 'grade1' },
+  strategies20: { label: 'Rookie · Add/Sub Strategies to 20', track: 'grade1' },
+  compare_symbols: { label: 'Champ · Compare with Symbols', track: 'grade1' },
+  shapes_3d: { label: 'Rookie · 3D Shapes', track: 'grade1' },
+  counting_120: { label: 'Power · Counting to 120', track: 'grade1' },
+  skip_counting: { label: 'Power · Skip-Counting', track: 'grade1' },
+  patterns1: { label: 'Champ · Patterns', track: 'grade1' },
+  calendar_seasons: { label: 'Rookie · Calendar & Seasons', track: 'grade1' },
+  coin_id: { label: 'Power · Coin Values', track: 'grade1' },
+  data_graphs1: { label: 'Power · Data & Graphs', track: 'grade1' },
+  halves_fourths: { label: 'Champ · Halves & Fourths', track: 'grade1' },
+  financial_literacy1: { label: 'Rookie · Money Basics', track: 'grade1' },
+  word_problems1: { label: 'Rookie · Word Problems', track: 'grade1' },
+  ordinals1: { label: 'Power · Ordinal Numbers', track: 'grade1' },
+  bar_graphs1: { label: 'Power · Bar Graphs', track: 'grade1' },
+  coin_counting1: { label: 'Power · Counting Coins', track: 'grade1' },
+  venn1: { label: 'Champ · Venn Diagrams', track: 'grade1' },
 
-  add2: { label: 'Peach · Add to 100', track: 'grade2' },
-  sub2: { label: 'Peach · Subtract to 100', track: 'grade2' },
-  numberline_add2: { label: 'Peach · Number Lines', track: 'grade2' },
-  money: { label: 'Peach · Money', track: 'grade2' },
-  measure: { label: 'Kitty · Measure', track: 'grade2' },
-  graph_read1: { label: 'Peach · Data & Graphs', track: 'grade2' },
-  place2: { label: 'Peach · Place Value to 1,000', track: 'grade2' },
-  numbers_forms: { label: 'Peach · Number Forms', track: 'grade2' },
-  add_sub_1000: { label: 'Peach · Add/Sub to 1,000', track: 'grade2' },
-  rounding: { label: 'Peach · Rounding', track: 'grade2' },
-  money2: { label: 'Peach · Money to $100', track: 'grade2' },
-  time2: { label: 'Kitty · Time', track: 'grade2' },
-  perimeter2: { label: 'Kitty · Perimeter', track: 'grade2' },
-  area1: { label: 'Labubu · Area', track: 'grade2' },
-  line_plots1: { label: 'Peach · Line Plots', track: 'grade2' },
-  polygons2: { label: 'Labubu · Polygons', track: 'grade2' },
-  shapes_3d_2: { label: 'Labubu · 3D Shapes', track: 'grade2' },
-  fractions2: { label: 'Labubu · Fractions to Eighths', track: 'grade2' },
-  financial_literacy2: { label: 'Kitty · Financial Literacy', track: 'grade2' },
-  compare_1000: { label: 'Peach · Compare to 1,000', track: 'grade2' },
-  skip_100s_even_odd: { label: 'Peach · Skip-Count by 100s & Even/Odd', track: 'grade2' },
-  estimate_word_problems2: { label: 'Peach · Estimation Word Problems', track: 'grade2' },
-  calendar2: { label: 'Kitty · Calendar', track: 'grade2' },
-  graph_select2: { label: 'Peach · Match the Graph', track: 'grade2' },
+  add2: { label: 'Power · Add to 100', track: 'grade2' },
+  sub2: { label: 'Power · Subtract to 100', track: 'grade2' },
+  numberline_add2: { label: 'Power · Number Lines', track: 'grade2' },
+  money: { label: 'Power · Money', track: 'grade2' },
+  measure: { label: 'Rookie · Measure', track: 'grade2' },
+  graph_read1: { label: 'Power · Data & Graphs', track: 'grade2' },
+  place2: { label: 'Power · Place Value to 1,000', track: 'grade2' },
+  numbers_forms: { label: 'Power · Number Forms', track: 'grade2' },
+  add_sub_1000: { label: 'Power · Add/Sub to 1,000', track: 'grade2' },
+  rounding: { label: 'Power · Rounding', track: 'grade2' },
+  money2: { label: 'Power · Money to $100', track: 'grade2' },
+  time2: { label: 'Rookie · Time', track: 'grade2' },
+  perimeter2: { label: 'Rookie · Perimeter', track: 'grade2' },
+  area1: { label: 'Champ · Area', track: 'grade2' },
+  line_plots1: { label: 'Power · Line Plots', track: 'grade2' },
+  polygons2: { label: 'Champ · Polygons', track: 'grade2' },
+  shapes_3d_2: { label: 'Champ · 3D Shapes', track: 'grade2' },
+  fractions2: { label: 'Champ · Fractions to Eighths', track: 'grade2' },
+  financial_literacy2: { label: 'Rookie · Financial Literacy', track: 'grade2' },
+  compare_1000: { label: 'Power · Compare to 1,000', track: 'grade2' },
+  skip_100s_even_odd: { label: 'Power · Skip-Count by 100s & Even/Odd', track: 'grade2' },
+  estimate_word_problems2: { label: 'Power · Estimation Word Problems', track: 'grade2' },
+  calendar2: { label: 'Rookie · Calendar', track: 'grade2' },
+  graph_select2: { label: 'Power · Match the Graph', track: 'grade2' },
 
-  multiply: { label: 'Labubu · Multiplication', track: 'grade3' },
-  multiply_facts: { label: 'Labubu · Times Tables', track: 'grade3' },
-  divide: { label: 'Labubu · Division', track: 'grade3' },
-  division_facts: { label: 'Labubu · Division Facts', track: 'grade3' },
-  remainder: { label: 'Labubu · Remainder', track: 'grade3' },
-  fractions1: { label: 'Labubu · Fractions', track: 'grade3' },
-  mult_properties: { label: 'Labubu · Multiplication Properties', track: 'grade3' },
-  mult_2digit: { label: 'Labubu · 2-Digit Multiplication', track: 'grade3' },
-  division_fluency12: { label: 'Labubu · Division to 12', track: 'grade3' },
-  rounding_estimate: { label: 'Labubu · Rounding & Estimation', track: 'grade3' },
-  add_sub_4digit: { label: 'Labubu · Add/Sub to 10,000', track: 'grade3' },
-  word_problems3: { label: 'Labubu · Two-Step Word Problems', track: 'grade3' },
-  fractions_numberline: { label: 'Labubu · Fractions on a Number Line', track: 'grade3' },
-  fractions_equivalent: { label: 'Labubu · Equivalent Fractions', track: 'grade3' },
-  fractions_compare: { label: 'Labubu · Compare & Order Fractions', track: 'grade3' },
-  area_perimeter3: { label: 'Labubu · Area & Perimeter', track: 'grade3' },
-  geometry3: { label: 'Labubu · Lines, Angles & Quadrilaterals', track: 'grade3' },
-  time3: { label: 'Labubu · Time', track: 'grade3' },
-  mass_volume: { label: 'Labubu · Mass & Volume', track: 'grade3' },
-  data3: { label: 'Labubu · Data & Graphs', track: 'grade3' },
-  mult_word_problems3: { label: 'Labubu · Multiplication Word Problems', track: 'grade3' },
-  area_advanced3: { label: 'Labubu · Missing Side & Compare Area', track: 'grade3' },
-  lines_types3: { label: 'Labubu · Parallel, Perpendicular & Intersecting', track: 'grade3' },
-  arithmetic_patterns3: { label: 'Labubu · Number Patterns', track: 'grade3' },
-  fractions_group3: { label: 'Labubu · Fractions of a Group', track: 'grade3' },
+  multiply: { label: 'Champ · Multiplication', track: 'grade3' },
+  multiply_facts: { label: 'Champ · Times Tables', track: 'grade3' },
+  divide: { label: 'Champ · Division', track: 'grade3' },
+  division_facts: { label: 'Champ · Division Facts', track: 'grade3' },
+  remainder: { label: 'Champ · Remainder', track: 'grade3' },
+  fractions1: { label: 'Champ · Fractions', track: 'grade3' },
+  mult_properties: { label: 'Champ · Multiplication Properties', track: 'grade3' },
+  mult_2digit: { label: 'Champ · 2-Digit Multiplication', track: 'grade3' },
+  division_fluency12: { label: 'Champ · Division to 12', track: 'grade3' },
+  rounding_estimate: { label: 'Champ · Rounding & Estimation', track: 'grade3' },
+  add_sub_4digit: { label: 'Champ · Add/Sub to 10,000', track: 'grade3' },
+  word_problems3: { label: 'Champ · Two-Step Word Problems', track: 'grade3' },
+  fractions_numberline: { label: 'Champ · Fractions on a Number Line', track: 'grade3' },
+  fractions_equivalent: { label: 'Champ · Equivalent Fractions', track: 'grade3' },
+  fractions_compare: { label: 'Champ · Compare & Order Fractions', track: 'grade3' },
+  area_perimeter3: { label: 'Champ · Area & Perimeter', track: 'grade3' },
+  geometry3: { label: 'Champ · Lines, Angles & Quadrilaterals', track: 'grade3' },
+  time3: { label: 'Champ · Time', track: 'grade3' },
+  mass_volume: { label: 'Champ · Mass & Volume', track: 'grade3' },
+  data3: { label: 'Champ · Data & Graphs', track: 'grade3' },
+  mult_word_problems3: { label: 'Champ · Multiplication Word Problems', track: 'grade3' },
+  area_advanced3: { label: 'Champ · Missing Side & Compare Area', track: 'grade3' },
+  lines_types3: { label: 'Champ · Parallel, Perpendicular & Intersecting', track: 'grade3' },
+  arithmetic_patterns3: { label: 'Champ · Number Patterns', track: 'grade3' },
+  fractions_group3: { label: 'Champ · Fractions of a Group', track: 'grade3' },
 
   multiply_intro: { label: '🌟 What is Multiplication?', track: 'multiply' },
   multiply_main_1: { label: '×2 & ×4', track: 'multiply' },
@@ -2056,7 +2056,7 @@ const SKILL_META = {
 // ============================================================
 const CURRICULUM = {
   grade1: {
-    label: "🍭 K/1st · Hello Kitty's Basics",
+    label: "🏁 Rookie Track",
     units: [
       { id: 'g1_counting', label: 'Unit 1 · Counting to 120', skills: ['counting_120', 'skip_counting', 'ordinals1'] },
       { id: 'g1_place', label: 'Unit 2 · Tens & Ones', skills: ['place1', 'compare_symbols'] },
@@ -2072,7 +2072,7 @@ const CURRICULUM = {
     ]
   },
   grade2: {
-    label: "👑 2nd Grade · Princess Peach's Power-ups",
+    label: "⚡ Power Track",
     units: [
       { id: 'g2_place', label: 'Unit 1 · Place Value to 1,000', skills: ['place2', 'numbers_forms', 'compare_1000', 'skip_100s_even_odd'] },
       { id: 'g2_add_sub', label: 'Unit 2 · Add & Subtract to 1,000', skills: ['add2', 'sub2', 'numberline_add2', 'add_sub_1000', 'rounding', 'estimate_word_problems2'] },
@@ -2088,7 +2088,7 @@ const CURRICULUM = {
     ]
   },
   grade3: {
-    label: "🐾 3rd Grade · Labubu's MMA Math",
+    label: "🥋 Black Belt Track",
     units: [
       { id: 'g3_multiply', label: 'Unit 1 · Multiplication', skills: ['multiply', 'multiply_facts', 'mult_properties', 'mult_2digit'] },
       { id: 'g3_divide', label: 'Unit 2 · Division', skills: ['divide', 'division_facts', 'remainder', 'division_fluency12'] },
@@ -2104,21 +2104,21 @@ const CURRICULUM = {
     ]
   },
   multiply: {
-    label: "✖️ MULTIPLICATION · Labubu's Group Grapple",
+    label: "✖️ Turbo Combo",
     units: [
       { id: 'm_intro', label: 'Getting Started', skills: ['multiply_intro'] },
       { id: 'm_facts', label: 'Times Tables', skills: ['multiply_main_1', 'multiply_main_2', 'multiply_main_3', 'multiply_main_4', 'multiply_main_5'] }
     ]
   },
   divide: {
-    label: "➗ DIVISION · Labubu's Sharing Takedown",
+    label: "➗ Pit Split",
     units: [
       { id: 'd_intro', label: 'Getting Started', skills: ['divide_intro'] },
       { id: 'd_facts', label: 'Division Tables', skills: ['divide_main_1', 'divide_main_2', 'divide_main_3', 'divide_main_4', 'divide_main_5'] }
     ]
   },
   soar: {
-    label: "🦍 LABUBU'S SOAR (open‑ended mma)",
+    label: "🚀 Free Sparring",
     units: [
       { id: 's_all', label: 'Challenges', skills: ['soar1', 'soar2', 'soar3'] }
     ]

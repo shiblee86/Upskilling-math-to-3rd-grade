@@ -1,5 +1,5 @@
 // ============================================================
-//  CUTE COMBAT DOJO - APP SHELL
+//  SAFIA'S AND SAFAAN'S MATH UPSKILLING DOJO - APP SHELL
 //  Screens, progress/localStorage, and the quiz engine.
 //  Curriculum data lives in js/curriculum.js, shared helpers and
 //  the visual-component library live in js/lib.js (loaded first).
@@ -26,7 +26,7 @@ let fluencyKind = '', fluencyScore = 0, fluencyBest = 0, fluencyTimeLeft = 60, f
 
 function saveProgress() {
   const blob = new Blob([JSON.stringify(progress)], { type: 'application/json' });
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'safia_math_adv.json'; a.click();
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'safia_and_safaan_math_dojo_progress.json'; a.click();
   document.getElementById('saveLbl').textContent = '✅ Saved!'; setTimeout(updateLbl, 2000);
 }
 
@@ -49,15 +49,19 @@ function updateLbl() {
       if (progress[c]?.[l]?.done) done++;
     });
   }
-  document.getElementById('saveLbl').innerHTML = `⭐ ${stars} power stars`;
+  document.getElementById('saveLbl').innerHTML = `⭐ ${stars} stars`;
   const ch = document.getElementById('progressChart');
   if (ch) {
     const pct = Math.round(done / total * 100);
-    ch.innerHTML = `<h3 style="color:#fbe158;font-size:1.6rem;">📊 Dojo Progress</h3>
-      <div style="background:#511e3a;border-radius:30px;height:22px;margin:10px 0;overflow:hidden;border:2px solid #fbe158;">
-        <div style="width:${pct}%;height:22px;border-radius:30px;background:linear-gradient(90deg,#fbe158,#9bc4cb);"></div>
+    ch.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-family:var(--font-body);font-weight:900;color:var(--text-secondary);font-size:var(--text-sm);letter-spacing:0.5px;">TOTAL PROGRESS</div>
+        <div style="background:var(--surface-2);color:var(--amber);border:2px solid var(--amber);border-radius:var(--radius-pill);padding:4px 14px;font-weight:900;font-size:var(--text-sm);">⭐ ${stars} stars</div>
       </div>
-      <div style="font-size:1.3rem;margin-top:10px;">⭐ ${stars} stars · ${done}/${total} belts earned (${pct}%)</div>`;
+      <div class="prog-bar" style="margin-top:10px;height:18px;">
+        <div class="prog-fill reward" style="width:${pct}%;"></div>
+      </div>
+      <div style="font-family:var(--font-body);color:var(--text-secondary);font-size:var(--text-sm);margin-top:8px;">${done}/${total} belts earned (${pct}%)</div>`;
   }
 }
 
@@ -81,6 +85,13 @@ function skillMastery(skillId) {
 
 function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0, 0); }
 
+function updateQuizStats() {
+  document.getElementById('qsCorrect').textContent = correct;
+  document.getElementById('qsWrong').textContent = wrong;
+  const attempts = correct + wrong;
+  document.getElementById('qsAccuracy').textContent = attempts ? `${Math.round(correct / attempts * 100)}%` : '0%';
+}
+
 function showHome() { updateLbl(); showScreen('homeScreen'); }
 
 // ============================================================
@@ -93,7 +104,7 @@ function openTrack(trackId) {
 
   const challenge = progress.__challenges[trackId];
   const ccBtn = document.getElementById('courseChallengeBtn');
-  ccBtn.innerHTML = `🏆 Course Challenge${challenge?.passed ? ` <span style="color:#9bc4cb;">✅ ${challenge.bestPct}%</span>` : ''}`;
+  ccBtn.innerHTML = `🏆 Course Challenge${challenge?.passed ? ` <span style="color:#17C7C7;">✅ ${challenge.bestPct}%</span>` : ''}`;
   ccBtn.onclick = () => startCourseChallenge(trackId);
 
   const fzBtn = document.getElementById('fluencyZoneBtn');
@@ -101,7 +112,7 @@ function openTrack(trackId) {
   fzBtn.style.display = isFactTrack ? 'inline-flex' : 'none';
   if (isFactTrack) {
     const best = progress.__fluency[trackId]?.best || 0;
-    fzBtn.innerHTML = `⚡ Fluency Zone${best ? ` <span style="color:#9bc4cb;">best ${best}</span>` : ''}`;
+    fzBtn.innerHTML = `⚡ Fluency Zone${best ? ` <span style="color:#17C7C7;">best ${best}</span>` : ''}`;
     fzBtn.onclick = () => startFluency(trackId);
   }
 
@@ -172,10 +183,15 @@ function openCategory(c) {
   const belts = SKILLS[c].length;
   for (let l = 1; l <= belts; l++) {
     const p = progress[c][l];
+    // Belts unlock sequentially: belt n is only playable once belt n-1 is done.
+    const locked = l > 1 && !progress[c][l - 1].done;
     const btn = document.createElement('button');
-    btn.className = 'lv-btn' + (p.done ? ' done' : '') + (isMultiply ? ' multiply-lv' : '') + (isDivide ? ' divide-lv' : '');
-    btn.innerHTML = `<span class="lv-icon">${icons[(l - 1) % icons.length]}</span>${isSoar ? 'Challenge' : 'Fight'} ${l}${p.done ? `<div style="font-size:0.9rem;color:#9bc4cb;">⭐${p.stars}</div>` : ''}`;
-    btn.onclick = function () { startLesson(c, l); };
+    btn.className = 'lv-btn' + (p.done ? ' done' : '') + (locked ? ' locked' : '') + (isMultiply ? ' multiply-lv' : '') + (isDivide ? ' divide-lv' : '');
+    btn.disabled = locked;
+    btn.innerHTML = locked
+      ? `<span class="lv-icon">🔒</span>${isSoar ? 'Challenge' : 'Belt'} ${l}`
+      : `<span class="lv-icon">${icons[(l - 1) % icons.length]}</span>${isSoar ? 'Challenge' : 'Belt'} ${l}${p.done ? `<div style="font-size:0.9rem;color:var(--mint);">⭐${p.stars}</div>` : ''}`;
+    if (!locked) btn.onclick = function () { startLesson(c, l); };
     grid.appendChild(btn);
   }
   showScreen('levelsScreen');
@@ -193,8 +209,6 @@ function startLesson(cat, lvl) {
 }
 
 function renderLesson() {
-  const isMultiply = SKILL_META[currentCat]?.track === 'multiply';
-  const isDivide = SKILL_META[currentCat]?.track === 'divide';
   if (quizMode !== 'belt') {
     document.getElementById('lessonContainer').innerHTML = `
       <div class="lesson-card">
@@ -205,11 +219,11 @@ function renderLesson() {
     return;
   }
   document.getElementById('lessonContainer').innerHTML = `
-    <div class="lesson-card" style="${isMultiply ? 'background:#9b6a4a' : isDivide ? 'background:#4a6a5a' : ''}">
-      <div class="lesson-badge">📚 ${lessonData.isSoar ? 'Labubu SOAR' : 'Dojo lesson'}</div>
+    <div class="lesson-card">
+      <div class="lesson-badge">📚 ${lessonData.isSoar ? 'SOAR Challenge' : 'Dojo lesson'}</div>
       <div class="lesson-visual">${lessonData.visual}</div>
       <div class="lesson-explanation">✨ ${lessonData.learn}<br>
-        <span style="background:#511e3a;padding:8px 14px;border-radius:40px;display:inline-block;margin-top:8px;">💡 Example: ${lessonData.example}</span>
+        <span style="background:#123636;padding:8px 14px;border-radius:40px;display:inline-block;margin-top:8px;">💡 Example: ${lessonData.example}</span>
       </div>
     </div>`;
   loadQuestion();
@@ -230,8 +244,7 @@ function loadQuestion() {
 
   const total = questions.length;
   document.getElementById('quizQNum').textContent = `Q${qIdx + 1}/${total}`;
-  document.getElementById('qsCorrect').textContent = correct;
-  document.getElementById('qsWrong').textContent = wrong;
+  updateQuizStats();
   document.getElementById('progFill').style.width = (qIdx / total * 100) + '%';
   document.getElementById('feedback').className = 'feedback';
   document.getElementById('hintBox').className = 'hint-box';
@@ -279,8 +292,7 @@ window.selectOpt = function (idx, val) {
   fb.textContent = isCorrect ? '✅ Brilliant! Well done, fighter! ⭐' : '🤗 Not quite! Check the hint - you can do it!';
   fb.className = 'feedback show ' + (isCorrect ? 'ok' : 'bad');
   document.getElementById('nextBtn').style.display = 'inline-flex';
-  document.getElementById('qsCorrect').textContent = correct;
-  document.getElementById('qsWrong').textContent = wrong;
+  updateQuizStats();
 };
 
 function checkAnswer() {
@@ -298,8 +310,7 @@ function checkAnswer() {
   fb.className = 'feedback show ' + (isCorrect ? 'ok' : 'bad');
   document.getElementById('nextBtn').style.display = 'inline-flex';
   document.getElementById('checkBtn').style.display = 'none';
-  document.getElementById('qsCorrect').textContent = correct;
-  document.getElementById('qsWrong').textContent = wrong;
+  updateQuizStats();
 }
 
 function showHint() {
@@ -332,9 +343,9 @@ function showResult() {
     }
     try { localStorage.setItem('dojo_math_v6', JSON.stringify(progress)); } catch (e) { }
     updateLbl();
-    document.getElementById('resEmoji').textContent = passed ? (stars >= 3 ? '🏆' : '🌟') : '💪';
+    document.getElementById('resEmoji').textContent = passed ? '🏆' : '🥊';
     document.getElementById('resTitle').textContent = passed ? (quizMode === 'unit' ? 'Unit Quiz passed!' : 'Course Challenge passed!') : 'Keep training!';
-    document.getElementById('resStars').innerHTML = '⭐'.repeat(stars);
+    document.getElementById('resStars').innerHTML = '★'.repeat(stars) + '☆'.repeat(3 - stars);
     document.getElementById('resMsg').innerHTML = `${passed ? '✨' : '💪'} ${correct}/${total} correct (${pctScore}%)${passed ? '' : ' - need 70% to pass, try again?'}`;
     ms.innerHTML = '';
     document.getElementById('retryBtn').onclick = quizMode === 'unit'
@@ -350,9 +361,9 @@ function showResult() {
   if (passed) { progress[currentCat][currentLvl].done = true; progress[currentCat][currentLvl].stars = Math.max(progress[currentCat][currentLvl].stars || 0, stars); }
   try { localStorage.setItem('dojo_math_v6', JSON.stringify(progress)); } catch (e) { }
   updateLbl();
-  document.getElementById('resEmoji').textContent = stars >= 3 ? '🏆' : stars >= 2 ? '🌟' : '⭐';
-  document.getElementById('resTitle').textContent = stars >= 3 ? 'Amazing fight!' : stars >= 2 ? 'Great job!' : 'Keep training!';
-  document.getElementById('resStars').innerHTML = '⭐'.repeat(stars);
+  document.getElementById('resEmoji').textContent = stars >= 2 ? '🏆' : '🥊';
+  document.getElementById('resTitle').textContent = stars >= 2 ? 'Great fight!' : 'Good effort!';
+  document.getElementById('resStars').innerHTML = '★'.repeat(stars) + '☆'.repeat(3 - stars);
   document.getElementById('resMsg').innerHTML = passed ? `✨ ${correct}/${total} correct - belt earned!` : `💪 ${correct}/${total} correct. Try again?`;
   if (mistakes.length) {
     ms.innerHTML = '<div style="font-size:1.2rem;font-weight:900;margin:12px 0;">📝 Learn from these:</div>'
@@ -366,7 +377,6 @@ function showResult() {
 
 function leaveQuiz() { if (confirm('Leave this lesson?')) showHome(); }
 function leaveQuizToLevels() { if (confirm('Go back?')) backToLevelsOrUnits(); }
-function leaveAndGo(cat) { if (confirm('Leave this lesson?')) { openCategory(cat); } }
 function backToLevelsOrUnits() { quizMode === 'belt' ? openCategory(currentCat) : openTrack(currentTrack); }
 
 // ============================================================
@@ -431,7 +441,8 @@ function stopFluency() { if (confirm('Stop the Fluency Zone early?')) endFluency
 function showFluencyResult(isNewBest) {
   document.getElementById('resEmoji').textContent = isNewBest ? '🏆' : '⚡';
   document.getElementById('resTitle').textContent = isNewBest ? 'New best!' : 'Fluency Zone complete!';
-  document.getElementById('resStars').innerHTML = fluencyScore >= 20 ? '⭐⭐⭐' : fluencyScore >= 10 ? '⭐⭐' : '⭐';
+  const fStars = fluencyScore >= 20 ? 3 : fluencyScore >= 10 ? 2 : fluencyScore >= 1 ? 1 : 0;
+  document.getElementById('resStars').innerHTML = '★'.repeat(fStars) + '☆'.repeat(3 - fStars);
   document.getElementById('resMsg').innerHTML = `⚡ ${fluencyScore} correct in 60 seconds! Best: ${Math.max(fluencyScore, fluencyBest)}`;
   document.getElementById('mistakeSection').innerHTML = '';
   document.getElementById('retryBtn').onclick = function () { startFluency(fluencyKind); };
@@ -449,26 +460,15 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('loadFile').addEventListener('change', loadFile);
 
   document.getElementById('backToHomeFromUnitsBtn').addEventListener('click', showHome);
-  document.getElementById('homeFromUnits').addEventListener('click', showHome);
-  document.getElementById('soarFromUnits').addEventListener('click', () => openCategory('soar1'));
-
   document.getElementById('backToUnitsBtn').addEventListener('click', () => openTrack(currentTrack));
-  document.getElementById('homeFromLevels').addEventListener('click', showHome);
-  document.getElementById('soarFromLevels').addEventListener('click', () => openCategory('soar1'));
-  document.getElementById('mathFromLevels').addEventListener('click', showHome);
 
   document.getElementById('homeFromQuiz').addEventListener('click', leaveQuiz);
   document.getElementById('levelsFromQuiz').addEventListener('click', leaveQuizToLevels);
-  document.getElementById('homeFromQuizQuick').addEventListener('click', leaveQuiz);
-  document.getElementById('soarFromQuiz').addEventListener('click', () => leaveAndGo('soar1'));
-  document.getElementById('levelsFromQuizQuick').addEventListener('click', leaveQuizToLevels);
 
-  document.getElementById('homeFromResult').addEventListener('click', showHome);
-  document.getElementById('levelsFromResult').addEventListener('click', backToLevelsOrUnits);
   document.getElementById('homeFromResultBtn').addEventListener('click', showHome);
-  document.getElementById('homeFromResultQuick').addEventListener('click', showHome);
-  document.getElementById('soarFromResult').addEventListener('click', () => leaveAndGo('soar1'));
-  document.getElementById('levelsFromResultQuick').addEventListener('click', backToLevelsOrUnits);
+
+  document.getElementById('qnDojo').addEventListener('click', showHome);
+  document.getElementById('qnFluency').addEventListener('click', () => startFluency('multiply'));
 
   document.getElementById('hintBtn').addEventListener('click', showHint);
   document.getElementById('checkBtn').addEventListener('click', checkAnswer);

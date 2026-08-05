@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
-  <title>🥊 Cute Combat Dojo · Complete Edition</title>
+  <title>🥋 Safia's and Safaan's Math Upskilling Dojo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito+Sans:wght@400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,67 +14,71 @@
 
   <!-- TOP BAR -->
   <div class="topbar">
-    <div class="topbar-title">🥊 Cute Combat Dojo · All Grades with Multiplication & Division</div>
+    <div class="topbar-title">🥋 Safia's and Safaan's Math Upskilling Dojo</div>
     <div class="topbar-btns">
-      <button class="tb-btn tb-save" id="saveBtn">💾 Save (Belt)</button>
-      <button class="tb-btn tb-load" id="loadBtn">📂 Load (Match)</button>
+      <button class="tb-btn tb-save" id="saveBtn">💾 Save</button>
+      <button class="tb-btn tb-load" id="loadBtn">📂 Load</button>
       <input type="file" id="loadFile" accept=".json" style="display:none">
     </div>
-    <div class="tb-lbl" id="saveLbl">⭐ 0 power stars</div>
+    <div class="tb-lbl" id="saveLbl">⭐ 0 stars</div>
   </div>
 
   <!-- HOME -->
   <div class="screen active" id="homeScreen">
     <div class="path-header">
-      <h1>🥋 Complete Dojo Math Quest</h1>
-      <p>K/1st · 2nd · 3rd · Multiplication · Division · SOAR</p>
+      <div class="hero-art-slot"><span>Hero artwork placeholder</span></div>
+      <div class="hero-scrim">
+        <h1>Safia's and Safaan's Math Upskilling Dojo</h1>
+        <p>Race every lap. Earn every belt. First to the podium wins.</p>
+      </div>
     </div>
 
     <div class="grade-section">
       <div class="menu-grid">
         <div class="menu-card grade1" data-track="grade1">
-          <div class="mc-icon">🍭</div>
-          <div class="mc-name">K/1st · Hello Kitty's Basics</div>
-          <div class="mc-desc">counting, addition, shapes & time</div>
-          <div class="mc-badge">4 units</div>
+          <div class="mc-icon">🏁</div>
+          <div class="mc-name">Rookie Track</div>
+          <div class="mc-desc">counting, addition, shapes &amp; time</div>
+          <div class="mc-badge">K/1st</div>
         </div>
         <div class="menu-card grade2" data-track="grade2">
-          <div class="mc-icon">👑</div>
-          <div class="mc-name">2nd Grade · Princess Peach's Power-ups</div>
-          <div class="mc-desc">regrouping, money, measurement & data</div>
-          <div class="mc-badge">4 units</div>
+          <div class="mc-icon">⚡</div>
+          <div class="mc-name">Power Track</div>
+          <div class="mc-desc">regrouping, money, measurement &amp; data</div>
+          <div class="mc-badge">2nd Grade</div>
         </div>
         <div class="menu-card grade3" data-track="grade3">
-          <div class="mc-icon">🐾</div>
-          <div class="mc-name">3rd Grade · Labubu's MMA Math</div>
-          <div class="mc-desc">multiplication, division & fractions</div>
-          <div class="mc-badge">3 units</div>
+          <div class="mc-icon">🥋</div>
+          <div class="mc-name">Black Belt Track</div>
+          <div class="mc-desc">multiplication, division &amp; fractions</div>
+          <div class="mc-badge">3rd Grade</div>
         </div>
         <div class="menu-card multiply-card" data-track="multiply">
           <div class="mc-icon">✖️</div>
-          <div class="mc-name">Multiplication · Group Grapple</div>
+          <div class="mc-name">Turbo Combo</div>
           <div class="mc-desc">times tables 0–10</div>
-          <div class="mc-badge multiply-badge">2 units</div>
+          <div class="mc-badge multiply-badge">Multiplication</div>
         </div>
         <div class="menu-card divide-card" data-track="divide">
           <div class="mc-icon">➗</div>
-          <div class="mc-name">Division · Sharing Takedown</div>
+          <div class="mc-name">Pit Split</div>
           <div class="mc-desc">division tables 0–10</div>
-          <div class="mc-badge divide-badge">2 units</div>
+          <div class="mc-badge divide-badge">Division</div>
         </div>
         <div class="menu-card soar-card" data-track="soar">
-          <div class="mc-icon">🦍</div>
-          <div class="mc-name">Labubu's SOAR</div>
+          <div class="mc-icon">🚀</div>
+          <div class="mc-name">Free Sparring</div>
           <div class="mc-desc">open-ended challenges</div>
-          <div class="mc-badge soar-badge">1 unit</div>
+          <div class="mc-badge soar-badge">SOAR</div>
         </div>
       </div>
     </div>
 
     <div class="progress-chart" id="progressChart"></div>
+
     <div class="quick-nav">
-      <button class="qn-btn qn-soar" onclick="document.getElementById('homeScreen').scrollIntoView({behavior:'smooth',block:'end'})">🐻 Labubu SOAR</button>
-      <button class="qn-btn qn-math" onclick="document.getElementById('homeScreen').scrollIntoView({behavior:'smooth',block:'start'})">🥊 Math Dojo</button>
+      <button class="qn-btn qn-home" id="qnDojo">🥋 Dojo</button>
+      <button class="qn-btn qn-soar" id="qnFluency">⚡ Fluency Zone</button>
     </div>
   </div>
 
@@ -84,37 +91,28 @@
         <button type="button" class="btn btn-hint" id="fluencyZoneBtn" style="display:none;">⚡ Fluency Zone</button>
       </div>
       <div id="unitsAccordion"></div>
-      <div style="margin-top:20px;text-align:center;">
-        <button class="btn btn-back" id="backToHomeFromUnitsBtn">← back to dojo</button>
+      <div style="text-align:center;">
+        <button class="btn btn-back" id="backToHomeFromUnitsBtn">← Back to Dojo</button>
       </div>
-    </div>
-    <div class="quick-nav">
-      <button class="qn-btn qn-home" id="homeFromUnits">🏠 Dojo</button>
-      <button class="qn-btn qn-soar" id="soarFromUnits">🐻 Labubu</button>
     </div>
   </div>
 
   <!-- LEVELS -->
   <div class="screen" id="levelsScreen">
     <div class="levels-wrap">
-      <div class="levels-title" id="levelsTitle">pick a belt / lesson</div>
+      <div class="levels-title" id="levelsTitle">pick a belt</div>
       <div class="levels-grid" id="levelsGrid"></div>
-      <div style="margin-top:20px;text-align:center;">
-        <button class="btn btn-back" id="backToUnitsBtn">← back to units</button>
+      <div style="text-align:center;">
+        <button class="btn btn-back" id="backToUnitsBtn">← Back to units</button>
       </div>
-    </div>
-    <div class="quick-nav">
-      <button class="qn-btn qn-home" id="homeFromLevels">🏠 Dojo</button>
-      <button class="qn-btn qn-soar" id="soarFromLevels">🐻 Labubu</button>
-      <button class="qn-btn qn-math" id="mathFromLevels">🥊 Maths</button>
     </div>
   </div>
 
   <!-- QUIZ -->
   <div class="screen" id="quizScreen">
-    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-      <button class="btn btn-back" id="homeFromQuiz" style="flex:none;padding:10px 18px;font-size:1rem;">🏠 Dojo</button>
-      <button class="btn btn-back" id="levelsFromQuiz" style="flex:none;padding:10px 18px;font-size:1rem;background:#511e3a;">← Levels</button>
+    <div class="quiz-back-row">
+      <button class="btn btn-back" id="homeFromQuiz" style="flex:none;padding:10px 18px;font-size:0.95rem;min-height:40px;">🏠 Dojo</button>
+      <button class="btn btn-back" id="levelsFromQuiz" style="flex:none;padding:10px 18px;font-size:0.95rem;min-height:40px;">← Levels</button>
     </div>
     <div class="quiz-head">
       <div class="quiz-meta">
@@ -122,8 +120,9 @@
         <span id="quizQNum">1/3</span>
       </div>
       <div class="quiz-score-row">
-        <div class="qs-item"><div>✅</div><div class="qs-val" id="qsCorrect">0</div></div>
-        <div class="qs-item"><div>❌</div><div class="qs-val" id="qsWrong">0</div></div>
+        <div class="qs-item"><div class="qs-lbl">CORRECT</div><div class="qs-val" id="qsCorrect">0</div></div>
+        <div class="qs-item"><div class="qs-lbl">OOPS</div><div class="qs-val" id="qsWrong">0</div></div>
+        <div class="qs-item"><div class="qs-lbl">ACCURACY</div><div class="qs-val" id="qsAccuracy">0%</div></div>
       </div>
       <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
     </div>
@@ -132,14 +131,9 @@
     <div class="hint-box" id="hintBox"></div>
     <div class="feedback" id="feedback"></div>
     <div class="btn-row">
-      <button class="btn btn-hint" id="hintBtn">💡 Hint (coach's tip)</button>
-      <button class="btn btn-check" id="checkBtn">✅ Check move</button>
+      <button class="btn btn-hint" id="hintBtn">💡 Hint</button>
+      <button class="btn btn-check" id="checkBtn">✅ Check</button>
       <button class="btn btn-next" id="nextBtn">▶ Next round</button>
-    </div>
-    <div class="quick-nav">
-      <button class="qn-btn qn-home" id="homeFromQuizQuick">🏠 Dojo</button>
-      <button class="qn-btn qn-soar" id="soarFromQuiz">🐻 Labubu</button>
-      <button class="qn-btn qn-math" id="levelsFromQuizQuick">← Levels</button>
     </div>
   </div>
 
@@ -148,8 +142,8 @@
     <div class="fluency-wrap">
       <div class="fluency-title" id="fluencyTitle">⚡ Fluency Zone</div>
       <div class="fluency-head">
-        <div class="fluency-stat"><div class="fluency-stat-lbl">⏱ Time</div><div class="fluency-stat-val" id="fluencyTime">60</div></div>
-        <div class="fluency-stat"><div class="fluency-stat-lbl">✅ Score</div><div class="fluency-stat-val" id="fluencyScoreVal">0</div></div>
+        <div class="fluency-stat"><div class="fluency-stat-lbl">TIME</div><div class="fluency-stat-val" id="fluencyTime">60</div></div>
+        <div class="fluency-stat"><div class="fluency-stat-lbl">SCORE</div><div class="fluency-stat-val score" id="fluencyScoreVal">0</div></div>
       </div>
       <div class="fluency-question" id="fluencyQuestion">? × ? = ?</div>
       <input class="soar-answer-input" id="fluencyInput" type="number" placeholder="Type the answer…" autocomplete="off">
@@ -157,22 +151,16 @@
         <button class="btn btn-check" id="fluencySubmitBtn">✅ Submit</button>
         <button class="btn btn-back" id="fluencyStopBtn">⏹ Stop</button>
       </div>
-    </div>
-    <div class="quick-nav">
-      <button class="qn-btn qn-home" id="homeFromFluency">🏠 Dojo</button>
+      <button class="btn btn-back" id="homeFromFluency">🏠 Back to Dojo</button>
     </div>
   </div>
 
   <!-- RESULT -->
   <div class="screen" id="resultScreen">
-    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-      <button class="btn btn-back" id="homeFromResult" style="flex:none;padding:10px 18px;font-size:1rem;">🏠 Dojo</button>
-      <button class="btn btn-back" id="levelsFromResult" style="flex:none;padding:10px 18px;font-size:1rem;background:#511e3a;">← Levels</button>
-    </div>
     <div class="result-card">
       <div class="result-emoji" id="resEmoji">🏆</div>
       <div class="result-title" id="resTitle">Great fight!</div>
-      <div class="result-stars" id="resStars">⭐⭐⭐</div>
+      <div class="result-stars" id="resStars">★★★</div>
       <div class="result-msg" id="resMsg"></div>
       <div id="mistakeSection"></div>
       <div class="btn-row">
@@ -180,11 +168,6 @@
         <button class="btn btn-check" id="homeFromResultBtn">🏠 Dojo</button>
         <button class="btn btn-next" id="nextLvBtn" style="display:none">➡ Next belt</button>
       </div>
-    </div>
-    <div class="quick-nav">
-      <button class="qn-btn qn-home" id="homeFromResultQuick">🏠 Dojo</button>
-      <button class="qn-btn qn-soar" id="soarFromResult">🐻 Labubu</button>
-      <button class="qn-btn qn-math" id="levelsFromResultQuick">← Levels</button>
     </div>
   </div>
 </div>

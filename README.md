@@ -1,3 +1,4 @@
+# 🥋 Safia's and Safaan's Math Upskilling Dojo
 
 ## 🚀 How to Use
 
@@ -21,18 +22,18 @@
 
 ## 🎯 How to Play
 
-1. **Choose a grade level** (K/1st, 2nd, 3rd, Multiplication, Division, or SOAR)
-2. **Pick a unit** (each grade is grouped into curriculum units, e.g. "Addition & Subtraction", "Telling Time")
+1. **Choose a track** (Rookie Track K/1st, Power Track 2nd, Black Belt Track 3rd, Turbo Combo Multiplication, Pit Split Division, or Free Sparring SOAR)
+2. **Pick a unit** (each track is grouped into curriculum units, e.g. "Addition & Subtraction", "Telling Time")
 3. **Pick a skill** within that unit
 4. **Read the lesson** - each has a visual and explanation
 5. **Answer 3 questions** - get at least 2 correct to earn a belt
 6. **Use hints** - if stuck, click "Hint" for step-by-step help
-7. **Track progress** - stars and belts show your achievements
+7. **Track progress** - stars and belts show your achievements. Belts unlock in order — belt *n* only opens once belt *n-1* is done.
 
 ## 💾 Saving Progress
 
-- Click **"Save (Belt)"** to download your progress as a `.json` file
-- Click **"Load (Match)"** to restore saved progress
+- Click **"Save"** to download your progress as a `.json` file
+- Click **"Load"** to restore saved progress
 
 ## 🧪 Running Tests
 
@@ -49,21 +50,23 @@ This verifies the app's logic is sound, but **can't confirm the page actually re
 - Responsive design adapts to all screen sizes
 - Touch-friendly buttons (minimum 44px tap targets)
 
-## 🎨 Color Themes by Grade
+## 🎨 Turbo Math Design System
 
-| Grade | Theme Color |
-|-------|-------------|
-| K/1st | Pink (`#dc80b0`) |
-| 2nd | Gold (`#fbe158`) |
-| 3rd | Blue (`#9bc4cb`) |
-| Multiplication | Brown/Gold (`#9b6a4a`) |
-| Division | Teal (`#4a6a5a`) |
-| SOAR | Dark Teal (`#1e3a3a`) |
+Dark teal/graphite surfaces with cyan/coral/amber action colors, `Lilita One` display type + `Nunito Sans` body type, and chunky "pressed" button shadows. No licensed characters or mascots — icons are emoji only.
+
+| Token | Value |
+|-------|-------|
+| Background | `#0A1F1F` |
+| Surface | `#123636` |
+| Primary (cyan) | `#17C7C7` |
+| Accent (coral) | `#FF5C3D` |
+| Reward (amber) | `#FFB020` |
+| Success (mint) | `#2FE6A7` |
 
 ## 🙏 Credits
 
-- Built for Safia's MAP test preparation
-- Characters: Hello Kitty, Princess Peach, Labubu
+- Built for Safia's and Safaan's MAP test preparation
+- Original dojo-meets-racing theme, no licensed characters
 - Dojo martial arts theme for engagement
 
 ## 📝 License
@@ -72,4 +75,4 @@ Free for personal and educational use.
 
 ---
 
-**Good luck on your MAP test! 🥊🌸**
+**Good luck on your MAP test! 🥋🏁**

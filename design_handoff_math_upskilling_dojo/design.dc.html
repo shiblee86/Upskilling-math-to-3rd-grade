@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="stylesheet" href="_ds/turbo-math-design-system-fa089027-7873-4c21-a576-5c93e55e0faa/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/turbo-math-design-system-fa089027-7873-4c21-a576-5c93e55e0faa/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/turbo-math-design-system-fa089027-7873-4c21-a576-5c93e55e0faa/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/turbo-math-design-system-fa089027-7873-4c21-a576-5c93e55e0faa/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/turbo-math-design-system-fa089027-7873-4c21-a576-5c93e55e0faa/tokens/base.css">
+  <link rel="stylesheet" href="_ds/turbo-math-design-system-fa089027-7873-4c21-a576-5c93e55e0faa/styles.css">
+  <script src="_ds/turbo-math-design-system-fa089027-7873-4c21-a576-5c93e55e0faa/_ds_bundle.js"></script>
+  <script src="./image-slot.js"></script>
+  <style>
+    body { background: var(--bg-app); }
+    a { color: var(--cyan-300); }
+    a:hover { color: var(--cyan-200); }
+  </style>
+</helmet>
+
+<div style="min-height:100vh;background:var(--bg-app);display:flex;justify-content:center;padding:20px 16px 40px;">
+<div style="max-width:1080px;width:100%;display:flex;flex-direction:column;gap:16px;">
+
+  <div style="display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;">
+    <div style="flex:1;min-width:260px;">
+      <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.TopBar" title="Safia's and Safaan's Math Upskilling Dojo" stars="{{ totalStars }}" hint-size="100%,60px"></x-import>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.IconButton" icon="💾" label="Save" variant="neutral" onClick="{{ onSave }}" hint-size="76px,76px"></x-import>
+      <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.IconButton" icon="📂" label="Load" variant="neutral" onClick="{{ onLoad }}" hint-size="76px,76px"></x-import>
+    </div>
+  </div>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="background:var(--surface-2);border:2px solid var(--mint-500);color:var(--mint-400);border-radius:var(--radius-md);padding:10px 18px;font-family:var(--font-body);font-weight:var(--weight-bold);text-align:center;">{{ toast }}</div>
+  </sc-if>
+
+  <!-- HOME -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div style="position:relative;height:200px;border-radius:var(--radius-xl);overflow:hidden;border:2px solid var(--border-strong);box-shadow:0 6px 0 var(--shadow-neutral);">
+      <image-slot id="hero-art" shape="rect" fit="cover" placeholder="Drop original hero artwork here (no licensed characters)"></image-slot>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,31,31,0.15),rgba(10,31,31,0.9));pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;padding:0 20px;">
+        <div style="font-family:var(--font-display);font-size:var(--text-2xl);color:var(--text-primary);">Safia's and Safaan's Math Upskilling Dojo</div>
+        <div style="font-family:var(--font-body);font-size:var(--text-base);color:var(--text-secondary);">Race every lap. Earn every belt. First to the podium wins.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
+      <sc-for list="{{ tracks }}" as="t" hint-placeholder-count="6">
+        <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.MenuCard" icon="{{ t.icon }}" title="{{ t.name }}" description="{{ t.desc }}" badge="{{ t.grade }}" variant="{{ t.variant }}" onClick="{{ t.onClick }}" hint-size="100%,190px"></x-import>
+      </sc-for>
+    </div>
+
+    <div style="background:var(--surface-1);border:2px solid var(--border-subtle);border-radius:var(--radius-lg);padding:18px 20px;display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-family:var(--font-body);font-weight:var(--weight-black);color:var(--text-secondary);font-size:var(--text-sm);">TOTAL PROGRESS</div>
+        <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Badge" variant="reward" icon="⭐" hint-size="auto,28px">{{ totalStars }} stars</x-import>
+      </div>
+      <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.ProgressBar" value="{{ totalStars }}" max="{{ maxStars }}" variant="reward" hint-size="100%,18px"></x-import>
+    </div>
+
+    <div style="max-width:420px;">
+      <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.QuickNav" items="{{ homeNavItems }}" active="home" onSelect="{{ onQuickNav }}" hint-size="100%,64px"></x-import>
+    </div>
+  </sc-if>
+
+  <!-- UNITS -->
+  <sc-if value="{{ isUnits }}" hint-placeholder-val="{{ false }}">
+    <div style="background:var(--surface-1);border:2px solid var(--border-strong);border-radius:var(--radius-xl);padding:22px;display:flex;flex-direction:column;gap:16px;">
+      <div style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--text-primary);text-align:center;">{{ track.icon }} {{ track.name }} — pick a unit</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="accent" icon="🏆" onClick="{{ onCourseChallenge }}" hint-size="auto,48px">Course Challenge</x-import>
+        <sc-if value="{{ track.hasFluency }}" hint-placeholder-val="{{ false }}">
+          <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="ghost" icon="⚡" onClick="{{ onGoFluency }}" hint-size="auto,48px">Fluency Zone</x-import>
+        </sc-if>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <sc-for list="{{ units }}" as="u" hint-placeholder-count="2">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--surface-2);border:2px solid var(--border-subtle);border-radius:var(--radius-lg);padding:16px 18px;flex-wrap:wrap;">
+            <div>
+              <div style="font-family:var(--font-body);font-weight:var(--weight-black);color:var(--text-primary);font-size:var(--text-base);">{{ u.name }}</div>
+              <div style="font-family:var(--font-body);color:var(--text-secondary);font-size:var(--text-sm);margin-top:2px;">{{ u.badge }}</div>
+            </div>
+            <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="primary" onClick="{{ u.onClick }}" hint-size="auto,44px">Start</x-import>
+          </div>
+        </sc-for>
+      </div>
+      <div style="text-align:center;">
+        <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="ghost" onClick="{{ onBackHome }}" hint-size="auto,44px">← Back to Dojo</x-import>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- LEVELS -->
+  <sc-if value="{{ isLevels }}" hint-placeholder-val="{{ false }}">
+    <div style="background:var(--surface-1);border:2px solid var(--border-strong);border-radius:var(--radius-xl);padding:22px;display:flex;flex-direction:column;gap:18px;">
+      <div style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--text-primary);text-align:center;">{{ unit.name }}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
+        <sc-for list="{{ levels }}" as="lv" hint-placeholder-count="4">
+          <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.LevelTile" icon="{{ lv.icon }}" label="{{ lv.label }}" stars="{{ lv.stars }}" locked="{{ lv.locked }}" variant="{{ lv.variant }}" onClick="{{ lv.onClick }}" hint-size="104px,104px"></x-import>
+        </sc-for>
+      </div>
+      <div style="text-align:center;">
+        <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="ghost" onClick="{{ onBackUnits }}" hint-size="auto,44px">← Back to units</x-import>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- QUIZ -->
+  <sc-if value="{{ isQuiz }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="ghost" size="sm" onClick="{{ onBackHome }}" hint-size="auto,40px">🏠 Dojo</x-import>
+        <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="ghost" size="sm" onClick="{{ onBackLevels }}" hint-size="auto,40px">← Levels</x-import>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-family:var(--font-body);font-weight:var(--weight-black);color:var(--text-secondary);font-size:var(--text-sm);">
+          <span>{{ quizLevelLabel }}</span><span>{{ quizProgressLabel }}</span>
+        </div>
+        <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.QuizStatRow" correct="{{ quizCorrect }}" wrong="{{ quizWrong }}" accuracy="{{ quizAccuracy }}" hint-size="100%,60px"></x-import>
+        <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.ProgressBar" value="{{ quizIdx }}" max="{{ quizTotal }}" variant="primary" hint-size="100%,14px"></x-import>
+      </div>
+
+      <div style="background:var(--surface-1);border:2px solid var(--border-strong);border-radius:var(--radius-xl);padding:28px;display:flex;flex-direction:column;gap:20px;align-items:center;">
+        <div style="font-family:var(--font-display);font-size:var(--text-2xl);color:var(--text-primary);text-align:center;">{{ quizQuestion }}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
+          <sc-for list="{{ quizOptions }}" as="opt" hint-placeholder-count="4">
+            <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.AnswerTile" shape="rect" state="{{ opt.state }}" disabled="{{ opt.disabled }}" onClick="{{ opt.onClick }}" hint-size="120px,92px">{{ opt.label }}</x-import>
+          </sc-for>
+        </div>
+        <sc-if value="{{ quizShowHint }}" hint-placeholder-val="{{ false }}">
+          <div style="background:var(--surface-2);border:2px solid var(--amber-500);border-radius:var(--radius-md);padding:14px 18px;color:var(--amber-400);font-family:var(--font-body);text-align:center;">💡 {{ quizHintText }}</div>
+        </sc-if>
+        <sc-if value="{{ quizChecked }}" hint-placeholder-val="{{ false }}">
+          <div style="font-family:var(--font-body);font-weight:var(--weight-black);font-size:var(--text-lg);color:{{ quizFeedbackColor }};">{{ quizFeedbackText }}</div>
+        </sc-if>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+          <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="ghost" icon="💡" onClick="{{ onHint }}" hint-size="auto,48px">Hint</x-import>
+          <sc-if value="{{ quizChecked }}" hint-placeholder-val="{{ false }}">
+            <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="accent" icon="▶" onClick="{{ onNextQuestion }}" hint-size="auto,48px">{{ quizNextLabel }}</x-import>
+          </sc-if>
+          <sc-if value="{{ quizCanCheck }}" hint-placeholder-val="{{ false }}">
+            <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="primary" icon="✅" onClick="{{ onCheck }}" hint-size="auto,48px">Check</x-import>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- FLUENCY -->
+  <sc-if value="{{ isFluency }}" hint-placeholder-val="{{ false }}">
+    <div style="background:var(--surface-1);border:2px solid var(--border-strong);border-radius:var(--radius-xl);padding:28px;display:flex;flex-direction:column;gap:20px;align-items:center;">
+      <div style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--text-primary);">⚡ Fluency Zone</div>
+      <div style="display:flex;gap:30px;">
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-body);font-weight:var(--weight-bold);color:var(--text-secondary);font-size:var(--text-xs);">TIME</div>
+          <div style="font-family:var(--font-display);font-size:var(--text-2xl);color:{{ fluencyTimeColor }};">{{ fluencyTime }}</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-body);font-weight:var(--weight-bold);color:var(--text-secondary);font-size:var(--text-xs);">SCORE</div>
+          <div style="font-family:var(--font-display);font-size:var(--text-2xl);color:var(--mint-400);">{{ fluencyScore }}</div>
+        </div>
+      </div>
+      <div style="font-family:var(--font-display);font-size:var(--text-2xl);color:var(--text-primary);">{{ fluencyQuestion }}</div>
+      <input type="number" value="{{ fluencyInput }}" onChange="{{ onFluencyInput }}" placeholder="Type the answer…" disabled="{{ fluencyDisabled }}" style="width:220px;text-align:center;font-family:var(--font-display);font-size:var(--text-lg);padding:12px;border-radius:var(--radius-md);border:2px solid var(--border-strong);background:var(--surface-2);color:var(--text-primary);" />
+      <div style="display:flex;gap:10px;">
+        <sc-if value="{{ fluencyRunning }}" hint-placeholder-val="{{ false }}">
+          <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="primary" onClick="{{ onFluencySubmit }}" hint-size="auto,48px">Submit</x-import>
+          <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="ghost" onClick="{{ onFluencyStop }}" hint-size="auto,48px">Stop</x-import>
+        </sc-if>
+        <sc-if value="{{ fluencyRunning }}" hint-placeholder-val="{{ true }}">
+        </sc-if>
+      </div>
+      <sc-if value="{{ fluencyRunning }}" hint-placeholder-val="{{ false }}">
+      </sc-if>
+      <div style="display:{{ fluencyStartVisible }};">
+        <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="accent" icon="🏁" onClick="{{ onFluencyStart }}" hint-size="auto,48px">Start 60s Drill</x-import>
+      </div>
+      <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="ghost" onClick="{{ onBackHome }}" hint-size="auto,44px">🏠 Back to Dojo</x-import>
+    </div>
+  </sc-if>
+
+  <!-- RESULT -->
+  <sc-if value="{{ isResult }}" hint-placeholder-val="{{ false }}">
+    <div style="background:linear-gradient(160deg,var(--surface-2),var(--surface-1));border:4px solid var(--amber-500);border-radius:var(--radius-xl);padding:40px 32px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center;box-shadow:0 0 40px rgba(255,176,32,0.25);">
+      <div style="font-size:64px;">{{ resultEmoji }}</div>
+      <div style="font-family:var(--font-display);font-size:var(--text-2xl);color:var(--amber-400);">{{ resultTitle }}</div>
+      <div style="font-size:32px;letter-spacing:6px;">{{ resultStarsText }}</div>
+      <div style="font-family:var(--font-body);color:var(--text-primary);font-size:var(--text-base);">{{ resultMsg }}</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:10px;">
+        <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="ghost" icon="🔁" onClick="{{ onRetry }}" hint-size="auto,48px">Rematch</x-import>
+        <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="primary" icon="🏠" onClick="{{ onBackHome }}" hint-size="auto,48px">Dojo</x-import>
+        <sc-if value="{{ resultHasNext }}" hint-placeholder-val="{{ false }}">
+          <x-import component-from-global-scope="TurboMathDesignSystem_fa0890.Button" variant="accent" icon="➡" onClick="{{ onNextLevel }}" hint-size="auto,48px">Next belt</x-import>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  TRACKS = [
+    { id:'grade1', icon:'🏁', name:'Rookie Track', grade:'K/1st', desc:'Counting, addition, shapes & time', variant:'default', tileVariant:'primary', hasFluency:false,
+      units:[{id:'g1u1',name:'Add & Subtract Sparring',levels:4},{id:'g1u2',name:'Shapes & Clock Drills',levels:3}] },
+    { id:'grade2', icon:'⚡', name:'Power Track', grade:'2nd Grade', desc:'Regrouping, money, measurement & data', variant:'accent', tileVariant:'accent', hasFluency:false,
+      units:[{id:'g2u1',name:'Regrouping Rumble',levels:4},{id:'g2u2',name:'Money & Measurement',levels:3}] },
+    { id:'grade3', icon:'🥋', name:'Black Belt Track', grade:'3rd Grade', desc:'Multiplication, division & fractions', variant:'reward', tileVariant:'accent', hasFluency:false,
+      units:[{id:'g3u1',name:'Multiplication Match',levels:4},{id:'g3u2',name:'Fraction Footwork',levels:3}] },
+    { id:'multiply', icon:'✖️', name:'Turbo Combo', grade:'Multiplication', desc:'Times tables 0–10', variant:'default', tileVariant:'primary', hasFluency:true,
+      units:[{id:'mu1',name:'Times Tables 0–5',levels:6},{id:'mu2',name:'Times Tables 6–10',levels:5}] },
+    { id:'divide', icon:'➗', name:'Pit Split', grade:'Division', desc:'Division tables 0–10', variant:'accent', tileVariant:'accent', hasFluency:true,
+      units:[{id:'du1',name:'Division Tables 0–5',levels:6},{id:'du2',name:'Division Tables 6–10',levels:5}] },
+    { id:'soar', icon:'🚀', name:'Free Sparring', grade:'SOAR', desc:'Open-ended challenge rounds', variant:'reward', tileVariant:'accent', hasFluency:false,
+      units:[{id:'su1',name:'Open Challenges',levels:4}] }
+  ];
+  HINTS = {
+    grade1:'Count on your fingers, one at a time!',
+    grade2:'Line up the tens and ones before you add or subtract.',
+    grade3:'Multiplication is repeated addition — add the table number that many times.',
+    multiply:'Skip count by the table number to find the answer.',
+    divide:'Division undoes multiplication — think of the matching times table.',
+    soar:'Break the problem into smaller steps before you answer.'
+  };
+
+  state = {
+    screen:'home', trackId:null, unitId:null, levelIdx:null,
+    totalStars:0, completed:{}, toast:null,
+    quiz:null,
+    fluency:{running:false,time:60,score:0,q:null,input:''}
+  };
+
+  findTrack(id){ return this.TRACKS.find(t=>t.id===id); }
+  findUnit(track,id){ return track.units.find(u=>u.id===id); }
+
+  rnd(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+  shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+  buildOpts(ans){
+    const set = new Set([ans]);
+    const cands = [ans+1, ans-1, ans+2, ans-2, ans+3];
+    for(const c of cands){ if(c>=0 && !set.has(c)) set.add(c); if(set.size===4) break; }
+    return this.shuffle([...set]);
+  }
+
+  genQuestion(trackId, unitId, levelIdx, qIdx){
+    let a,b,ans,q;
+    if(trackId==='grade1'){
+      const base = levelIdx+1;
+      a = this.rnd(1,3+base); b = this.rnd(1,3+base);
+      if(qIdx%2===0){ ans=a+b; q=`${a} + ${b} = ?`; }
+      else { if(a<b){ [a,b]=[b,a]; } ans=a-b; q=`${a} − ${b} = ?`; }
+    } else if(trackId==='grade2'){
+      a = this.rnd(10,40+levelIdx*10); b = this.rnd(10,40+levelIdx*10);
+      if(qIdx%2===0){ ans=a+b; q=`${a} + ${b} = ?`; }
+      else { if(a<b){ [a,b]=[b,a]; } ans=a-b; q=`${a} − ${b} = ?`; }
+    } else if(trackId==='grade3'){
+      const table = levelIdx+2; b=this.rnd(2,9); ans=table*b; q=`${table} × ${b} = ?`;
+    } else if(trackId==='multiply'){
+      const table = (unitId==='mu2'?6:0)+levelIdx+1; b=this.rnd(1,10); ans=table*b; q=`${table} × ${b} = ?`;
+    } else if(trackId==='divide'){
+      const divisor = (unitId==='du2'?6:0)+levelIdx+1; const quotient=this.rnd(1,10); const dividend=divisor*quotient; ans=quotient; q=`${dividend} ÷ ${divisor} = ?`;
+    } else {
+      a=this.rnd(2,9); b=this.rnd(2,9); ans=a*b; q=`A pit crew has ${a} bays with ${b} tools each. How many tools total?`;
+    }
+    return { q, ans, opts: this.buildOpts(ans) };
+  }
+
+  goHome(){ this.setState({ screen:'home', trackId:null, unitId:null, levelIdx:null, quiz:null }); }
+  goTrack(id){ this.setState({ screen:'units', trackId:id }); }
+  goUnit(id){ this.setState({ screen:'levels', unitId:id }); }
+  goLevel(idx){
+    const { trackId, unitId } = this.state;
+    const questions = [0,1,2].map(i=>this.genQuestion(trackId, unitId, idx, i));
+    this.setState({ screen:'quiz', levelIdx: idx, quiz:{ questions, idx:0, correct:0, wrong:0, selected:null, checked:false, showHint:false } });
+  }
+
+  selectAnswer(val){
+    const quiz = this.state.quiz;
+    if(quiz.checked) return;
+    this.setState({ quiz:{ ...quiz, selected:val } });
+  }
+
+  check(){
+    const quiz = this.state.quiz;
+    if(quiz.selected===null || quiz.checked) return;
+    const correct = quiz.selected === quiz.questions[quiz.idx].ans;
+    this.setState({ quiz:{ ...quiz, checked:true, correct: quiz.correct+(correct?1:0), wrong: quiz.wrong+(correct?0:1) } });
+  }
+
+  nextQuestion(){
+    const quiz = this.state.quiz;
+    if(quiz.idx < quiz.questions.length-1){
+      this.setState({ quiz:{ ...quiz, idx:quiz.idx+1, selected:null, checked:false, showHint:false } });
+    } else {
+      const stars = quiz.correct>=3?3:quiz.correct===2?2:quiz.correct===1?1:0;
+      const key = `${this.state.trackId}:${this.state.unitId}:${this.state.levelIdx}`;
+      this.setState({ screen:'result', completed:{ ...this.state.completed, [key]:stars }, totalStars: this.state.totalStars+stars });
+    }
+  }
+
+  toggleHint(){ this.setState({ quiz:{ ...this.state.quiz, showHint:true } }); }
+
+  startFluency(){
+    if(this._fluencyTimer) clearInterval(this._fluencyTimer);
+    const q = this.genFluencyQ();
+    this.setState({ fluency:{ running:true, time:60, score:0, q, input:'' } });
+    this._fluencyTimer = setInterval(()=>{
+      const f = this.state.fluency;
+      if(f.time<=1){ clearInterval(this._fluencyTimer); this.setState({ fluency:{ ...f, time:0, running:false } }); }
+      else { this.setState({ fluency:{ ...f, time:f.time-1 } }); }
+    },1000);
+  }
+  stopFluency(){ if(this._fluencyTimer) clearInterval(this._fluencyTimer); this.setState({ fluency:{ ...this.state.fluency, running:false } }); }
+  genFluencyQ(){
+    const table=this.rnd(1,10), b=this.rnd(1,10);
+    if(Math.random()<0.5) return { q:`${table} × ${b} = ?`, ans: table*b };
+    return { q:`${table*b} ÷ ${table} = ?`, ans: b };
+  }
+  submitFluency(){
+    const f = this.state.fluency;
+    if(!f.running) return;
+    const val = Number(f.input);
+    const score = val===f.q.ans ? f.score+1 : f.score;
+    this.setState({ fluency:{ ...f, score, q:this.genFluencyQ(), input:'' } });
+  }
+
+  componentWillUnmount(){ if(this._fluencyTimer) clearInterval(this._fluencyTimer); }
+
+  showToast(msg){ this.setState({ toast:msg }); setTimeout(()=>this.setState({ toast:null }), 2000); }
+
+  renderVals(){
+    const s = this.state;
+    const track = s.trackId ? this.findTrack(s.trackId) : null;
+    const unit = (track && s.unitId) ? this.findUnit(track, s.unitId) : null;
+    const maxStars = this.TRACKS.reduce((sum,t)=>sum+t.units.reduce((u,unit)=>u+unit.levels*3,0),0);
+
+    const tracks = this.TRACKS.map(t=>({ ...t, onClick:()=>this.goTrack(t.id) }));
+
+    const units = track ? track.units.map(u=>({ ...u, badge:`${u.levels} belts`, onClick:()=>this.goUnit(u.id) })) : [];
+
+    const levels = unit ? Array.from({length:unit.levels},(_,i)=>{
+      const key = `${s.trackId}:${s.unitId}:${i}`;
+      const done = s.completed[key];
+      const prevDone = i===0 || s.completed[`${s.trackId}:${s.unitId}:${i-1}`]!==undefined;
+      const icon = s.trackId==='multiply' ? '✖️' : s.trackId==='divide' ? '➗' : '🥋';
+      return { icon, label:`Belt ${i+1}`, stars: done||0, locked: !prevDone, variant: track.tileVariant, onClick: prevDone ? ()=>this.goLevel(i) : undefined };
+    }) : [];
+
+    let quizVals = {};
+    if(s.quiz){
+      const q = s.quiz.questions[s.quiz.idx];
+      const total = s.quiz.questions.length;
+      const accuracy = (s.quiz.correct+s.quiz.wrong)>0 ? Math.round(s.quiz.correct/(s.quiz.correct+s.quiz.wrong)*100) : 0;
+      quizVals = {
+        quizLevelLabel: unit ? `${unit.name} · Belt ${s.levelIdx+1}` : '',
+        quizProgressLabel: `${s.quiz.idx+1}/${total}`,
+        quizCorrect: s.quiz.correct, quizWrong: s.quiz.wrong, quizAccuracy: accuracy,
+        quizIdx: s.quiz.idx, quizTotal: total,
+        quizQuestion: q.q,
+        quizOptions: q.opts.map(o=>({
+          label:String(o),
+          state: s.quiz.checked ? (o===q.ans ? 'correct' : (o===s.quiz.selected ? 'wrong' : 'default')) : (o===s.quiz.selected ? 'correct' : 'default'),
+          disabled: s.quiz.checked,
+          onClick: ()=>this.selectAnswer(o)
+        })),
+        quizShowHint: s.quiz.showHint,
+        quizHintText: this.HINTS[s.trackId],
+        quizChecked: s.quiz.checked,
+        quizCanCheck: !s.quiz.checked,
+        quizFeedbackText: s.quiz.selected===q.ans ? 'Great job! Correct move! 🥋' : `Good try! The answer was ${q.ans}.`,
+        quizFeedbackColor: s.quiz.selected===q.ans ? 'var(--color-success)' : 'var(--coral-400)',
+        quizNextLabel: s.quiz.idx<total-1 ? 'Next round' : 'See result',
+        onHint: ()=>this.toggleHint(),
+        onCheck: ()=>this.check(),
+        onNextQuestion: ()=>this.nextQuestion()
+      };
+    }
+
+    const f = s.fluency;
+    const resultStars = s.quiz ? (s.quiz.correct>=3?3:s.quiz.correct===2?2:s.quiz.correct===1?1:0) : 0;
+
+    return {
+      isHome: s.screen==='home', isUnits: s.screen==='units', isLevels: s.screen==='levels',
+      isQuiz: s.screen==='quiz', isFluency: s.screen==='fluency', isResult: s.screen==='result',
+      totalStars: s.totalStars, maxStars, toast: s.toast,
+      tracks, track, units, unit, levels,
+      onBackHome: ()=>this.goHome(),
+      onBackUnits: ()=>this.setState({ screen:'units' }),
+      onBackLevels: ()=>this.setState({ screen:'levels' }),
+      onCourseChallenge: ()=>this.showToast('Course Challenge is coming soon!'),
+      onGoFluency: ()=>this.setState({ screen:'fluency' }),
+      onSave: ()=>this.showToast('Progress saved!'),
+      onLoad: ()=>this.showToast('Load a saved belt file (coming soon).'),
+      homeNavItems: [{id:'home',icon:'🥋',label:'Dojo'},{id:'fluency',icon:'⚡',label:'Fluency'}],
+      onQuickNav: (id)=> id==='fluency' ? this.setState({ screen:'fluency' }) : this.goHome(),
+      ...quizVals,
+      fluencyRunning: f.running, fluencyStartVisible: f.running ? 'none':'block',
+      fluencyTime: f.time, fluencyTimeColor: f.time<=10 ? 'var(--coral-400)' : 'var(--cyan-300)',
+      fluencyScore: f.score, fluencyQuestion: f.running ? f.q.q : 'Ready?',
+      fluencyInput: f.input, fluencyDisabled: !f.running,
+      onFluencyInput: (e)=>this.setState({ fluency:{ ...f, input:e.target.value } }),
+      onFluencyStart: ()=>this.startFluency(), onFluencyStop: ()=>this.stopFluency(), onFluencySubmit: ()=>this.submitFluency(),
+      resultEmoji: resultStars>=2 ? '🏆' : '🥊', resultTitle: resultStars>=2 ? 'Great fight!' : 'Good effort!',
+      resultStarsText: '★'.repeat(resultStars)+'☆'.repeat(3-resultStars),
+      resultMsg: s.quiz ? `You got ${s.quiz.correct} of ${s.quiz.questions.length} correct.` : '',
+      resultHasNext: unit && s.levelIdx!==null && s.levelIdx<unit.levels-1 && resultStars>=2,
+      onRetry: ()=>this.goLevel(s.levelIdx), onNextLevel: ()=>this.goLevel(s.levelIdx+1)
+    };
+  }
+}
+</script>
+</body>
+</html>
